@@ -10,9 +10,13 @@ import UIKit
 
 class GroupsTableViewController: UITableViewController {
 
+    @IBOutlet weak var new_group_button: UIBarButtonItem!
+    @IBOutlet weak var profile_button: UIBarButtonItem!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

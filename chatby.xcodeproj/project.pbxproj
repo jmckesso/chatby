@@ -14,7 +14,11 @@
 		2348AE2F1E529E160096EDDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2348AE2D1E529E160096EDDE /* LaunchScreen.storyboard */; };
 		2348AE3A1E529E170096EDDE /* chatbyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2348AE391E529E170096EDDE /* chatbyTests.swift */; };
 		23ADD1EE1E5D1ADE00C81665 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23ADD1EC1E5D19EA00C81665 /* Alamofire.framework */; };
-		23ADD1EF1E5D1ADE00C81665 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 23ADD1EC1E5D19EA00C81665 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		23ADD1EF1E5D1ADE00C81665 /* Alamofire.framework in Embed Frameworks (2 items) */ = {isa = PBXBuildFile; fileRef = 23ADD1EC1E5D19EA00C81665 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		23ADD1F21E5DF00900C81665 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23ADD1F11E5DF00900C81665 /* SwiftyJSON.framework */; };
+		23ADD1F31E5DF02600C81665 /* SwiftyJSON.framework in Embed Frameworks (2 items) */ = {isa = PBXBuildFile; fileRef = 23ADD1F11E5DF00900C81665 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		23ADD1F51E5E0AF400C81665 /* GroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADD1F41E5E0AF400C81665 /* GroupsTableViewController.swift */; };
+		23ADD1F71E5E108400C81665 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADD1F61E5E108400C81665 /* RegisterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,15 +32,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		23ADD1F01E5D1ADE00C81665 /* Embed Frameworks */ = {
+		23ADD1F01E5D1ADE00C81665 /* Embed Frameworks (2 items) */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				23ADD1EF1E5D1ADE00C81665 /* Alamofire.framework in Embed Frameworks */,
+				23ADD1F31E5DF02600C81665 /* SwiftyJSON.framework in Embed Frameworks (2 items) */,
+				23ADD1EF1E5D1ADE00C81665 /* Alamofire.framework in Embed Frameworks (2 items) */,
 			);
-			name = "Embed Frameworks";
+			name = "Embed Frameworks (2 items)";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -53,6 +58,9 @@
 		2348AE391E529E170096EDDE /* chatbyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatbyTests.swift; sourceTree = "<group>"; };
 		2348AE3B1E529E170096EDDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		23ADD1EC1E5D19EA00C81665 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		23ADD1F11E5DF00900C81665 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
+		23ADD1F41E5E0AF400C81665 /* GroupsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsTableViewController.swift; sourceTree = "<group>"; };
+		23ADD1F61E5E108400C81665 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23ADD1F21E5DF00900C81665 /* SwiftyJSON.framework in Frameworks */,
 				23ADD1EE1E5D1ADE00C81665 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -97,7 +106,9 @@
 			isa = PBXGroup;
 			children = (
 				2348AE241E529E160096EDDE /* AppDelegate.swift */,
+				23ADD1F61E5E108400C81665 /* RegisterViewController.swift */,
 				2348AE261E529E160096EDDE /* ViewController.swift */,
+				23ADD1F41E5E0AF400C81665 /* GroupsTableViewController.swift */,
 				2348AE281E529E160096EDDE /* Main.storyboard */,
 				2348AE2B1E529E160096EDDE /* Assets.xcassets */,
 				2348AE2D1E529E160096EDDE /* LaunchScreen.storyboard */,
@@ -118,6 +129,7 @@
 		23ADD1EB1E5D19E900C81665 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				23ADD1F11E5DF00900C81665 /* SwiftyJSON.framework */,
 				23ADD1EC1E5D19EA00C81665 /* Alamofire.framework */,
 			);
 			name = Frameworks;
@@ -133,7 +145,7 @@
 				2348AE1D1E529E160096EDDE /* Sources */,
 				2348AE1E1E529E160096EDDE /* Frameworks */,
 				2348AE1F1E529E160096EDDE /* Resources */,
-				23ADD1F01E5D1ADE00C81665 /* Embed Frameworks */,
+				23ADD1F01E5D1ADE00C81665 /* Embed Frameworks (2 items) */,
 			);
 			buildRules = (
 			);
@@ -229,6 +241,8 @@
 			files = (
 				2348AE271E529E160096EDDE /* ViewController.swift in Sources */,
 				2348AE251E529E160096EDDE /* AppDelegate.swift in Sources */,
+				23ADD1F51E5E0AF400C81665 /* GroupsTableViewController.swift in Sources */,
+				23ADD1F71E5E108400C81665 /* RegisterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

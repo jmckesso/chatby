@@ -8,21 +8,23 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 class LoginViewController: UIViewController {
     
-    var list_of_users = "http://chatby.vohras.tk/api/users"
+    let list_of_users = "http://chatby.vohras.tk/api/users/"
+    let auth_page = "http://chatby.vohras.tk/api/auth/"
 
     @IBOutlet weak var username_field: UITextField!
     @IBOutlet weak var password_field: UITextField!
     
-    var names = [String]()
+    var name_list = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        callAlamo( url: list_of_users )
+        //callAlamo( url: list_of_users )
         
     }
     
@@ -38,26 +40,61 @@ class LoginViewController: UIViewController {
     
     @IBAction func login_button(_ sender: UIButton) {
         
-        Alamofire.request(list_of_users).responseJSON(completionHandler: {
-            response in
+        let username = username_field.text
+        let password = password_field.text
+        
+        if (username == "") {
+            print("username field cannot be blank")
+            return
+        }
+        else if (password == "") {
+            print("password cannot be blank")
+            return
+        }
+        
+        let user_log : Parameters = [
+            "username":username!,
+            "password":password!
+        ]
+        
+        Alamofire.request(auth_page, method: .post, parameters: user_log, encoding: JSONEncoding.default).validate().responseJSON(completionHandler: { response in
+            print(response.request!)  // original URL request
+            print(response.response!) // HTTP URL response
+            print(response.data!)     // server data
+            print(response.result)
             
-            do {
-                let readable_json = try JSONSerialization.jsonObject(with: response.data!) as? [[String: Any]]
-                print(readable_json)
+            switch response.result {
+                case .success:
+                    print("super success")
+                    self.performSegue(withIdentifier: "toTable", sender: self)
+                case .failure:
+                    print("mega fail")
+                    let alert_controller = UIAlertController(title: "YOU SUCK", message: "also this is an alert", preferredStyle: UIAlertControllerStyle.alert)
+                    let ok_action = UIAlertAction(title: "I Know", style: .default)
+                    
+                    alert_controller.addAction(ok_action)
+                    self.present(alert_controller, animated: true, completion: nil)
+                
+                
+                
             }
-            catch {
-                print(error)
-            }
+            
+            //let auth_data = JSON(response.result.value!)
+            //print("auth_data \(auth_data)")
             
         })
         
         
-        if (username_field.text == "Jacob") {
-            print("username set correctly")
-        }
-        else {
-            print("username not set correctly")
-        }
+        
+        
+        /*Alamofire.request(list_of_users).validate().responseJSON(completionHandler: {
+            response in
+            
+                let users = JSON(response.result.value!)
+                print("\(users)")
+
+        })*/
+
         
     }
     
