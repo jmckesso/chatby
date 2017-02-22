@@ -49,9 +49,6 @@ class LoginViewController: UIViewController {
                 print(error)
             }
             
-            //let users = readable_json["username"] as! String
-            ///       print(users)
-            
         })
         
         
