@@ -13,6 +13,8 @@
 		2348AE2C1E529E160096EDDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2348AE2B1E529E160096EDDE /* Assets.xcassets */; };
 		2348AE2F1E529E160096EDDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2348AE2D1E529E160096EDDE /* LaunchScreen.storyboard */; };
 		2348AE3A1E529E170096EDDE /* chatbyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2348AE391E529E170096EDDE /* chatbyTests.swift */; };
+		23ADD1EE1E5D1ADE00C81665 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23ADD1EC1E5D19EA00C81665 /* Alamofire.framework */; };
+		23ADD1EF1E5D1ADE00C81665 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 23ADD1EC1E5D19EA00C81665 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,6 +27,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		23ADD1F01E5D1ADE00C81665 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				23ADD1EF1E5D1ADE00C81665 /* Alamofire.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		2348AE211E529E160096EDDE /* chatby.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chatby.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2348AE241E529E160096EDDE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +52,7 @@
 		2348AE351E529E170096EDDE /* chatbyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chatbyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2348AE391E529E170096EDDE /* chatbyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatbyTests.swift; sourceTree = "<group>"; };
 		2348AE3B1E529E170096EDDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		23ADD1EC1E5D19EA00C81665 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23ADD1EE1E5D1ADE00C81665 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +80,7 @@
 				2348AE231E529E160096EDDE /* chatby */,
 				2348AE381E529E170096EDDE /* chatbyTests */,
 				2348AE221E529E160096EDDE /* Products */,
+				23ADD1EB1E5D19E900C81665 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,6 +115,14 @@
 			path = chatbyTests;
 			sourceTree = "<group>";
 		};
+		23ADD1EB1E5D19E900C81665 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				23ADD1EC1E5D19EA00C81665 /* Alamofire.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -106,6 +133,7 @@
 				2348AE1D1E529E160096EDDE /* Sources */,
 				2348AE1E1E529E160096EDDE /* Frameworks */,
 				2348AE1F1E529E160096EDDE /* Resources */,
+				23ADD1F01E5D1ADE00C81665 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -339,6 +367,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = chatby/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.chatby;
@@ -351,6 +383,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = chatby/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.chatby;
@@ -406,6 +442,7 @@
 				2348AE401E529E170096EDDE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2348AE411E529E170096EDDE /* Build configuration list for PBXNativeTarget "chatbyTests" */ = {
 			isa = XCConfigurationList;
@@ -414,6 +451,7 @@
 				2348AE431E529E170096EDDE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
