@@ -19,6 +19,7 @@
 		23ADD1F31E5DF02600C81665 /* SwiftyJSON.framework in Embed Frameworks (2 items) */ = {isa = PBXBuildFile; fileRef = 23ADD1F11E5DF00900C81665 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		23ADD1F51E5E0AF400C81665 /* GroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADD1F41E5E0AF400C81665 /* GroupsTableViewController.swift */; };
 		23ADD1F71E5E108400C81665 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADD1F61E5E108400C81665 /* RegisterViewController.swift */; };
+		3F52E7801E5F6494001649F8 /* GroupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F52E77F1E5F6494001649F8 /* GroupInfoViewController.swift */; };
 		3FA78EE11E5EBAB60022F2D8 /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 3FA78EDE1E5EBAB50022F2D8 /* Base.lproj */; };
 		3FA78EE21E5EBAB60022F2D8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA78EDF1E5EBAB50022F2D8 /* LoginViewController.swift */; };
 		3FA78EE31E5EBAB60022F2D8 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA78EE01E5EBAB50022F2D8 /* SignupViewController.swift */; };
@@ -67,6 +68,7 @@
 		23ADD1F11E5DF00900C81665 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		23ADD1F41E5E0AF400C81665 /* GroupsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsTableViewController.swift; sourceTree = "<group>"; };
 		23ADD1F61E5E108400C81665 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		3F52E77F1E5F6494001649F8 /* GroupInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupInfoViewController.swift; sourceTree = "<group>"; };
 		3FA78EDE1E5EBAB50022F2D8 /* Base.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Base.lproj; sourceTree = "<group>"; };
 		3FA78EDF1E5EBAB50022F2D8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3FA78EE01E5EBAB50022F2D8 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 				3FA78EDF1E5EBAB50022F2D8 /* LoginViewController.swift */,
 				3FA78EE01E5EBAB50022F2D8 /* SignupViewController.swift */,
 				3FA78EE91E5EC5460022F2D8 /* GroupsViewController.swift */,
+				3F52E77F1E5F6494001649F8 /* GroupInfoViewController.swift */,
 				3FA78EEB1E5ED7E50022F2D8 /* AddGroupViewController.swift */,
 			);
 			name = viewcontrollers;
@@ -284,6 +287,7 @@
 				23ADD1F51E5E0AF400C81665 /* GroupsTableViewController.swift in Sources */,
 				3FA78EE21E5EBAB60022F2D8 /* LoginViewController.swift in Sources */,
 				23ADD1F71E5E108400C81665 /* RegisterViewController.swift in Sources */,
+				3F52E7801E5F6494001649F8 /* GroupInfoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

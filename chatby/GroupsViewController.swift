@@ -27,65 +27,84 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     var table = UITableView();
     var data = [[String:AnyObject]]();
+    let testData = ["Cat", "Dog", "Austin's Fursona"];
     
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        self.title = "Groups";
+        tableInit();
         
-        let addButton:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
-                                                  target: self,
-                                                  action: #selector(addUserView(_:)));
         
-        let loginButton:UIBarButtonItem = UIBarButtonItem(title: "Login",
-                                                        style: UIBarButtonItemStyle.plain,
-                                                        target: self,
-                                                        action: #selector(loginout(_:)));
-        
-        let logoutButton:UIBarButtonItem = UIBarButtonItem(title: "Logout",
-                                                          style: UIBarButtonItemStyle.plain,
-                                                          target: self,
-                                                          action: #selector(loginout(_:)));
-        
-        self.navigationItem.rightBarButtonItem = addButton;
-        self.navigationItem.leftBarButtonItem = loginButton;
-        
-        table = UITableView(frame: self.view.bounds, style: UITableViewStyle.plain);
-        table.dataSource = self;
-        table.delegate = self;
-        
-        self.table.register(GroupCell.self as AnyClass, forCellReuseIdentifier: "GroupCell");
-        
-        self.view.addSubview(table);
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning();
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setToolbarHidden(true, animated: true);
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setToolbarHidden(false, animated: true);
+    }
+    
     // Table shit
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return data.count;
+    func tableInit() {
+        
+        let addButton:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                        target: self,
+                                                        action: #selector(addUserView(_:)));
+        
+        let loginButton:UIBarButtonItem = UIBarButtonItem(title: "Login",
+                                                          style: UIBarButtonItemStyle.plain,
+                                                          target: self,
+                                                          action: #selector(loginout(_:)));
+        
+        let logoutButton:UIBarButtonItem = UIBarButtonItem(title: "Logout",
+                                                           style: UIBarButtonItemStyle.plain,
+                                                           target: self,
+                                                           action: #selector(loginout(_:)));
+        
+        table = UITableView(frame: self.view.bounds, style: UITableViewStyle.plain);
+        table.dataSource = self;
+        table.delegate = self;
+        self.table.register(UITableViewCell.self, forCellReuseIdentifier: "cell");
+        
+        self.title = "Groups";
+        
+        self.navigationItem.rightBarButtonItem = addButton;
+        self.navigationItem.leftBarButtonItem = loginButton;
+                
+        var items = [UIBarButtonItem]();
+        items.append(
+            UIBarButtonItem(title: "Tanner Strom",
+                            style: UIBarButtonItemStyle.plain,
+                            target: nil, action: nil)
+        );
+        self.navigationController?.toolbar.items = items;
+        
+        self.view.addSubview(table);
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection: Int) -> Int {
+        return self.testData.count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell:GroupCell? = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as? GroupCell;
+        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell;
+        cell.textLabel?.text = self.testData[indexPath.row];
         
-        if cell == nil {
-            cell = GroupCell(style: UITableViewCellStyle.default, reuseIdentifier: "GroupCell");
-        }
-        
-        var tableData = data[indexPath.row];
-        cell?.setUpCell();
-        cell!.aMap.text = "TANNER IS COOL";
-        return cell!
+        return cell
     }
-    
-    @available(iOS 2.0, *)
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count;
+
+    func tableView(_ tableView: UITableView, didSelectRowAt: IndexPath) {
+        let infostory = UIStoryboard(name: "Login", bundle: nil);
+        let infocontr = infostory.instantiateViewController(withIdentifier: "GroupInfoMain");
+        self.navigationController?.pushViewController(infocontr, animated: true);
     }
+
     
     // Transition shit
     

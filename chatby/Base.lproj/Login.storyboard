@@ -81,5 +81,23 @@
             </objects>
             <point key="canvasLocation" x="2140" y="95"/>
         </scene>
+        <!--Group Info View Controller-->
+        <scene sceneID="WLR-OG-HKJ">
+            <objects>
+                <viewController storyboardIdentifier="GroupInfoMain" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YdW-0S-jl6" customClass="GroupInfoViewController" customModule="chatby" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0Af-Ty-EX5"/>
+                        <viewControllerLayoutGuide type="bottom" id="jyg-WH-vQS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="sDN-Mj-3nf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jr1-tw-74v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2894" y="95"/>
+        </scene>
     </scenes>
 </document>

@@ -70,6 +70,17 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                 self.dismiss(animated: true, completion: nil);
             case .failure:
                 print("mega fail")
+                
+                let animation = CABasicAnimation(keyPath: "position");
+                animation.duration = 0.07;
+                animation.repeatCount = 4;
+                animation.autoreverses = true;
+                animation.fromValue = NSValue(cgPoint: CGPoint(x: self.username.center.x - 10, y: self.username.center.y));
+                animation.toValue = NSValue(cgPoint: CGPoint(x: self.username.center.x + 10, y: self.username.center.y));
+                self.username.layer.add(animation, forKey: "position");
+                self.password.layer.add(animation, forKey: "position");
+
+                
                 let alert_controller = UIAlertController(title: "YOU SUCK", message: "also this is an alert", preferredStyle: UIAlertControllerStyle.alert)
                 let ok_action = UIAlertAction(title: "I Know", style: .default)
                 

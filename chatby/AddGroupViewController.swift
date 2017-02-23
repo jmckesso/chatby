@@ -32,7 +32,7 @@ class AddGroupViewController: UIViewController, UITextFieldDelegate {
     
     func dismissView(_ sender: UIBarButtonItem) {
         
-        // Todo: Clear all input boxes
+        // Todo: Clear all input boxes on view dismissal
         
         dismiss(animated: true, completion: nil);
     }
@@ -51,15 +51,15 @@ class AddGroupViewController: UIViewController, UITextFieldDelegate {
                                                         target: self,
                                                         action: #selector(addGroup(_:)));
         let cancelButton:UIBarButtonItem = UIBarButtonItem(title: "Cancel",
-                                                        style: UIBarButtonItemStyle.plain,
-                                                        target: self,
-                                                        action: #selector(dismissView(_:)));
+                                                           style: UIBarButtonItemStyle.plain,
+                                                           target: self,
+                                                           action: #selector(dismissView(_:)));
         let navItems = UINavigationItem(title: "Add Group");
         navItems.rightBarButtonItem = addButton;
         navItems.leftBarButtonItem = cancelButton;
         
         self.view.addSubview(nav);
-        nav.setItems([navItems], animated: false);
+        nav.setItems([navItems], animated: true);
     }
     
     func addFields() {
