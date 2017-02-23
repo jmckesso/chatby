@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+// Cell prototype for future use
 class GroupCell: UITableViewCell {
     var aMap: UILabel!;
     
@@ -26,6 +27,8 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var nav: UINavigationBar!;
 
     var table = UITableView();
+    
+    // Jacob, put the data in the data array, replace the instances of testData with data, ???, profit
     var data = [[String:AnyObject]]();
     let testData = ["Cat", "Dog", "Austin's Fursona"];
     
@@ -51,48 +54,13 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // Table shit
     
-    func tableInit() {
-        
-        let addButton:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
-                                                        target: self,
-                                                        action: #selector(addUserView(_:)));
-        
-        let loginButton:UIBarButtonItem = UIBarButtonItem(title: "Login",
-                                                          style: UIBarButtonItemStyle.plain,
-                                                          target: self,
-                                                          action: #selector(loginout(_:)));
-        
-        let logoutButton:UIBarButtonItem = UIBarButtonItem(title: "Logout",
-                                                           style: UIBarButtonItemStyle.plain,
-                                                           target: self,
-                                                           action: #selector(loginout(_:)));
-        
-        table = UITableView(frame: self.view.bounds, style: UITableViewStyle.plain);
-        table.dataSource = self;
-        table.delegate = self;
-        self.table.register(UITableViewCell.self, forCellReuseIdentifier: "cell");
-        
-        self.title = "Groups";
-        
-        self.navigationItem.rightBarButtonItem = addButton;
-        self.navigationItem.leftBarButtonItem = loginButton;
-                
-        var items = [UIBarButtonItem]();
-        items.append(
-            UIBarButtonItem(title: "Tanner Strom",
-                            style: UIBarButtonItemStyle.plain,
-                            target: nil, action: nil)
-        );
-        self.navigationController?.toolbar.items = items;
-        
-        self.view.addSubview(table);
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection: Int) -> Int {
+        // Change this
         return self.testData.count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Text label is the good shit
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell;
         cell.textLabel?.text = self.testData[indexPath.row];
         
@@ -100,6 +68,7 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt: IndexPath) {
+        // FIND A WAY TO SEGUE NAMES INTO THIS AND PRINT THEM ON THE VIEW CONTROLLER
         let infostory = UIStoryboard(name: "Login", bundle: nil);
         let infocontr = infostory.instantiateViewController(withIdentifier: "GroupInfoMain");
         self.navigationController?.pushViewController(infocontr, animated: true);
@@ -116,6 +85,7 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.present(addcontr, animated: true, completion: nil);
     }
     
+    // needs logic to sign the user out
     func loginout(_ sender: UIBarButtonItem) {
         let logboard = UIStoryboard(name: "Login", bundle: nil);
         let logcontr = logboard.instantiateViewController(withIdentifier: "LoginMain");
@@ -126,7 +96,42 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // UI shit
     
-    
+    func tableInit() {
+        
+        let addButton:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                        target: self,
+                                                        action: #selector(addUserView(_:)));
+        
+        let loginButton:UIBarButtonItem = UIBarButtonItem(title: "Login",
+                                                          style: UIBarButtonItemStyle.plain,
+                                                          target: self,
+                                                          action: #selector(loginout(_:)));
+        // To be implemented later
+        let logoutButton:UIBarButtonItem = UIBarButtonItem(title: "Logout",
+                                                           style: UIBarButtonItemStyle.plain,
+                                                           target: self,
+                                                           action: #selector(loginout(_:)));
+        
+        table = UITableView(frame: self.view.bounds, style: UITableViewStyle.plain);
+        table.dataSource = self;
+        table.delegate = self;
+        self.table.register(UITableViewCell.self, forCellReuseIdentifier: "cell");
+        
+        self.title = "Groups";
+        
+        self.navigationItem.rightBarButtonItem = addButton;
+        self.navigationItem.leftBarButtonItem = loginButton;
+        
+        var items = [UIBarButtonItem]();
+        items.append(
+            UIBarButtonItem(title: "Tanner Strom",
+                            style: UIBarButtonItemStyle.plain,
+                            target: nil, action: nil)
+        );
+        self.navigationController?.toolbar.items = items;
+        
+        self.view.addSubview(table);
+    }
     
 }
 

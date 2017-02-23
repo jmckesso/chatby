@@ -32,12 +32,15 @@ class AddGroupViewController: UIViewController, UITextFieldDelegate {
     
     func dismissView(_ sender: UIBarButtonItem) {
         
-        // Todo: Clear all input boxes on view dismissal
+        // Todo: Clear all input boxes on view dismissal, can be done later
+        // it might actually do this automatically, I haven't checked
+        // it does, just checked. im a GOD
         
         dismiss(animated: true, completion: nil);
     }
     
-    func addGroup(_ sender: UIBarButtonItem) {
+    func makeGroup(_ sender: UIBarButtonItem) {
+        // Jacob, you know what to do
         dismiss(animated: true, completion: nil);
     }
     
@@ -49,7 +52,7 @@ class AddGroupViewController: UIViewController, UITextFieldDelegate {
         let addButton:UIBarButtonItem = UIBarButtonItem(title: "Add",
                                                         style: UIBarButtonItemStyle.plain,
                                                         target: self,
-                                                        action: #selector(addGroup(_:)));
+                                                        action: #selector(makeGroup(_:)));
         let cancelButton:UIBarButtonItem = UIBarButtonItem(title: "Cancel",
                                                            style: UIBarButtonItemStyle.plain,
                                                            target: self,
@@ -87,57 +90,16 @@ class AddGroupViewController: UIViewController, UITextFieldDelegate {
                                                       width: inpWid,
                                                       height: inpHei));
         
-        
-        let gunderline = CALayer();
-        let gundWid:CGFloat = 2.0;
-        gunderline.borderColor = UIColor.black.cgColor;
-        gunderline.frame = CGRect(x: 0,
-                                 y: groupname.frame.size.height - gundWid,
-                                 width: groupname.frame.size.width,
-                                 height: groupname.frame.size.height);
-        
-        gunderline.borderWidth = gundWid;
         groupname.placeholder = "Group Name";
-        //groupname.layer.addSublayer(gunderline);
 
-        
-        let thunderline = CALayer();
-        let thundWid:CGFloat = 2.0;
-        thunderline.borderColor = UIColor.black.cgColor;
-        thunderline.frame = CGRect(x: 0,
-                                 y: timeAliveHr.frame.size.height - thundWid,
-                                 width: timeAliveHr.frame.size.width,
-                                 height: timeAliveHr.frame.size.height);
-        
-        thunderline.borderWidth = thundWid;
         timeAliveHr.placeholder = "Time alive (hours)";
         timeAliveHr.keyboardType = UIKeyboardType.numberPad;
-        //timeAliveHr.layer.addSublayer(thunderline);
-        
-        let tmunderline = CALayer();
-        let tmundWid:CGFloat = 2.0;
-        tmunderline.borderColor = UIColor.black.cgColor;
-        tmunderline.frame = CGRect(x: 0,
-                                 y: timeAliveMin.frame.size.height - tmundWid,
-                                 width: timeAliveMin.frame.size.width,
-                                 height: timeAliveMin.frame.size.height);
-        tmunderline.borderWidth = tmundWid;
+
         timeAliveMin.placeholder = "Time alive (mins)";
         timeAliveMin.keyboardType = UIKeyboardType.numberPad;
-        //timeAliveMin.layer.addSublayer(tmunderline);
 
-        
-        let runderline = CALayer();
-        let rundWid:CGFloat = 2.0;
-        runderline.borderColor = UIColor.black.cgColor;
-        runderline.frame = CGRect(x: 0,
-                                 y: groupRadius.frame.size.height - rundWid,
-                                 width: groupRadius.frame.size.width,
-                                 height: groupRadius.frame.size.height);
-        runderline.borderWidth = rundWid;
         groupRadius.placeholder = "Group radius";
         groupRadius.keyboardType = UIKeyboardType.numberPad;
-        //groupRadius.layer.addSublayer(runderline);
 
         
         self.view.addSubview(groupname);

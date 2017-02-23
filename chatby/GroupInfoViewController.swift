@@ -23,7 +23,7 @@ class GroupInfoViewController: UIViewController {
     // Functional shit here
     
     func joingroup(_ sender: UIBarButtonItem) {
-        // jacob
+        // JACOB HELLO!
     }
     
     // UI Shit down here
@@ -40,13 +40,6 @@ class GroupInfoViewController: UIViewController {
         label.text = "Test Group";
         label.textAlignment = NSTextAlignment.left;
         label.textColor = UIColor.black;
-        
-        let confirmButton:UIBarButtonItem = UIBarButtonItem(title: "Join",
-                                                            style: UIBarButtonItemStyle.plain,
-                                                            target: self,
-                                                            action: #selector(joingroup(_:)));
-        
-        //self.navigationItem.setRightBarButtonItems([confirmButton], animated: true);
         
         let confirmBtn:UIButton = UIButton(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2) + 5,
                                                             y: self.view.frame.maxY - 70,
