@@ -12,12 +12,15 @@ import SwiftyJSON
 
 class SignupViewController: UIViewController, UITextFieldDelegate {
 
+    var emailAddr:      UITextField!;
     var username:       UITextField!;
     var password:       UITextField!;
     var confirmPass:    UITextField!;
     var firstName:      UITextField!;
     var lastName:       UITextField!;
 
+    let user_page = "http://chatby.vohras.tk/api/users/"
+    
     override func viewDidLoad() {
         super.viewDidLoad();
 
@@ -38,9 +41,56 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     // Signup logic
 
     func signup(_ sender: UIButton) {
-        let alert = UIAlertController(title: "YOOOOO", message: "You pressed the login button", preferredStyle: UIAlertControllerStyle.alert);
-        alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.cancel, handler: nil));
-        self.present(alert, animated: true, completion: nil);
+        let user = username.text!
+        let email = emailAddr.text!
+        let first_name = firstName.text!
+        let last_name = lastName.text!
+        let pass = password.text!
+        let confirm_password = confirmPass.text!
+        
+        if (user == "" || email == "" || pass == "" || confirm_password == "") {
+            print("please fill out all fields")
+            return
+        }
+        
+        if (pass != confirm_password) {
+            print("password and confirm password must match")
+            return
+        }
+        
+        let user_reg : Parameters = [
+            "username":user,
+            "email":email,
+            "first_name":first_name,
+            "last_name":last_name,
+            "password":pass
+        ]
+        
+        Alamofire.request(user_page, method: .post, parameters: user_reg, encoding: JSONEncoding.default).validate().responseJSON(completionHandler: { response in
+            print(response.request!)  // original URL request
+            print(response.response!) // HTTP URL response
+            print(response.data!)     // server data
+            print(response.result)
+            
+            switch response.result {
+            case .success:
+                print("super success")
+                self.dismiss(animated: true, completion: nil);
+            //self.performSegue(withIdentifier: "toTable", sender: self)
+            case .failure:
+                print("mega fail")
+                //let alert_controller = UIAlertController(title: "YOU SUCK", message: "also this is an alert", preferredStyle: UIAlertControllerStyle.alert)
+                //let ok_action = UIAlertAction(title: "I Know", style: .default)
+                
+                //alert_controller.addAction(ok_action)
+                //self.present(alert_controller, animated: true, completion: nil)
+            }
+            
+            let response_data = JSON(response.result.value!);
+            print(response_data)
+            
+            
+        })
     }
 
     // UI Shit
@@ -48,32 +98,59 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     func drawFields() {
         let inpWid:CGFloat = 200.0;
         let inpHei:CGFloat = 30.0;
+        
+        emailAddr =         UITextField(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2),
+                                                      y: self.view.bounds.height / 4.3,
+                                                      width: inpWid,
+                                                      height: inpHei));
 
-        username =      UITextField(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2),
-                                             y: self.view.bounds.height / 3.6,
-                                             width: inpWid,
-                                             height: inpHei));
+        username =          UITextField(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2),
+                                                      y: self.view.bounds.height / 3.6,
+                                                      width: inpWid,
+                                                      height: inpHei));
 
-        password =      UITextField(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2),
-                                             y: self.view.bounds.height / 3,
-                                             width: inpWid,
-                                             height: inpHei));
+        password =          UITextField(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2),
+                                                      y: self.view.bounds.height / 3,
+                                                      width: inpWid,
+                                                      height: inpHei));
 
-        confirmPass =   UITextField(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2),
-                                             y: self.view.bounds.height / 2.55,
-                                             width: inpWid,
-                                             height: inpHei));
+        confirmPass =       UITextField(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2),
+                                                      y: self.view.bounds.height / 2.58,
+                                                      width: inpWid,
+                                                      height: inpHei));
 
-        firstName =     UITextField(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2),
-                                                y: self.view.bounds.height / 2.25,
-                                                width: inpWid,
-                                                height: inpHei));
+        firstName =         UITextField(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2),
+                                                      y: self.view.bounds.height / 2.25,
+                                                      width: inpWid,
+                                                      height: inpHei));
 
-        lastName =      UITextField(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2),
-                                                y: self.view.bounds.height / 2,
-                                                width: inpWid,
-                                                height: inpHei));
+        lastName =          UITextField(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2),
+                                                      y: self.view.bounds.height / 2,
+                                                      width: inpWid,
+                                                      height: inpHei));
 
+        let eunderline = CALayer();
+        let eundWid:CGFloat = 2.0;
+        eunderline.borderColor = UIColor.black.cgColor;
+        eunderline.frame = CGRect(x: 0,
+                                 y: emailAddr.frame.size.height - eundWid,
+                                 width: emailAddr.frame.size.width,
+                                 height: emailAddr.frame.size.height);
+        
+        eunderline.borderWidth = eundWid;
+        emailAddr.clipsToBounds = true;
+        emailAddr.textColor = UIColor.black;
+        emailAddr.layer.addSublayer(eunderline);
+        emailAddr.layer.masksToBounds = true;
+        emailAddr.placeholder = "Email"
+        emailAddr.textAlignment = NSTextAlignment.center;
+        emailAddr.keyboardType = UIKeyboardType.default;
+        emailAddr.alpha = 1.0;
+        emailAddr.autocorrectionType = UITextAutocorrectionType.no;
+        emailAddr.autocapitalizationType = UITextAutocapitalizationType.none;
+        
+        self.view.addSubview(emailAddr);
+        
         let underline = CALayer();
         let undWid:CGFloat = 2.0;
         underline.borderColor = UIColor.black.cgColor;
