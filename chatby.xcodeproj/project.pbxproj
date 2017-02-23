@@ -19,6 +19,10 @@
 		23ADD1F31E5DF02600C81665 /* SwiftyJSON.framework in Embed Frameworks (2 items) */ = {isa = PBXBuildFile; fileRef = 23ADD1F11E5DF00900C81665 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		23ADD1F51E5E0AF400C81665 /* GroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADD1F41E5E0AF400C81665 /* GroupsTableViewController.swift */; };
 		23ADD1F71E5E108400C81665 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADD1F61E5E108400C81665 /* RegisterViewController.swift */; };
+		3FA78EE11E5EBAB60022F2D8 /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 3FA78EDE1E5EBAB50022F2D8 /* Base.lproj */; };
+		3FA78EE21E5EBAB60022F2D8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA78EDF1E5EBAB50022F2D8 /* LoginViewController.swift */; };
+		3FA78EE31E5EBAB60022F2D8 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA78EE01E5EBAB50022F2D8 /* SignupViewController.swift */; };
+		3FA78EE61E5EBABF0022F2D8 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FA78EE41E5EBABF0022F2D8 /* Login.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +65,10 @@
 		23ADD1F11E5DF00900C81665 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		23ADD1F41E5E0AF400C81665 /* GroupsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsTableViewController.swift; sourceTree = "<group>"; };
 		23ADD1F61E5E108400C81665 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		3FA78EDE1E5EBAB50022F2D8 /* Base.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Base.lproj; sourceTree = "<group>"; };
+		3FA78EDF1E5EBAB50022F2D8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		3FA78EE01E5EBAB50022F2D8 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		3FA78EE51E5EBABF0022F2D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,12 +114,10 @@
 			isa = PBXGroup;
 			children = (
 				2348AE241E529E160096EDDE /* AppDelegate.swift */,
-				23ADD1F61E5E108400C81665 /* RegisterViewController.swift */,
-				2348AE261E529E160096EDDE /* ViewController.swift */,
-				23ADD1F41E5E0AF400C81665 /* GroupsTableViewController.swift */,
-				2348AE281E529E160096EDDE /* Main.storyboard */,
+				3FA78EE81E5EBB050022F2D8 /* viewcontrollers */,
+				3FA78EE71E5EBACD0022F2D8 /* storyboards */,
+				3FA78EDE1E5EBAB50022F2D8 /* Base.lproj */,
 				2348AE2B1E529E160096EDDE /* Assets.xcassets */,
-				2348AE2D1E529E160096EDDE /* LaunchScreen.storyboard */,
 				2348AE301E529E160096EDDE /* Info.plist */,
 			);
 			path = chatby;
@@ -133,6 +139,28 @@
 				23ADD1EC1E5D19EA00C81665 /* Alamofire.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3FA78EE71E5EBACD0022F2D8 /* storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				2348AE2D1E529E160096EDDE /* LaunchScreen.storyboard */,
+				3FA78EE41E5EBABF0022F2D8 /* Login.storyboard */,
+				2348AE281E529E160096EDDE /* Main.storyboard */,
+			);
+			name = storyboards;
+			sourceTree = "<group>";
+		};
+		3FA78EE81E5EBB050022F2D8 /* viewcontrollers */ = {
+			isa = PBXGroup;
+			children = (
+				23ADD1F61E5E108400C81665 /* RegisterViewController.swift */,
+				2348AE261E529E160096EDDE /* ViewController.swift */,
+				23ADD1F41E5E0AF400C81665 /* GroupsTableViewController.swift */,
+				3FA78EDF1E5EBAB50022F2D8 /* LoginViewController.swift */,
+				3FA78EE01E5EBAB50022F2D8 /* SignupViewController.swift */,
+			);
+			name = viewcontrollers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +249,8 @@
 			files = (
 				2348AE2F1E529E160096EDDE /* LaunchScreen.storyboard in Resources */,
 				2348AE2C1E529E160096EDDE /* Assets.xcassets in Resources */,
+				3FA78EE11E5EBAB60022F2D8 /* Base.lproj in Resources */,
+				3FA78EE61E5EBABF0022F2D8 /* Login.storyboard in Resources */,
 				2348AE2A1E529E160096EDDE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,9 +269,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FA78EE31E5EBAB60022F2D8 /* SignupViewController.swift in Sources */,
 				2348AE271E529E160096EDDE /* ViewController.swift in Sources */,
 				2348AE251E529E160096EDDE /* AppDelegate.swift in Sources */,
 				23ADD1F51E5E0AF400C81665 /* GroupsTableViewController.swift in Sources */,
+				3FA78EE21E5EBAB60022F2D8 /* LoginViewController.swift in Sources */,
 				23ADD1F71E5E108400C81665 /* RegisterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -279,6 +311,14 @@
 				2348AE2E1E529E160096EDDE /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		3FA78EE41E5EBABF0022F2D8 /* Login.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3FA78EE51E5EBABF0022F2D8 /* Base */,
+			);
+			name = Login.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
