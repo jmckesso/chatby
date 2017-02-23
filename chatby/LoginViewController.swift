@@ -67,7 +67,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             switch response.result {
             case .success:
                 print("super success")
-                //self.performSegue(withIdentifier: "toTable", sender: self)
+                self.dismiss(animated: true, completion: nil);
             case .failure:
                 print("mega fail")
                 let alert_controller = UIAlertController(title: "YOU SUCK", message: "also this is an alert", preferredStyle: UIAlertControllerStyle.alert)

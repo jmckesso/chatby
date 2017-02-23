@@ -100,7 +100,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
         let inpHei:CGFloat = 30.0;
         
         emailAddr =         UITextField(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2),
-                                                      y: self.view.bounds.height / 4.3,
+                                                      y: self.view.bounds.height / 4.5,
                                                       width: inpWid,
                                                       height: inpHei));
 

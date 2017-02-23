@@ -23,6 +23,8 @@
 		3FA78EE21E5EBAB60022F2D8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA78EDF1E5EBAB50022F2D8 /* LoginViewController.swift */; };
 		3FA78EE31E5EBAB60022F2D8 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA78EE01E5EBAB50022F2D8 /* SignupViewController.swift */; };
 		3FA78EE61E5EBABF0022F2D8 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FA78EE41E5EBABF0022F2D8 /* Login.storyboard */; };
+		3FA78EEA1E5EC5460022F2D8 /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA78EE91E5EC5460022F2D8 /* GroupsViewController.swift */; };
+		3FA78EEC1E5ED7E50022F2D8 /* AddGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA78EEB1E5ED7E50022F2D8 /* AddGroupViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		3FA78EDF1E5EBAB50022F2D8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3FA78EE01E5EBAB50022F2D8 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		3FA78EE51E5EBABF0022F2D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
+		3FA78EE91E5EC5460022F2D8 /* GroupsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsViewController.swift; sourceTree = "<group>"; };
+		3FA78EEB1E5ED7E50022F2D8 /* AddGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGroupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +163,8 @@
 				23ADD1F41E5E0AF400C81665 /* GroupsTableViewController.swift */,
 				3FA78EDF1E5EBAB50022F2D8 /* LoginViewController.swift */,
 				3FA78EE01E5EBAB50022F2D8 /* SignupViewController.swift */,
+				3FA78EE91E5EC5460022F2D8 /* GroupsViewController.swift */,
+				3FA78EEB1E5ED7E50022F2D8 /* AddGroupViewController.swift */,
 			);
 			name = viewcontrollers;
 			sourceTree = "<group>";
@@ -270,9 +276,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FA78EEA1E5EC5460022F2D8 /* GroupsViewController.swift in Sources */,
 				3FA78EE31E5EBAB60022F2D8 /* SignupViewController.swift in Sources */,
 				2348AE271E529E160096EDDE /* ViewController.swift in Sources */,
 				2348AE251E529E160096EDDE /* AppDelegate.swift in Sources */,
+				3FA78EEC1E5ED7E50022F2D8 /* AddGroupViewController.swift in Sources */,
 				23ADD1F51E5E0AF400C81665 /* GroupsTableViewController.swift in Sources */,
 				3FA78EE21E5EBAB60022F2D8 /* LoginViewController.swift in Sources */,
 				23ADD1F71E5E108400C81665 /* RegisterViewController.swift in Sources */,

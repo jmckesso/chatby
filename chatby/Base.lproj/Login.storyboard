@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="DUW-GR-gtv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Ma9-ei-Dky">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -43,7 +43,43 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4GY-6M-vGH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="700" y="101"/>
+            <point key="canvasLocation" x="721" y="95"/>
+        </scene>
+        <!--Groups View Controller-->
+        <scene sceneID="TtE-PI-icx">
+            <objects>
+                <viewController storyboardIdentifier="GroupsTableMain" id="Ma9-ei-Dky" customClass="GroupsViewController" customModule="chatby" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8dr-Dm-Mf5"/>
+                        <viewControllerLayoutGuide type="bottom" id="qgV-yq-JQr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Lxj-Av-qFQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HGJ-3s-UKm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1406" y="95"/>
+        </scene>
+        <!--Add Group View Controller-->
+        <scene sceneID="rd4-tR-TKS">
+            <objects>
+                <viewController storyboardIdentifier="AddGroupMain" id="Ipe-WQ-5Iu" customClass="AddGroupViewController" customModule="chatby" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3a2-7O-Cih"/>
+                        <viewControllerLayoutGuide type="bottom" id="xI9-rB-cRh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8JT-5a-gyJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w8e-3f-WvS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2140" y="95"/>
         </scene>
     </scenes>
 </document>
