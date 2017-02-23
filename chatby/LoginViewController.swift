@@ -8,12 +8,17 @@
 
 import UIKit
 import AVKit
+import Alamofire
+import SwiftyJSON
 
 class LogInViewController: UIViewController, UITextFieldDelegate {
 
     var username: UITextField!;
     var password: UITextField!;
 
+    let list_of_users = "http://chatby.vohras.tk/api/users/";
+    let auth_page = "http://chatby.vohras.tk/api/auth/";
+    
     override func viewDidLoad() {
         super.viewDidLoad();
 
@@ -33,19 +38,63 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning();
     }
 
+    // Functional shit goes here
+
+    func login(_ sender: UIButton) {
+        let user = username.text
+        let pass = password.text
+        
+        if (user == "") {
+            print("username field cannot be blank")
+            return
+        }
+        else if (pass == "") {
+            print("password cannot be blank")
+            return
+        }
+        
+        let user_log : Parameters = [
+            "username":user!,
+            "password":pass!
+        ]
+        
+        Alamofire.request(auth_page, method: .post, parameters: user_log, encoding: JSONEncoding.default).validate().responseJSON(completionHandler: { response in
+            print(response.request!)  // original URL request
+            print(response.response!) // HTTP URL response
+            print(response.data!)     // server data
+            print(response.result)
+            
+            switch response.result {
+            case .success:
+                print("super success")
+                //self.performSegue(withIdentifier: "toTable", sender: self)
+            case .failure:
+                print("mega fail")
+                let alert_controller = UIAlertController(title: "YOU SUCK", message: "also this is an alert", preferredStyle: UIAlertControllerStyle.alert)
+                let ok_action = UIAlertAction(title: "I Know", style: .default)
+                
+                alert_controller.addAction(ok_action)
+                self.present(alert_controller, animated: true, completion: nil)
+            }
+        })
+    }
+    
+    func callAlamo( url: String ) {
+        Alamofire.request( url ).responseJSON(completionHandler: {
+            response in
+            print(response.result)
+            if let JSON = response.result.value {
+                print("JSON: \(JSON)")
+            }
+        })
+    }
+    
     func presentSignup(_ sender: UIButton) {
         let loginStory = UIStoryboard(name: "Login", bundle: nil);
         let loginContr = loginStory.instantiateViewController(withIdentifier: "SignupMain");
         let style: UIModalTransitionStyle = UIModalTransitionStyle.coverVertical;
         loginContr.modalTransitionStyle = style;
         self.present(loginContr, animated: true, completion: nil);
-    }
-
-    func login(_ sender: UIButton) {
-        let alert = UIAlertController(title: "YOOOOO", message: "You pressed the login button", preferredStyle: UIAlertControllerStyle.alert);
-        alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.cancel, handler: nil));
-        self.present(alert, animated: true, completion: nil);
-
     }
 
     // UI shit goes here

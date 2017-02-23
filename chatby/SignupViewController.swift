@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class SignupViewController: UIViewController, UITextFieldDelegate {
 
