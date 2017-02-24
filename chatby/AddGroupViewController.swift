@@ -22,6 +22,9 @@ class AddGroupViewController: UIViewController, UITextFieldDelegate {
         
         addBar();
         addFields();
+
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DismissKeyboard));
+        view.addGestureRecognizer(tap);
     }
     
     override func didReceiveMemoryWarning() {
@@ -47,7 +50,7 @@ class AddGroupViewController: UIViewController, UITextFieldDelegate {
     // UI shit
     
     func addBar() {
-        let nav: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 84));
+        let nav: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 74));
         
         let addButton:UIBarButtonItem = UIBarButtonItem(title: "Add",
                                                         style: UIBarButtonItemStyle.plain,
@@ -107,8 +110,28 @@ class AddGroupViewController: UIViewController, UITextFieldDelegate {
         self.view.addSubview(timeAliveMin);
         self.view.addSubview(groupRadius);
         
+        let addGroupToolbar = UIToolbar(frame: CGRect(x: 0,
+                                                    y: 0,
+                                                    width: self.view.frame.size.width,
+                                                    height: 50));
+        addGroupToolbar.barStyle = UIBarStyle.default;
+        addGroupToolbar.items = [
+            UIBarButtonItem(image: UIImage(named: "keyboardPreviousButton"), style: .plain, target: self, action: nil),
+            UIBarButtonItem(image: UIImage(named: "iq"), style: .plain, target: self, action: nil),
+            //UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.rewind, target: self, action: nil),
+            //UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fastForward, target: self, action: nil),
+            UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: nil)]
+        addGroupToolbar.sizeToFit();
+
+        groupname.inputAccessoryView = addGroupToolbar
+        timeAliveHr.inputAccessoryView = addGroupToolbar;
+        timeAliveMin.inputAccessoryView = addGroupToolbar;
+        groupRadius.inputAccessoryView = addGroupToolbar;
     }
     
-    
+    func DismissKeyboard() {
+        view.endEditing(true);
+    }
     
 }
