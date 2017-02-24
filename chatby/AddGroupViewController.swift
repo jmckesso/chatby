@@ -60,8 +60,9 @@ class AddGroupViewController: UIViewController, UITextFieldDelegate {
         ]
         
         let header : HTTPHeaders = [
-            "token": keychain.get("auth")!
+            "Authorization": "Token " + keychain.get("auth")!
         ]
+        
         
         /*Alamofire.request(make_url, method: .post, parameters: parameter, encoding: JSONEncoding.default).validate().responseJSON(completionHandler: {
             response in

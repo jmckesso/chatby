@@ -42,20 +42,29 @@ class GroupInfoViewController: UIViewController {
         print("here2")
         print(keychain.get("auth")!)
         
-        let header: HTTPHeaders = [
-            "token" : keychain.get("auth")!,
+        let auth_string = "Token " + keychain.get("auth")!
+        print("auth string")
+        print(auth_string)
+        
+        let header = [
+            "Authorization" : auth_string
         ]
         let room_parameters : Parameters = [
             "muted":false,
             "url":group_path
         ]
 
-        Alamofire.request("http://chatby.vohras.tk/api/users/current", headers: header).validate().responseJSON(completionHandler: {
+        
+        Alamofire.request("http://chatby.vohras.tk/api/users/current/", encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
             response in
             print(response.request!)  // original URL request
             print(response.response!) // HTTP URL response
             print(response.data!)     // server data
             print(response.result)
+            
+            let user_info = JSON(response.result.value!)
+            print(user_info)
+            
         })
 
         /*Alamofire.request("http://chatby.vohras.tk/api/membership", method: .post, parameters: room_parameters, headers: header).validate().responseJSON(completionHandler: {
