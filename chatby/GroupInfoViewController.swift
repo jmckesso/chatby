@@ -12,6 +12,9 @@ import Alamofire
 import SwiftyJSON
 
 class GroupInfoViewController: UIViewController {
+    
+    var groupName: String!;
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         
@@ -44,7 +47,7 @@ class GroupInfoViewController: UIViewController {
     // UI Shit down here
     
     func drawUI() {
-        self.title = "Test Group";
+        self.title = groupName;
         let inpWid:CGFloat = self.view.bounds.width;
         
         let label: UILabel = UILabel(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2) + 20,
@@ -52,7 +55,7 @@ class GroupInfoViewController: UIViewController {
                                                    width: inpWid,
                                                    height: 100));
         
-        label.text = "Test Group";
+        label.text = groupName;
         label.textAlignment = NSTextAlignment.left;
         label.textColor = UIColor.black;
         
