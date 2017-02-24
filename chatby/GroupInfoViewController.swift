@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class GroupInfoViewController: UIViewController {
     override func viewDidLoad() {
@@ -24,6 +26,16 @@ class GroupInfoViewController: UIViewController {
     
     func joingroup(_ sender: UIBarButtonItem) {
         // JACOB HELLO!
+        
+        let room_parameters : Parameters = [
+            "user":"username",
+            "room":"roomname"
+        ]
+
+        
+        
+        
+        
     }
     
     // UI Shit down here

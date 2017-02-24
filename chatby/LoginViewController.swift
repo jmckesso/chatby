@@ -90,16 +90,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         })
     }
     
-    func callAlamo( url: String ) {
-        Alamofire.request( url ).responseJSON(completionHandler: {
-            response in
-            print(response.result)
-            if let JSON = response.result.value {
-                print("JSON: \(JSON)")
-            }
-        })
-    }
-    
     func presentSignup(_ sender: UIButton) {
         let loginStory = UIStoryboard(name: "Login", bundle: nil);
         let loginContr = loginStory.instantiateViewController(withIdentifier: "SignupMain");
