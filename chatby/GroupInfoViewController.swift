@@ -26,10 +26,13 @@ class GroupInfoViewController: UIViewController {
     
     func joingroup(_ sender: UIBarButtonItem) {
         // JACOB HELLO!
+        <#T##HTTPMethod#>
+        Alamofire.request("http://chatby.vohras.tk/api/users/current", encoding: JSONEncoding.default, headers: <#T##HTTPHeaders?#>)
+        
         
         let room_parameters : Parameters = [
-            "user":"username",
-            "room":"roomname"
+            "muted":false,
+            "room_url":"roomname"
         ]
 
         
