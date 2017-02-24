@@ -10,9 +10,12 @@ import UIKit
 import AVKit
 import Alamofire
 import SwiftyJSON
+import KeychainSwift
+
+let keychain = KeychainSwift()
 
 class LogInViewController: UIViewController, UITextFieldDelegate {
-
+    
     var username: UITextField!;
     var password: UITextField!;
 
@@ -67,6 +70,12 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             switch response.result {
             case .success:
                 print("super success")
+                let session_key = JSON(response.result.value!)
+                print(session_key)
+                
+                keychain.set(session_key["token"].stringValue, forKey: "auth")
+                print("keychain::::")
+                print(keychain.get("auth"))
                 self.dismiss(animated: true, completion: nil);
             case .failure:
                 print("mega fail")

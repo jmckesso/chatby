@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Alamofire
 import SwiftyJSON
+import KeychainSwift
 
 
 // Cell prototype for future use
@@ -27,19 +28,25 @@ class GroupCell: UITableViewCell {
 
 class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    let keychain = KeychainSwift()
+    
     var nav: UINavigationBar!;
     var table = UITableView();
+    var auth_token: JSON!
     
     var group_url = "http://chatby.vohras.tk/api/rooms/"
     
     // Jacob, put the data in the data array, replace the instances of testData with data, ???, profit
     
     
-    var data = [String]();
+    var data = [[String]]();
     let testData = ["Cat", "Dog", "Austin's Fursona"];
     
     override func viewDidLoad() {
         super.viewDidLoad();
+        
+        print("here")
+        print(keychain.get("auth"))
         
         Alamofire.request(group_url).validate().responseJSON(completionHandler: { response in
             print(response.request!)  // original URL request
@@ -53,11 +60,14 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 let groups = JSON(response.result.value!)
                 for (_,subJson):(String, JSON) in groups {
                     let name = subJson["name"].stringValue
-                    self.data.append(name)
+                    let path = subJson["url"].stringValue
+                    var entry = [String]()
+                    entry.append(name)
+                    entry.append(path)
+                    self.data.append(entry)
                     self.table.reloadData();
                 }
                 
-                print(self.data)
             case .failure:
                 print("mega fail")
             }
@@ -88,7 +98,8 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Text label is the good shit
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell;
-        cell.textLabel?.text = String(self.data[indexPath.row]);
+        let name = self.data[indexPath.row][0]
+        cell.textLabel?.text = String(name);
         
         return cell;
     }
@@ -97,7 +108,10 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // FIND A WAY TO SEGUE NAMES INTO THIS AND PRINT THEM ON THE VIEW CONTROLLER
         let infostory = UIStoryboard(name: "Login", bundle: nil);
         let infocontr = infostory.instantiateViewController(withIdentifier: "GroupInfoMain") as! GroupInfoViewController;
-        infocontr.groupName = self.data[didSelectRowAt.row];
+        let g_path = self.data[didSelectRowAt.row][1]
+        let g_name = self.data[didSelectRowAt.row][0]
+        infocontr.group_path = g_path;
+        infocontr.groupName = g_name
         self.navigationController?.pushViewController(infocontr, animated: true);
     }
 
@@ -158,6 +172,10 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationController?.toolbar.items = items;
         
         self.view.addSubview(table);
+    }
+    
+    func backFromLogin() {
+        print("Back from login")
     }
     
 }

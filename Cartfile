@@ -1,2 +1,3 @@
 github "Alamofire/Alamofire" ~> 4.3
 github "SwiftyJSON/SwiftyJSON"
+github "marketplacer/keychain-swift" ~> 7.0

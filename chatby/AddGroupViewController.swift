@@ -8,6 +8,9 @@
 
 import Foundation
 import UIKit
+import Alamofire
+import SwiftyJSON
+import KeychainSwift
 
 class AddGroupViewController: UIViewController, UITextFieldDelegate {
     
@@ -15,6 +18,8 @@ class AddGroupViewController: UIViewController, UITextFieldDelegate {
     var timeAliveHr:    UITextField!;
     var timeAliveMin:   UITextField!;
     var groupRadius:    UITextField!;
+    
+    var make_url = "http://chatby.vohras.tk/api/rooms/"
     
     
     override func viewDidLoad() {
@@ -44,6 +49,32 @@ class AddGroupViewController: UIViewController, UITextFieldDelegate {
     
     func makeGroup(_ sender: UIBarButtonItem) {
         // Jacob, you know what to do
+        
+        let group_param : Parameters = [
+            "name": groupname.text,
+            "radius": groupRadius.text,
+            "expire_time": "2017-02-28T20:46:52.125000Z",
+            "image_url": "",
+            "latitude": 10.0,
+            "longitude": 10.0
+        ]
+        
+        let header : HTTPHeaders = [
+            "token": keychain.get("auth")!
+        ]
+        
+        /*Alamofire.request(make_url, method: .post, parameters: parameter, encoding: JSONEncoding.default).validate().responseJSON(completionHandler: {
+            response in
+            print(response.request!)  // original URL request
+            print(response.response!) // HTTP URL response
+            print(response.data!)     // server data
+            print(response.result)
+         
+        })*/
+        
+        
+        
+        
         dismiss(animated: true, completion: nil);
     }
     

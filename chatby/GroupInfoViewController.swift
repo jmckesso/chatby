@@ -10,13 +10,18 @@ import Foundation
 import UIKit
 import Alamofire
 import SwiftyJSON
+import KeychainSwift
 
 class GroupInfoViewController: UIViewController {
     
     var groupName: String!;
+    var group_path: String!;
+    var auth_token: JSON!
     
     override func viewDidLoad() {
         super.viewDidLoad();
+        
+       
         
         drawUI();
     }
@@ -29,14 +34,37 @@ class GroupInfoViewController: UIViewController {
     
     func joingroup(_ sender: UIBarButtonItem) {
         // JACOB HELLO!
-        <#T##HTTPMethod#>
-        Alamofire.request("http://chatby.vohras.tk/api/users/current", encoding: JSONEncoding.default, headers: <#T##HTTPHeaders?#>)
         
+        //let keychain = KeychainSwift()
         
+        print(group_path)
+        
+        print("here2")
+        print(keychain.get("auth")!)
+        
+        let header: HTTPHeaders = [
+            "token" : keychain.get("auth")!,
+        ]
         let room_parameters : Parameters = [
             "muted":false,
-            "room_url":"roomname"
+            "url":group_path
         ]
+
+        Alamofire.request("http://chatby.vohras.tk/api/users/current", headers: header).validate().responseJSON(completionHandler: {
+            response in
+            print(response.request!)  // original URL request
+            print(response.response!) // HTTP URL response
+            print(response.data!)     // server data
+            print(response.result)
+        })
+
+        /*Alamofire.request("http://chatby.vohras.tk/api/membership", method: .post, parameters: room_parameters, headers: header).validate().responseJSON(completionHandler: {
+            response in
+            print(response.request!)  // original URL request
+            print(response.response!) // HTTP URL response
+            print(response.data!)     // server data
+            print(response.result)
+        }) */
 
         
         
