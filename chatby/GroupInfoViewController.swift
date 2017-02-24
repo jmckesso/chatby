@@ -17,11 +17,10 @@ class GroupInfoViewController: UIViewController {
     var groupName: String!;
     var group_path: String!;
     var auth_token: JSON!
+    var confirmBtn:UIButton!;
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        
-       
         
         drawUI();
     }
@@ -30,12 +29,9 @@ class GroupInfoViewController: UIViewController {
         super.didReceiveMemoryWarning();
     }
     
-    // Functional shit here
     
     func joingroup(_ sender: UIBarButtonItem) {
         // JACOB HELLO!
-        
-        //let keychain = KeychainSwift()
         
         print(group_path)
         
@@ -50,6 +46,7 @@ class GroupInfoViewController: UIViewController {
         let header = [
             "Authorization" : auth_string
         ]
+        
         let room_parameters : Parameters = [
             "muted":false,
             "room":group_path
@@ -68,16 +65,18 @@ class GroupInfoViewController: UIViewController {
             
         }) */
 
-        Alamofire.request("http://chatby.vohras.tk/api/membership", method: .post, parameters: room_parameters, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
+        Alamofire.request("http://chatby.vohras.tk/api/memberships/", method: .post, parameters: room_parameters, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
             response in
             print(response.request!)  // original URL request
             print(response.response!) // HTTP URL response
             print(response.data!)     // server data
             print(response.result)
+            
+            print(response.result.value!)
         })
 
         
-        
+        //confirmBtn.isEnabled = false;
         
         
     }
@@ -97,7 +96,7 @@ class GroupInfoViewController: UIViewController {
         label.textAlignment = NSTextAlignment.left;
         label.textColor = UIColor.black;
         
-        let confirmBtn:UIButton = UIButton(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2) + 5,
+        confirmBtn = UIButton(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2) + 5,
                                                             y: self.view.frame.maxY - 70,
                                                             width: self.view.bounds.width - 10,
                                                             height: 65));
