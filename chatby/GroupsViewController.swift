@@ -54,6 +54,7 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 for (_,subJson):(String, JSON) in groups {
                     let name = subJson["name"].stringValue
                     self.data.append(name)
+                    self.table.reloadData();
                 }
                 
                 print(self.data)
@@ -62,11 +63,7 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         })
         
-        
-        
         tableInit();
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -91,9 +88,9 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Text label is the good shit
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell;
-        cell.textLabel?.text = self.data[indexPath.row];
+        cell.textLabel?.text = String(self.data[indexPath.row]);
         
-        return cell
+        return cell;
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt: IndexPath) {
