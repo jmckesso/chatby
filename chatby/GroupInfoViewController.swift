@@ -72,6 +72,13 @@ class GroupInfoViewController: UIViewController {
             print(response.data!)     // server data
             print(response.result)
             
+            switch response.result {
+                case .success:
+                    break
+                case .failure:
+                    break
+            }
+            
             print(response.result.value!)
         })
 
