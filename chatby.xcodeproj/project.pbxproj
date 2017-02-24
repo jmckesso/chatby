@@ -10,6 +10,7 @@
 		233462541E5FE1A60014BF0A /* KeychainSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 233462531E5FE1A60014BF0A /* KeychainSwift.framework */; };
 		233462551E5FE1B40014BF0A /* KeychainSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 233462531E5FE1A60014BF0A /* KeychainSwift.framework */; };
 		233462561E5FE1B40014BF0A /* KeychainSwift.framework in Embed Frameworks (2 items) */ = {isa = PBXBuildFile; fileRef = 233462531E5FE1A60014BF0A /* KeychainSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		233462581E6092500014BF0A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 233462571E6092500014BF0A /* CoreLocation.framework */; };
 		2348AE251E529E160096EDDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2348AE241E529E160096EDDE /* AppDelegate.swift */; };
 		2348AE271E529E160096EDDE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2348AE261E529E160096EDDE /* ViewController.swift */; };
 		2348AE2A1E529E160096EDDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2348AE281E529E160096EDDE /* Main.storyboard */; };
@@ -59,6 +60,7 @@
 
 /* Begin PBXFileReference section */
 		233462531E5FE1A60014BF0A /* KeychainSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainSwift.framework; path = Carthage/Build/iOS/KeychainSwift.framework; sourceTree = "<group>"; };
+		233462571E6092500014BF0A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		2348AE211E529E160096EDDE /* chatby.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chatby.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2348AE241E529E160096EDDE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2348AE261E529E160096EDDE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				233462581E6092500014BF0A /* CoreLocation.framework in Frameworks */,
 				233462551E5FE1B40014BF0A /* KeychainSwift.framework in Frameworks */,
 				233462541E5FE1A60014BF0A /* KeychainSwift.framework in Frameworks */,
 				23ADD1F21E5DF00900C81665 /* SwiftyJSON.framework in Frameworks */,
@@ -148,6 +151,7 @@
 		23ADD1EB1E5D19E900C81665 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				233462571E6092500014BF0A /* CoreLocation.framework */,
 				233462531E5FE1A60014BF0A /* KeychainSwift.framework */,
 				23ADD1F11E5DF00900C81665 /* SwiftyJSON.framework */,
 				23ADD1EC1E5D19EA00C81665 /* Alamofire.framework */,

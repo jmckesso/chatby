@@ -11,8 +11,9 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import KeychainSwift
+import CoreLocation
 
-class AddGroupViewController: UIViewController, UITextFieldDelegate {
+class AddGroupViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
     
     var groupname:      UITextField!;
     var timeAliveHr:    UITextField!;
@@ -21,6 +22,8 @@ class AddGroupViewController: UIViewController, UITextFieldDelegate {
     
     var make_url = "http://chatby.vohras.tk/api/rooms/"
     
+    var locationManager: CLLocationManager?
+    var current_location: CLLocation?
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -28,6 +31,13 @@ class AddGroupViewController: UIViewController, UITextFieldDelegate {
         addBar();
         addFields();
 
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.startUpdatingLocation()
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.requestAlwaysAuthorization()
+        
+        
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DismissKeyboard));
         view.addGestureRecognizer(tap);
     }
@@ -35,6 +45,17 @@ class AddGroupViewController: UIViewController, UITextFieldDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning();
     }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.current_location = locations[0]
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+
+    
     
     // Functional shit
     
@@ -48,30 +69,33 @@ class AddGroupViewController: UIViewController, UITextFieldDelegate {
     }
     
     func makeGroup(_ sender: UIBarButtonItem) {
-        // Jacob, you know what to do
         
+        // Jacob, you know what to do
+    
         let group_param : Parameters = [
-            "name": groupname.text,
-            "radius": groupRadius.text,
+            "name": groupname.text!,
+            "radius": groupRadius.text!,
             "expire_time": "2017-02-28T20:46:52.125000Z",
             "image_url": "",
-            "latitude": 10.0,
-            "longitude": 10.0
+            "latitude": current_location!.coordinate.latitude,
+            "longitude": current_location!.coordinate.longitude
         ]
+    
+        locationManager?.stopUpdatingLocation()
         
-        let header : HTTPHeaders = [
+        let header = [
             "Authorization": "Token " + keychain.get("auth")!
         ]
         
         
-        /*Alamofire.request(make_url, method: .post, parameters: parameter, encoding: JSONEncoding.default).validate().responseJSON(completionHandler: {
+        Alamofire.request(make_url, method: .post, parameters: group_param, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
             response in
             print(response.request!)  // original URL request
             print(response.response!) // HTTP URL response
             print(response.data!)     // server data
             print(response.result)
          
-        })*/
+        })
         
         
         
