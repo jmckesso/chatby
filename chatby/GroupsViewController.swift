@@ -8,6 +8,9 @@
 
 import Foundation
 import UIKit
+import Alamofire
+import SwiftyJSON
+
 
 // Cell prototype for future use
 class GroupCell: UITableViewCell {
@@ -25,15 +28,41 @@ class GroupCell: UITableViewCell {
 class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var nav: UINavigationBar!;
-
     var table = UITableView();
     
+    var group_url = "http://chatby.vohras.tk/api/rooms/"
+    
     // Jacob, put the data in the data array, replace the instances of testData with data, ???, profit
-    var data = [[String:AnyObject]]();
+    
+    
+    var data = [String]();
     let testData = ["Cat", "Dog", "Austin's Fursona"];
     
     override func viewDidLoad() {
         super.viewDidLoad();
+        
+        Alamofire.request(group_url).validate().responseJSON(completionHandler: { response in
+            print(response.request!)  // original URL request
+            print(response.response!) // HTTP URL response
+            print(response.data!)     // server data
+            print(response.result)
+            
+            switch response.result {
+            case .success:
+                print("super success")
+                let groups = JSON(response.result.value!)
+                for (_,subJson):(String, JSON) in groups {
+                    let name = subJson["name"].stringValue
+                    self.data.append(name)
+                }
+                
+                print(self.data)
+            case .failure:
+                print("mega fail")
+            }
+        })
+        
+        
         
         tableInit();
         
@@ -56,13 +85,13 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection: Int) -> Int {
         // Change this
-        return self.testData.count;
+        return self.data.count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Text label is the good shit
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell;
-        cell.textLabel?.text = self.testData[indexPath.row];
+        cell.textLabel?.text = self.data[indexPath.row];
         
         return cell
     }
