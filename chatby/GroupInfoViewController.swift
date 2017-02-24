@@ -94,7 +94,7 @@ class GroupInfoViewController: UIViewController {
         confirmBtn.backgroundColor = UIColor.gray;
         confirmBtn.setTitleColor(UIColor.white, for: UIControlState.normal);
         confirmBtn.setTitleColor(UIColor.lightGray, for: UIControlState.highlighted);
-        confirmBtn.setTitle("Add to group", for: .normal);
+        confirmBtn.setTitle("Join group", for: .normal);
         confirmBtn.addTarget(self, action: #selector(joingroup(_:)), for: .touchUpInside);
         
         confirmBtn.setTitleColor(UIColor(colorLiteralRed: 14.0/255,

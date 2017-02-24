@@ -143,7 +143,7 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
                                                         target: self,
                                                         action: #selector(addUserView(_:)));
         
-        let loginButton:UIBarButtonItem = UIBarButtonItem(title: "Login",
+        let loginButton:UIBarButtonItem = UIBarButtonItem(title: "Logout",
                                                           style: UIBarButtonItemStyle.plain,
                                                           target: self,
                                                           action: #selector(loginout(_:)));

@@ -274,7 +274,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     }
 
     func drawButton() {
-        let sgnWid:CGFloat = 200.0;
+        let sgnWid:CGFloat = 250.0;
         let sgnHei:CGFloat = 30.0;
 
         let signupButton:UIButton =  UIButton(frame: CGRect(x: self.view.bounds.width / 2 - (sgnWid / 2),
@@ -295,7 +295,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     }
 
     func toLoginButton() {
-        let lgnWid:CGFloat = 200.0;
+        let lgnWid:CGFloat = 250.0;
         let lgnHei:CGFloat = 30.0;
 
         let button: UIButton = UIButton(frame: CGRect(x: self.view.bounds.width / 2 - (lgnWid / 2),

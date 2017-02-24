@@ -140,6 +140,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         username.layer.masksToBounds = true;
         username.placeholder = "Username"
         username.textAlignment = NSTextAlignment.center;
+        username.returnKeyType = UIReturnKeyType.done;
         username.keyboardType = UIKeyboardType.emailAddress;
         username.alpha = 1.0;
         username.autocorrectionType = UITextAutocorrectionType.no;
@@ -164,6 +165,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         password.layer.masksToBounds = true;
         password.placeholder = "Password"
         password.textAlignment = NSTextAlignment.center;
+        username.returnKeyType = UIReturnKeyType.done;
         password.isEnabled = true;
         password.isSecureTextEntry = true;
         password.alpha = 1.0;
