@@ -96,7 +96,8 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, didSelectRowAt: IndexPath) {
         // FIND A WAY TO SEGUE NAMES INTO THIS AND PRINT THEM ON THE VIEW CONTROLLER
         let infostory = UIStoryboard(name: "Login", bundle: nil);
-        let infocontr = infostory.instantiateViewController(withIdentifier: "GroupInfoMain");
+        let infocontr = infostory.instantiateViewController(withIdentifier: "GroupInfoMain") as! GroupInfoViewController;
+        infocontr.groupName = self.data[didSelectRowAt.row];
         self.navigationController?.pushViewController(infocontr, animated: true);
     }
 
