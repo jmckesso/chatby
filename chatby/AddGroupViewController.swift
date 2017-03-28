@@ -100,6 +100,7 @@ class AddGroupViewController: UIViewController, UITextFieldDelegate, CLLocationM
         
         
         
+        
         dismiss(animated: true, completion: nil);
     }
     

@@ -74,7 +74,7 @@ class GroupInfoViewController: UIViewController {
             
             switch response.result {
                 case .success:
-                    break
+                    self.navigationController?.popViewController(animated: true);
                 case .failure:
                     break
             }
