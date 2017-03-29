@@ -34,6 +34,8 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var table = UITableView();
     var auth_token: JSON!
     
+    let refreshControl = UIRefreshControl();
+    
     var group_url = "http://chatby.vohras.tk/api/rooms/"
     
     // Jacob, put the data in the data array, replace the instances of testData with data, ???, profit
@@ -74,6 +76,13 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         })
         
         tableInit();
+        table.refreshControl = refreshControl;
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged);
+    }
+    
+    func refreshData() {
+        self.table.reloadData();
+        refreshControl.endRefreshing();
     }
     
     override func didReceiveMemoryWarning() {
@@ -85,7 +94,7 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setToolbarHidden(false, animated: true);
+        //self.navigationController?.setToolbarHidden(false, animated: true);
     }
     
     // Table shit
@@ -169,6 +178,7 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
                             style: UIBarButtonItemStyle.plain,
                             target: nil, action: nil)
         );
+        
         self.navigationController?.toolbar.items = items;
         
         self.view.addSubview(table);

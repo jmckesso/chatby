@@ -17,14 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         let rootboard = UIStoryboard(name: "Login", bundle: nil);
-        let controller = rootboard.instantiateViewController(withIdentifier: "GroupsTableMain");
-    
-        navController = UINavigationController();
-        self.navController!.pushViewController(controller, animated: false);
-        self.window = UIWindow(frame: UIScreen.main.bounds);
-        self.window!.rootViewController = navController;
-        self.window!.backgroundColor = UIColor.clear;
-        self.window!.makeKeyAndVisible();
+        let controller1 = rootboard.instantiateViewController(withIdentifier: "GroupsTableMain");
+        let controller2 = rootboard.instantiateViewController(withIdentifier: "UserInfoMain");
+        
+        let tabViewController = UITabBarController();
+        
+        let tab1 = UINavigationController(rootViewController: controller1);
+        let tab2 = UINavigationController(rootViewController: controller2);
+        let tabs = [tab1, tab2];
+        tabViewController.viewControllers = tabs;
+        window?.rootViewController = tabViewController;
         
         return true
     }

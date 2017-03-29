@@ -63,6 +63,24 @@
             </objects>
             <point key="canvasLocation" x="1406" y="95"/>
         </scene>
+        <!--User Info View Controller-->
+        <scene sceneID="aJ1-3I-n0T">
+            <objects>
+                <viewController storyboardIdentifier="UserInfoMain" id="zun-bz-6dp" customClass="UserInfoViewController" customModule="chatby" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dzV-YY-NhW"/>
+                        <viewControllerLayoutGuide type="bottom" id="qOD-qU-NPq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hfg-ll-mJN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z9T-Jz-b2s" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3615" y="95"/>
+        </scene>
         <!--Add Group View Controller-->
         <scene sceneID="rd4-tR-TKS">
             <objects>
