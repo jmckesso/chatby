@@ -104,7 +104,7 @@ class GroupInfoViewController: UIViewController {
         label.textColor = UIColor.black;
         
         confirmBtn = UIButton(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2) + 5,
-                                                            y: self.view.frame.maxY - 70,
+                                                            y: self.view.frame.maxY - 140,
                                                             width: self.view.bounds.width - 10,
                                                             height: 65));
         confirmBtn.backgroundColor = UIColor.gray;

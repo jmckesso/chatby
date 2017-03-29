@@ -24,6 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let tab1 = UINavigationController(rootViewController: controller1);
         let tab2 = UINavigationController(rootViewController: controller2);
+        
+        tab1.title = "Groups";
+        tab2.title = "User";
+        
         let tabs = [tab1, tab2];
         tabViewController.viewControllers = tabs;
         window?.rootViewController = tabViewController;
