@@ -33,6 +33,7 @@
 		3FA92FA71E8AEF02001511FA /* TabMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA92FA61E8AEF02001511FA /* TabMenuViewController.swift */; };
 		3FA92FA91E8AF7E8001511FA /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA92FA81E8AF7E8001511FA /* UserInfoViewController.swift */; };
 		3FA92FAB1E8C54D5001511FA /* UserSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA92FAA1E8C54D4001511FA /* UserSettingsViewController.swift */; };
+		3FC478F61E8C5C5600315E62 /* ManageGroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC478F51E8C5C5600315E62 /* ManageGroupsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		3FA92FA61E8AEF02001511FA /* TabMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuViewController.swift; sourceTree = "<group>"; };
 		3FA92FA81E8AF7E8001511FA /* UserInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		3FA92FAA1E8C54D4001511FA /* UserSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsViewController.swift; sourceTree = "<group>"; };
+		3FC478F51E8C5C5600315E62 /* ManageGroupsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageGroupsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +188,7 @@
 				3FA78EDF1E5EBAB50022F2D8 /* LoginViewController.swift */,
 				3FA78EE01E5EBAB50022F2D8 /* SignupViewController.swift */,
 				3FA78EE91E5EC5460022F2D8 /* GroupsViewController.swift */,
+				3FC478F51E8C5C5600315E62 /* ManageGroupsViewController.swift */,
 				3F52E77F1E5F6494001649F8 /* GroupInfoViewController.swift */,
 				3FA92FA61E8AEF02001511FA /* TabMenuViewController.swift */,
 				3FA78EEB1E5ED7E50022F2D8 /* AddGroupViewController.swift */,
@@ -303,6 +306,7 @@
 				3FA78EEA1E5EC5460022F2D8 /* GroupsViewController.swift in Sources */,
 				3FA78EE31E5EBAB60022F2D8 /* SignupViewController.swift in Sources */,
 				2348AE271E529E160096EDDE /* ViewController.swift in Sources */,
+				3FC478F61E8C5C5600315E62 /* ManageGroupsViewController.swift in Sources */,
 				2348AE251E529E160096EDDE /* AppDelegate.swift in Sources */,
 				3FA92FAB1E8C54D5001511FA /* UserSettingsViewController.swift in Sources */,
 				3FA78EEC1E5ED7E50022F2D8 /* AddGroupViewController.swift in Sources */,

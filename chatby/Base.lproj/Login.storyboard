@@ -99,6 +99,24 @@
             </objects>
             <point key="canvasLocation" x="4351" y="90"/>
         </scene>
+        <!--Manage Groups View Controller-->
+        <scene sceneID="EGx-ex-dKK">
+            <objects>
+                <viewController storyboardIdentifier="ManageGroupsMain" id="kmE-5d-lls" customClass="ManageGroupsViewController" customModule="chatby" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zpi-5F-bMt"/>
+                        <viewControllerLayoutGuide type="bottom" id="JJu-Va-zjm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4R7-NI-a9H">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h07-XK-o92" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4804" y="42"/>
+        </scene>
         <!--Add Group View Controller-->
         <scene sceneID="rd4-tR-TKS">
             <objects>

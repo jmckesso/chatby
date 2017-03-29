@@ -127,7 +127,7 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // Transition shit
     
-    func addUserView(_ sender: UIBarButtonItem) {
+    func addUserView(_ sender: UIAlertAction) {
         let addboard = UIStoryboard(name: "Login", bundle: nil);
         let addcontr = addboard.instantiateViewController(withIdentifier: "AddGroupMain");
         let style = UIModalTransitionStyle.coverVertical;
@@ -148,11 +148,13 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableInit() {
         
+        
+        
         let addButton:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
                                                         target: self,
-                                                        action: #selector(addUserView(_:)));
+                                                        action: #selector(createActionSheet(_:)));
         
-        let loginButton:UIBarButtonItem = UIBarButtonItem(title: "Logout",
+        /*let loginButton:UIBarButtonItem = UIBarButtonItem(title: "Logout",
                                                           style: UIBarButtonItemStyle.plain,
                                                           target: self,
                                                           action: #selector(loginout(_:)));
@@ -161,7 +163,7 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
                                                            style: UIBarButtonItemStyle.plain,
                                                            target: self,
                                                            action: #selector(loginout(_:)));
-        
+        */
         table = UITableView(frame: self.view.bounds, style: UITableViewStyle.plain);
         table.dataSource = self;
         table.delegate = self;
@@ -170,7 +172,7 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.title = "Groups";
         
         self.navigationItem.rightBarButtonItem = addButton;
-        self.navigationItem.leftBarButtonItem = loginButton;
+        //self.navigationItem.leftBarButtonItem = loginButton;
         
         var items = [UIBarButtonItem]();
         items.append(
@@ -182,6 +184,35 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationController?.toolbar.items = items;
         
         self.view.addSubview(table);
+    }
+    
+    func createActionSheet(_ sender:UIBarButtonItem) {
+        
+        let addboard = UIStoryboard(name: "Login", bundle: nil);
+        let addcontr = addboard.instantiateViewController(withIdentifier: "AddGroupMain");
+        let managecontr = addboard.instantiateViewController(withIdentifier: "ManageGroupsMain");
+        let style = UIModalTransitionStyle.coverVertical;
+        addcontr.modalTransitionStyle = style;
+        
+        let actionSheet = UIAlertController(title: "Options", message: nil, preferredStyle: .actionSheet);
+        let toAddGroup = UIAlertAction(title: "Create Group",
+                                       style: .default,
+                                       handler: { (action:UIAlertAction) in
+                                            self.present(addcontr, animated: true, completion: nil);
+                                        });
+        let toManageGroup = UIAlertAction(title: "Manage Groups",
+                                          style: .default,
+                                          handler: {(action:UIAlertAction) in
+                                            self.navigationController?.pushViewController(managecontr, animated: true);
+        })
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: {(action:UIAlertAction) -> Void in});
+        
+        actionSheet.addAction(toAddGroup);
+        actionSheet.addAction(toManageGroup);
+        actionSheet.addAction(cancel);
+        
+        self.present(actionSheet, animated: true, completion: nil);
     }
     
     func backFromLogin() {
