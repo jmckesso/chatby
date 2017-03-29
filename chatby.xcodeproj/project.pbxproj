@@ -32,6 +32,7 @@
 		3FA78EEC1E5ED7E50022F2D8 /* AddGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA78EEB1E5ED7E50022F2D8 /* AddGroupViewController.swift */; };
 		3FA92FA71E8AEF02001511FA /* TabMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA92FA61E8AEF02001511FA /* TabMenuViewController.swift */; };
 		3FA92FA91E8AF7E8001511FA /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA92FA81E8AF7E8001511FA /* UserInfoViewController.swift */; };
+		3FA92FAB1E8C54D5001511FA /* UserSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA92FAA1E8C54D4001511FA /* UserSettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		3FA78EEB1E5ED7E50022F2D8 /* AddGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGroupViewController.swift; sourceTree = "<group>"; };
 		3FA92FA61E8AEF02001511FA /* TabMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMenuViewController.swift; sourceTree = "<group>"; };
 		3FA92FA81E8AF7E8001511FA /* UserInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
+		3FA92FAA1E8C54D4001511FA /* UserSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				3FA92FA81E8AF7E8001511FA /* UserInfoViewController.swift */,
+				3FA92FAA1E8C54D4001511FA /* UserSettingsViewController.swift */,
 				23ADD1F61E5E108400C81665 /* RegisterViewController.swift */,
 				2348AE261E529E160096EDDE /* ViewController.swift */,
 				23ADD1F41E5E0AF400C81665 /* GroupsTableViewController.swift */,
@@ -301,6 +304,7 @@
 				3FA78EE31E5EBAB60022F2D8 /* SignupViewController.swift in Sources */,
 				2348AE271E529E160096EDDE /* ViewController.swift in Sources */,
 				2348AE251E529E160096EDDE /* AppDelegate.swift in Sources */,
+				3FA92FAB1E8C54D5001511FA /* UserSettingsViewController.swift in Sources */,
 				3FA78EEC1E5ED7E50022F2D8 /* AddGroupViewController.swift in Sources */,
 				3FA92FA91E8AF7E8001511FA /* UserInfoViewController.swift in Sources */,
 				3FA92FA71E8AEF02001511FA /* TabMenuViewController.swift in Sources */,

@@ -35,6 +35,8 @@ class UserInfoViewController: UIViewController {
     }
     
     func presentActionSheet(_ sender:UIBarButtonItem) {
+        let storybrd = UIStoryboard(name: "Login", bundle: nil);
+        let settingsController:UIViewController = storybrd.instantiateViewController(withIdentifier: "UserSettingsMain");
         
         let confirmLogout:UIAlertController = UIAlertController(title: "Logout",
                                                                 message: "Are you sure you wish to log out?",
@@ -58,7 +60,10 @@ class UserInfoViewController: UIViewController {
                                                        preferredStyle: .actionSheet);
         let settings:UIAlertAction = UIAlertAction(title: "Settings",
                                                     style: .default,
-                                                    handler:{ (alert:UIAlertAction) -> Void in} );
+                                                    handler:{ (alert:UIAlertAction) in
+                                                        self.navigationController?.pushViewController(settingsController,
+                                                                                                      animated: true);
+        } );
         let logout:UIAlertAction = UIAlertAction(title: "Logout",
                                                  style: .default,
                                                  handler: {

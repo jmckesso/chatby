@@ -81,6 +81,24 @@
             </objects>
             <point key="canvasLocation" x="3615" y="95"/>
         </scene>
+        <!--User Settings View Controller-->
+        <scene sceneID="oeO-ur-PN7">
+            <objects>
+                <viewController storyboardIdentifier="UserSettingsMain" id="bRh-4C-qp3" customClass="UserSettingsViewController" customModule="chatby" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gpl-c8-8Wv"/>
+                        <viewControllerLayoutGuide type="bottom" id="nRQ-HM-aDU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="obf-I8-pQq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d4g-qe-H0O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4351" y="90"/>
+        </scene>
         <!--Add Group View Controller-->
         <scene sceneID="rd4-tR-TKS">
             <objects>
