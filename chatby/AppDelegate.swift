@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let tabs = [tab1, tab2];
         tabViewController.viewControllers = tabs;
+        
         window?.rootViewController = tabViewController;
         
         return true

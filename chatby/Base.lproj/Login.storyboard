@@ -115,7 +115,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h07-XK-o92" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4804" y="42"/>
+            <point key="canvasLocation" x="5047" y="90"/>
+        </scene>
+        <!--Manage Groups Info View Controller-->
+        <scene sceneID="6wb-yB-XFg">
+            <objects>
+                <viewController storyboardIdentifier="ManageGroupsInfoMain" id="2W7-dL-VZT" customClass="ManageGroupsInfoViewController" customModule="chatby" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="p1l-HU-LD3"/>
+                        <viewControllerLayoutGuide type="bottom" id="8Wv-cL-LBf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rHy-hm-X50">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bx1-yE-RX2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5762" y="90"/>
         </scene>
         <!--Add Group View Controller-->
         <scene sceneID="rd4-tR-TKS">

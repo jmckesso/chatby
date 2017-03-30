@@ -176,8 +176,20 @@ class GroupInfoViewController: JSQMessagesViewController {
         confirmBtn.layer.borderWidth = 1;
         confirmBtn.layer.backgroundColor = UIColor.white.cgColor;
         
+        let settingsBtn = UIBarButtonItem(barButtonSystemItem: .edit,
+                                          target: self,
+                                          action: #selector(toManageGroupInfo(_:)));
+        self.navigationItem.rightBarButtonItem = settingsBtn;
+        
         self.view.addSubview(confirmBtn);
         self.view.addSubview(label);
+        
+    }
+    
+    func toManageGroupInfo(_ sender:UIBarButtonItem) {
+        let strybrd = UIStoryboard(name: "Login", bundle: nil);
+        let controller = strybrd.instantiateViewController(withIdentifier: "ManageGroupsInfoMain");
+        self.navigationController?.pushViewController(controller, animated: true);
     }
 
     // Chat stuff all down here
