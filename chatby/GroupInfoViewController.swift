@@ -49,7 +49,7 @@ class GroupInfoViewController: JSQMessagesViewController {
             case .failure:
                 print("ah naw")
             }
-
+            
         }
         
         drawUI();
@@ -191,6 +191,93 @@ class GroupInfoViewController: JSQMessagesViewController {
     }
 
     func sendMesage(text: String!, senderID: String!, senderName: String!) {
+        // Do this
+    }
+    
+    func recievedMessagePressed(sender: UIBarButtonItem) {
+        showTypingIndicator = true;
+        scrollToBottom(animated: true);
+        finishReceivingMessage(animated: true);
+    }
+    
+    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
+        JSQSystemSoundPlayer.jsq_playMessageSentSound();
+        
+        //sendMessage();
+        finishSendingMessage(animated: true);
+    }
+    
+    override func didPressAccessoryButton(_ sender: UIButton!) {
+        print("Pressed accessory button");
         
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell;
+        let message = messages[indexPath.item];
+        
+        if message.senderId == senderId {
+            cell.textView!.textColor = UIColor.black
+            cell.textView!.layer.borderColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [0.0, CGFloat(122.0/255.0), 1.0, 1.0]);
+        } else {
+            cell.textView!.textColor = UIColor.black
+            cell.textView!.layer.borderColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [CGFloat(91.0/255.0), CGFloat(194.0/255.0), CGFloat(54.0/255.0), 1.0]);
+        }
+        cell.textView!.layer.borderWidth = 1.5;
+        cell.textView!.layer.cornerRadius = 15;
+        cell.textView!.layer.masksToBounds = true;
+        cell.textView!.layer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [1.0, 1.0, 1.0, 1.0]);
+        
+        return cell;
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
+        let message = messages[indexPath.item];
+        
+        // I sent the message
+        if message.senderId == senderId {
+            return nil;
+        }
+        // Same as previous sender, skip the label
+        if indexPath.item > 0 {
+            let previousMessage = messages[indexPath.item - 1];
+            if previousMessage.senderId == message.senderId {
+                return nil;
+            }
+        }
+        return NSAttributedString(string:message.senderDisplayName);
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellTopLabelAt indexPath: IndexPath!) -> CGFloat {
+        let message = messages[indexPath.item]
+        
+        // I sent the message
+        if message.senderId == senderId {
+            return CGFloat(0.0);
+        }
+        
+        // Same as previous sender, skip
+        if indexPath.item > 0 {
+            let previousMessage = messages[indexPath.item - 1];
+            if previousMessage.senderId == message.senderId {
+                return CGFloat(0.0);
+            }
+        }
+        
+        return kJSQMessagesCollectionViewCellLabelHeightDefault
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
