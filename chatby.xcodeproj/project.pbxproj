@@ -18,6 +18,8 @@
 		2348AE2C1E529E160096EDDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2348AE2B1E529E160096EDDE /* Assets.xcassets */; };
 		2348AE2F1E529E160096EDDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2348AE2D1E529E160096EDDE /* LaunchScreen.storyboard */; };
 		2348AE3A1E529E170096EDDE /* chatbyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2348AE391E529E170096EDDE /* chatbyTests.swift */; };
+		23A6ADBC1E8CAA480088D4CC /* Pods_chatby.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5583840A3DAA6F35F6E669C3 /* Pods_chatby.framework */; };
+		23A6ADBD1E8CAA480088D4CC /* Pods_chatby.framework in Embed Frameworks (2 items) */ = {isa = PBXBuildFile; fileRef = 5583840A3DAA6F35F6E669C3 /* Pods_chatby.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		23ADD1EE1E5D1ADE00C81665 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23ADD1EC1E5D19EA00C81665 /* Alamofire.framework */; };
 		23ADD1EF1E5D1ADE00C81665 /* Alamofire.framework in Embed Frameworks (2 items) */ = {isa = PBXBuildFile; fileRef = 23ADD1EC1E5D19EA00C81665 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		23ADD1F21E5DF00900C81665 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23ADD1F11E5DF00900C81665 /* SwiftyJSON.framework */; };
@@ -57,6 +59,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				233462561E5FE1B40014BF0A /* KeychainSwift.framework in Embed Frameworks (2 items) */,
+				23A6ADBD1E8CAA480088D4CC /* Pods_chatby.framework in Embed Frameworks (2 items) */,
 				23ADD1F31E5DF02600C81665 /* SwiftyJSON.framework in Embed Frameworks (2 items) */,
 				23ADD1EF1E5D1ADE00C81665 /* Alamofire.framework in Embed Frameworks (2 items) */,
 			);
@@ -108,6 +111,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				233462581E6092500014BF0A /* CoreLocation.framework in Frameworks */,
+				23A6ADBC1E8CAA480088D4CC /* Pods_chatby.framework in Frameworks */,
 				233462551E5FE1B40014BF0A /* KeychainSwift.framework in Frameworks */,
 				233462541E5FE1A60014BF0A /* KeychainSwift.framework in Frameworks */,
 				23ADD1F21E5DF00900C81665 /* SwiftyJSON.framework in Frameworks */,
@@ -288,7 +292,6 @@
 				TargetAttributes = {
 					2348AE201E529E160096EDDE = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 44L47DE54H;
 						ProvisioningStyle = Automatic;
 					};
 					2348AE341E529E170096EDDE = {
@@ -599,7 +602,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 44L47DE54H;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -618,7 +621,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = 44L47DE54H;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
