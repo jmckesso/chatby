@@ -19,6 +19,8 @@ class UserSettingsViewController: UIViewController {
         super.viewDidLoad();
         
         drawUI();
+        
+        self.title = "User Settings";
     }
     
     override func didReceiveMemoryWarning() {
@@ -61,8 +63,14 @@ class UserSettingsViewController: UIViewController {
                                              width: self.view.bounds.width - 10,
                                              height: 65));
         deleteAccBtn.backgroundColor = UIColor.gray;
-        deleteAccBtn.setTitleColor(UIColor.white, for: UIControlState.normal);
-        deleteAccBtn.setTitleColor(UIColor.lightGray, for: UIControlState.highlighted);
+        deleteAccBtn.setTitleColor(UIColor(colorLiteralRed: 14.0/255,
+                                           green: 122.0/255,
+                                           blue: 254.0/255,
+                                           alpha: 1.0), for: UIControlState.normal);
+        deleteAccBtn.setTitleColor(UIColor(colorLiteralRed: 14.0/255,
+                                           green: 122.0/255,
+                                           blue: 254.0/255,
+                                           alpha: 0.5), for: UIControlState.highlighted);
         deleteAccBtn.setTitle("Delete Account", for: .normal);
         deleteAccBtn.addTarget(self, action: #selector(deleteAccount(_:)), for: .touchUpInside);
         
@@ -80,8 +88,36 @@ class UserSettingsViewController: UIViewController {
         deleteAccBtn.layer.borderWidth = 1;
         deleteAccBtn.layer.backgroundColor = UIColor.white.cgColor;
         
+        changeInfoBtn = UIButton(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2) + 5,
+                                              y: self.view.frame.maxY - 275,
+                                              width: self.view.bounds.width - 10,
+                                              height: 65));
+        changeInfoBtn.backgroundColor = UIColor.gray;
+        changeInfoBtn.setTitleColor(UIColor.white, for: UIControlState.normal);
+        changeInfoBtn.setTitleColor(UIColor.lightGray, for: UIControlState.highlighted);
+        changeInfoBtn.setTitle("Change Info", for: .normal);
+        changeInfoBtn.addTarget(self, action: #selector(changeInfoSheet(_:)), for: .touchUpInside);
+        
+        changeInfoBtn.setTitleColor(UIColor(colorLiteralRed: 14.0/255,
+                                            green: 122.0/255,
+                                            blue: 254.0/255,
+                                            alpha: 1.0), for: UIControlState.normal);
+        changeInfoBtn.setTitleColor(UIColor(colorLiteralRed: 14.0/255,
+                                            green: 122.0/255,
+                                            blue: 254.0/255,
+                                            alpha: 0.5), for: UIControlState.highlighted);
+        
+        changeInfoBtn.layer.cornerRadius = 5;
+        changeInfoBtn.layer.borderColor = UIColor(colorLiteralRed: 14.0/255,
+                                                  green: 122.0/255,
+                                                  blue: 254.0/255,
+                                                  alpha: 1.0).cgColor;
+        changeInfoBtn.layer.borderWidth = 1;
+        changeInfoBtn.layer.backgroundColor = UIColor.white.cgColor;
+        
         self.view.addSubview(chngPassBtn);
         self.view.addSubview(deleteAccBtn);
+        self.view.addSubview(changeInfoBtn);
         
     }
     
@@ -134,4 +170,73 @@ class UserSettingsViewController: UIViewController {
         self.present(alert, animated: true, completion: nil);
     }
     
+    func changeInfoSheet(_ sender:UIButton) {
+        let alert = UIAlertController(title: "Change Info", message: nil, preferredStyle: .actionSheet);
+        let changeNameAction = UIAlertAction(title: "Change Name", style: .default, handler: {(alert:UIAlertAction) in
+            self.changeName();
+        })
+        let changeUsername = UIAlertAction(title: "Change Username", style: .default, handler: {(alert:UIAlertAction) in
+            self.changeUsername();
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {(alert:UIAlertAction) -> Void in})
+        
+        alert.addAction(changeNameAction);
+        alert.addAction(changeUsername);
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil);
+    }
+    
+    func changeName() {
+        let changeNameAlert = UIAlertController(title: "Change Name", message: "Input new name here", preferredStyle: .alert);
+        let confirmName = UIAlertAction(title: "Confirm", style: .default, handler: {(alert:UIAlertAction) in
+            // Code to change name here
+            let firstName = changeNameAlert.textFields?[0].text;
+            let lastName = changeNameAlert.textFields?[1].text;
+            
+            
+        })
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: {(alert:UIAlertAction) -> Void in});
+        changeNameAlert.addTextField(configurationHandler: {(textField:UITextField) in
+            textField.placeholder = "First Name";
+        });
+        changeNameAlert.addTextField(configurationHandler: {(textField:UITextField) in
+            textField.placeholder = "Last Name";
+        });
+        changeNameAlert.addAction(confirmName);
+        changeNameAlert.addAction(cancel);
+        
+        self.present(changeNameAlert, animated: true, completion: nil);
+    }
+    
+    func changeUsername() {
+        let changeUsernameAlert = UIAlertController(title: "Change Username", message: "Input new username", preferredStyle: .alert);
+        let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: {(alert:UIAlertAction)  in
+            // Code to change username here
+            let username = changeUsernameAlert.textFields?[0].text;
+            
+            
+        });
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {(alert:UIAlertAction) -> Void in});
+        
+        changeUsernameAlert.addTextField(configurationHandler: {(textField:UITextField) in
+            textField.placeholder = "New Username";
+        })
+        
+        changeUsernameAlert.addAction(confirmAction);
+        changeUsernameAlert.addAction(cancelAction);
+        
+        self.present(changeUsernameAlert, animated: true, completion: nil);
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
