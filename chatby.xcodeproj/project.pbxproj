@@ -26,6 +26,7 @@
 		23ADD1F71E5E108400C81665 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADD1F61E5E108400C81665 /* RegisterViewController.swift */; };
 		3F52E7801E5F6494001649F8 /* GroupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F52E77F1E5F6494001649F8 /* GroupInfoViewController.swift */; };
 		3F9CD79D1E8CA2A800817FFB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9CD79C1E8CA2A800817FFB /* Message.swift */; };
+		3F9CD79F1E8D6DCA00817FFB /* ManageGroupsInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9CD79E1E8D6DC900817FFB /* ManageGroupsInfoViewController.swift */; };
 		3FA78EE11E5EBAB60022F2D8 /* Base.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 3FA78EDE1E5EBAB50022F2D8 /* Base.lproj */; };
 		3FA78EE21E5EBAB60022F2D8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA78EDF1E5EBAB50022F2D8 /* LoginViewController.swift */; };
 		3FA78EE31E5EBAB60022F2D8 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA78EE01E5EBAB50022F2D8 /* SignupViewController.swift */; };
@@ -86,6 +87,7 @@
 		31C08DD795333D510FE36CC0 /* Pods_chatbyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_chatbyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F52E77F1E5F6494001649F8 /* GroupInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupInfoViewController.swift; sourceTree = "<group>"; };
 		3F9CD79C1E8CA2A800817FFB /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		3F9CD79E1E8D6DC900817FFB /* ManageGroupsInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageGroupsInfoViewController.swift; sourceTree = "<group>"; };
 		3FA78EDE1E5EBAB50022F2D8 /* Base.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Base.lproj; sourceTree = "<group>"; };
 		3FA78EDF1E5EBAB50022F2D8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3FA78EE01E5EBAB50022F2D8 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				3FA78EE91E5EC5460022F2D8 /* GroupsViewController.swift */,
 				3FC478F51E8C5C5600315E62 /* ManageGroupsViewController.swift */,
 				3F52E77F1E5F6494001649F8 /* GroupInfoViewController.swift */,
+				3F9CD79E1E8D6DC900817FFB /* ManageGroupsInfoViewController.swift */,
 				3FA92FA61E8AEF02001511FA /* TabMenuViewController.swift */,
 				3FA78EEB1E5ED7E50022F2D8 /* AddGroupViewController.swift */,
 			);
@@ -451,6 +454,7 @@
 				23ADD1F71E5E108400C81665 /* RegisterViewController.swift in Sources */,
 				3F52E7801E5F6494001649F8 /* GroupInfoViewController.swift in Sources */,
 				3F9CD79D1E8CA2A800817FFB /* Message.swift in Sources */,
+				3F9CD79F1E8D6DCA00817FFB /* ManageGroupsInfoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
