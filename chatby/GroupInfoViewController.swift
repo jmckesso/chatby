@@ -24,14 +24,34 @@ class GroupInfoViewController: JSQMessagesViewController {
     let incoming = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImage(with: UIColor.blue);
     let outgoing = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with: UIColor.white);
 
+    let auth_page = "http://chatby.vohras.tk/api/auth/";
+    let message_list = "http://chatby.vohras.tk/api/messages/";
+    let membership_list = "http://chatby.vohras.tk/api/memberships/";
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        let defauls = UserDefaults.standard;
+        let defaults = UserDefaults.standard;
 
         self.senderId = "null";
-        self.senderDisplayName = "null"
+        self.senderDisplayName = "null";
+        
+        Alamofire.request(message_list).responseJSON { response in
+            print(response.request!)  // original URL request
+            print(response.response!) // HTTP URL response
+            print(response.data!)     // server data
+            print(response.result)   // result of response serialization
+            
+            switch response.result {
+            case .success:
+                print("Super dia");
+                
+            case .failure:
+                print("ah naw")
+            }
 
+        }
+        
         drawUI();
 
         automaticallyScrollsToMostRecentMessage = true;
@@ -170,4 +190,7 @@ class GroupInfoViewController: JSQMessagesViewController {
         return messages.count;
     }
 
+    func sendMesage(text: String!, senderID: String!, senderName: String!) {
+        
+    }
 }
