@@ -1,0 +1,6 @@
+framework module Pods_chatby {
+  umbrella header "Pods-chatby-umbrella.h"
+
+  export *
+  module * { export * }
+}
