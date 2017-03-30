@@ -49,8 +49,13 @@ class UserInfoViewController: UIViewController {
                                                     (alert:UIAlertAction) in
                                                     
                                                     //code to logout
-                                                    keychain.delete("auth")
-                                                    print("keychain should be deleted")
+                                                    keychain.delete("auth");
+                                                    print("keychain should be deleted");
+                                                    let logboard = UIStoryboard(name: "Login", bundle: nil);
+                                                    let logcontr = logboard.instantiateViewController(withIdentifier: "LoginMain");
+                                                    let style = UIModalTransitionStyle.coverVertical;
+                                                    logcontr.modalTransitionStyle = style;
+                                                    self.present(logcontr, animated: true, completion: nil);
                                                     
                                                     
         });
