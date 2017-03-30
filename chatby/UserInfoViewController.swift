@@ -8,8 +8,10 @@
 
 import Foundation
 import UIKit
+import KeychainSwift
 
 class UserInfoViewController: UIViewController {
+    
     var rows = [[String]]();
     
     
@@ -45,7 +47,12 @@ class UserInfoViewController: UIViewController {
                                                    style: .default,
                                                    handler: {
                                                     (alert:UIAlertAction) in
-                                                    // Code to logout here
+                                                    
+                                                    //code to logout
+                                                    keychain.delete("auth")
+                                                    print("keychain should be deleted")
+                                                    
+                                                    
         });
         let logoutCANCEL:UIAlertAction = UIAlertAction(title: "No",
                                                        style: .cancel,
