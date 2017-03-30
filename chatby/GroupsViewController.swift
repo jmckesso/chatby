@@ -95,6 +95,7 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewWillAppear(_ animated: Bool) {
         //self.navigationController?.setToolbarHidden(false, animated: true);
+        self.tabBarController?.tabBar.isHidden = false;
     }
     
     // Table shit

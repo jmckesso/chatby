@@ -11,24 +11,50 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import KeychainSwift
+import JSQMessagesViewController
 
-class GroupInfoViewController: UIViewController {
+class GroupInfoViewController: JSQMessagesViewController {
     
     var groupName: String!;
     var group_path: String!;
     var auth_token: JSON!
     var confirmBtn:UIButton!;
     
+    var messages = [JSQMessage]();
+    let incoming = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImage(with: UIColor.blue);
+    let outgoing = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with: UIColor.white);
+
     override func viewDidLoad() {
         super.viewDidLoad();
         
+        let defauls = UserDefaults.standard;
+
+        self.senderId = "null";
+        self.senderDisplayName = "null"
+
         drawUI();
+
+        automaticallyScrollsToMostRecentMessage = true;
+        self.inputToolbar.delegate = nil;
+
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(GroupInfoViewController.DismissKeyboard));
+        view.addGestureRecognizer(tap);
+    }
+
+    func DismissKeyboard(){
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true);
+        self.resignFirstResponder();
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning();
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true);
+        self.tabBarController?.tabBar.isHidden = true;
+    }
     
     func joingroup(_ sender: UIBarButtonItem) {
         // JACOB HELLO!
@@ -110,7 +136,7 @@ class GroupInfoViewController: UIViewController {
         confirmBtn.backgroundColor = UIColor.gray;
         confirmBtn.setTitleColor(UIColor.white, for: UIControlState.normal);
         confirmBtn.setTitleColor(UIColor.lightGray, for: UIControlState.highlighted);
-        confirmBtn.setTitle("Join group", for: .normal);
+        confirmBtn.setTitle("Join Group", for: .normal);
         confirmBtn.addTarget(self, action: #selector(joingroup(_:)), for: .touchUpInside);
         
         confirmBtn.setTitleColor(UIColor(colorLiteralRed: 14.0/255,
@@ -133,4 +159,15 @@ class GroupInfoViewController: UIViewController {
         self.view.addSubview(confirmBtn);
         self.view.addSubview(label);
     }
+
+    // Chat stuff all down here
+
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
+        return messages[indexPath.item];
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return messages.count;
+    }
+
 }
