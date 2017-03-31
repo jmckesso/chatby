@@ -8,6 +8,9 @@
 
 import Foundation
 import UIKit
+import KeychainSwift
+import Alamofire
+import SwiftyJSON
 
 class UserSettingsViewController: UIViewController {
     
@@ -122,6 +125,32 @@ class UserSettingsViewController: UIViewController {
     }
     
     func changePass(_ sender:UIButton) {
+        
+        print(" ")
+        print(" --- Changing Password --- ")
+        print(" ")
+        
+        let auth_string = "Token " + keychain.get("auth")!
+        
+        let header = [
+            "Authorization" : auth_string
+        ]
+        
+        
+        Alamofire.request("http://chatby.vohras.tk/api/users/current/", encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
+         response in
+         print(response.request!)  // original URL request
+         print(response.response!) // HTTP URL response
+         print(response.data!)     // server data
+         print(response.result)
+         
+         let user_info = JSON(response.result.value!)
+         print(user_info)
+         
+         })
+        
+        
+        
         let alert = UIAlertController(title: "Change Password", message: "Change Your Password", preferredStyle: .alert);
         let confirmAction = UIAlertAction(title: "Confirm",
                                           style: .default,
@@ -130,6 +159,15 @@ class UserSettingsViewController: UIViewController {
                                             let oldPass = alert.textFields?[0].text;
                                             let newPass = alert.textFields?[1].text;
                                             let confirmNewPass = alert.textFields?[2].text;
+                                            
+                                            if ( newPass == confirmNewPass ) {
+                                                if ( newPass == oldPass ) {
+                                                    print("passwords must be different")
+                                                }
+                                                else {
+                                                    
+                                                }
+                                            }
                                             
                                             
         })
@@ -187,11 +225,37 @@ class UserSettingsViewController: UIViewController {
     }
     
     func changeName() {
+        
+        print(" ")
+        print(" --- Changing Name --- ")
+        print(" ")
+
+        
         let changeNameAlert = UIAlertController(title: "Change Name", message: "Input new name here", preferredStyle: .alert);
         let confirmName = UIAlertAction(title: "Confirm", style: .default, handler: {(alert:UIAlertAction) in
             // Code to change name here
             let firstName = changeNameAlert.textFields?[0].text;
             let lastName = changeNameAlert.textFields?[1].text;
+            
+            let auth_string = "Token " + keychain.get("auth")!
+            
+            let header = [
+                "Authorization" : auth_string
+            ]
+            
+            let name_parameters : Parameters = [
+                "first_name":firstName!,
+                "last_name":lastName!
+            ]
+            
+            Alamofire.request("http://chatby.vohras.tk/api/users/current/", method: .patch, parameters: name_parameters, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
+                response in
+                print(response.request!)  // original URL request
+                print(response.response!) // HTTP URL response
+                print(response.data!)     // server data
+                print(response.result)
+            })
+
             
             
         })

@@ -99,7 +99,7 @@ class GroupInfoViewController: JSQMessagesViewController {
         ]
 
         
-        /* Alamofire.request("http://chatby.vohras.tk/api/users/current/", encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
+        /*Alamofire.request("http://chatby.vohras.tk/api/users/current/", encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
             response in
             print(response.request!)  // original URL request
             print(response.response!) // HTTP URL response
@@ -109,7 +109,7 @@ class GroupInfoViewController: JSQMessagesViewController {
             let user_info = JSON(response.result.value!)
             print(user_info)
             
-        }) */
+        })*/
 
         Alamofire.request("http://chatby.vohras.tk/api/memberships/", method: .post, parameters: room_parameters, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
             response in
