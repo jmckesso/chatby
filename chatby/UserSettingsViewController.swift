@@ -278,6 +278,26 @@ class UserSettingsViewController: UIViewController {
             // Code to change username here
             let username = changeUsernameAlert.textFields?[0].text;
             
+            let auth_string = "Token " + keychain.get("auth")!
+            
+            let header = [
+                "Authorization" : auth_string
+            ]
+            
+            let name_parameters : Parameters = [
+                "username":username!,
+            ]
+            
+            Alamofire.request("http://chatby.vohras.tk/api/users/current/", method: .patch, parameters: name_parameters, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
+                response in
+                print(response.request!)  // original URL request
+                print(response.response!) // HTTP URL response
+                print(response.data!)     // server data
+                print(response.result)
+            })
+            
+            
+            
             
         });
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {(alert:UIAlertAction) -> Void in});
