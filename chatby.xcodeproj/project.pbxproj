@@ -18,7 +18,6 @@
 		2348AE2C1E529E160096EDDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2348AE2B1E529E160096EDDE /* Assets.xcassets */; };
 		2348AE2F1E529E160096EDDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2348AE2D1E529E160096EDDE /* LaunchScreen.storyboard */; };
 		2348AE3A1E529E170096EDDE /* chatbyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2348AE391E529E170096EDDE /* chatbyTests.swift */; };
-		23A6ADBC1E8CAA480088D4CC /* Pods_chatby.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5583840A3DAA6F35F6E669C3 /* Pods_chatby.framework */; };
 		23A6ADBD1E8CAA480088D4CC /* Pods_chatby.framework in Embed Frameworks (2 items) */ = {isa = PBXBuildFile; fileRef = 5583840A3DAA6F35F6E669C3 /* Pods_chatby.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		23ADD1EE1E5D1ADE00C81665 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23ADD1EC1E5D19EA00C81665 /* Alamofire.framework */; };
 		23ADD1EF1E5D1ADE00C81665 /* Alamofire.framework in Embed Frameworks (2 items) */ = {isa = PBXBuildFile; fileRef = 23ADD1EC1E5D19EA00C81665 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -39,7 +38,7 @@
 		3FA92FA91E8AF7E8001511FA /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA92FA81E8AF7E8001511FA /* UserInfoViewController.swift */; };
 		3FA92FAB1E8C54D5001511FA /* UserSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA92FAA1E8C54D4001511FA /* UserSettingsViewController.swift */; };
 		3FC478F61E8C5C5600315E62 /* ManageGroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC478F51E8C5C5600315E62 /* ManageGroupsViewController.swift */; };
-		879CF2BCB33A885136ACC37B /* Pods_chatby.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5583840A3DAA6F35F6E669C3 /* Pods_chatby.framework */; };
+		C5B05F620ADB9000E431F2D9 /* Pods_chatby.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5583840A3DAA6F35F6E669C3 /* Pods_chatby.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,12 +112,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				233462581E6092500014BF0A /* CoreLocation.framework in Frameworks */,
-				23A6ADBC1E8CAA480088D4CC /* Pods_chatby.framework in Frameworks */,
 				233462551E5FE1B40014BF0A /* KeychainSwift.framework in Frameworks */,
 				233462541E5FE1A60014BF0A /* KeychainSwift.framework in Frameworks */,
 				23ADD1F21E5DF00900C81665 /* SwiftyJSON.framework in Frameworks */,
 				23ADD1EE1E5D1ADE00C81665 /* Alamofire.framework in Frameworks */,
-				879CF2BCB33A885136ACC37B /* Pods_chatby.framework in Frameworks */,
+				C5B05F620ADB9000E431F2D9 /* Pods_chatby.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

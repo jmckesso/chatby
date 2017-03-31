@@ -21,26 +21,144 @@ class GroupInfoViewController: JSQMessagesViewController {
     var confirmBtn:UIButton!;
     
     var messages = [JSQMessage]();
-    let incoming = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImage(with: UIColor.blue);
-    let outgoing = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with: UIColor.white);
+    //let incoming = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImage(with: UIColor.blue);
+    //let outgoing = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with: UIColor.white);
 
     let auth_page = "http://chatby.vohras.tk/api/auth/";
     let message_list = "http://chatby.vohras.tk/api/messages/";
     let membership_list = "http://chatby.vohras.tk/api/memberships/";
     
+    func setName(content: String, room: String, id: String) {
+        print("--- Setting Name --- ")
+        
+        Alamofire.request("http://chatby.vohras.tk/api/users/").validate().responseJSON(completionHandler: { response in
+            let users = JSON(response.result.value!)
+            print("users \n")
+            //print(users)
+            
+            
+            var j = 0
+            while (j < users.count) {
+                print("print comparing id to stringVal")
+                print(id + " : " + users[j]["url"].stringValue)
+                if (id == users[j]["url"].stringValue) {
+                    let name = users[j]["username"].stringValue
+                    print("appending message")
+                    self.messages.append(JSQMessage(senderId: id, displayName: name, text: content))
+                }
+                j = j + 1
+            }
+            self.collectionView.reloadData()
+            
+        })
+    }
+    
+    func gettingMessageData() {
+        print("\n --- Getting Message List --- \n")
+        
+
+        Alamofire.request(message_list).validate().responseJSON(completionHandler: { response in
+            
+            switch response.result {
+            case .success:
+                print("super success")
+                let output = JSON(response.result.value!)
+                print(output)
+                let message = JSON(response.result.value!)
+                
+                var i = 0;
+                while (i < message.count) {
+                    let t = message[i]["content"].stringValue
+                    let room = message[i]["room"].stringValue
+                    let id = message[i]["created_by"].stringValue
+                    if (room == self.group_path) {
+                        self.setName(content: t, room: room, id: id)
+                    }
+                    i = i + 1
+                }
+                
+                
+                /*Alamofire.request("http://chatby.vohras.tk/api/users/").validate().responseJSON(completionHandler: { response in
+                    let users = JSON(response.result.value!)
+                    
+                    var j = 0
+                    while (j < users.count) {
+                        if (id == users[j]["url"].stringValue) {
+                            name = users[j]["username"].stringValue
+                        }
+                        j = j + 1
+                    }
+                    
+                    self.collectionView.reloadData()
+                    
+                })
+                
+                var i = 0
+                while (i < message.count) {
+                    if (room == self.group_path) {
+                        self.messages.append(JSQMessage(senderId: id, displayName: name, text: t))
+                        self.collectionView.reloadData()
+                    }
+                    i = i + 1
+                }
+                
+                self.collectionView.reloadData()*/
+                
+                
+            case .failure:
+                print("mega fail")
+            }
+            
+        })
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        let defaults = UserDefaults.standard;
+        self.senderId = "temp"
+        self.senderDisplayName = "temp"
+        
+        let auth_string = "Token " + keychain.get("auth")!
+        
+        let header = [
+            "Authorization" : auth_string
+        ]
+        
+        print("\n --- Getting Current User --- \n")
+        print("senderId: " + self.senderId)
+        print("senderDisplayName: " + self.senderDisplayName)
+        
+        Alamofire.request("http://chatby.vohras.tk/api/users/current/", method: .get, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
+            response in
+            switch response.result {
+            case .success:
+                let user_data = JSON(response.result.value!)
+                self.senderId = user_data["url"].stringValue
+                self.senderDisplayName = user_data["username"].stringValue
+                
+                self.gettingMessageData()
+                
+                print("request done")
+            case .failure:
+                print("ah naw")
+            }
+            
+        })
+        
+        //self.senderId = "1"
+        //self.senderDisplayName = "Jake"
+        
+        /*print("--- Group Info ---")
+        print(group_path)
 
         self.senderId = "null";
         self.senderDisplayName = "null";
         
         Alamofire.request(message_list).responseJSON { response in
-            print(response.request!)  // original URL request
-            print(response.response!) // HTTP URL response
-            print(response.data!)     // server data
-            print(response.result)   // result of response serialization
+            //print(response.request!)  // original URL request
+            //print(response.response!) // HTTP URL response
+            //print(response.data!)     // server data
+            //print(response.result)   // result of response serialization
             
             switch response.result {
             case .success:
@@ -58,7 +176,7 @@ class GroupInfoViewController: JSQMessagesViewController {
         self.inputToolbar.delegate = nil;
 
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(GroupInfoViewController.DismissKeyboard));
-        view.addGestureRecognizer(tap);
+        view.addGestureRecognizer(tap);*/
     }
 
     func DismissKeyboard(){
@@ -76,19 +194,9 @@ class GroupInfoViewController: JSQMessagesViewController {
         self.tabBarController?.tabBar.isHidden = true;
     }
     
-    func joingroup(_ sender: UIBarButtonItem) {
-        // JACOB HELLO!
-        
-        print(group_path)
-        
-        print("here2")
-        print(keychain.get("auth")!)
-        
+    /*func joingroup(_ sender: UIBarButtonItem) {
         let auth_string = "Token " + keychain.get("auth")!
-        print("auth string")
-        print(auth_string)
-        print(group_path)
-        
+
         let header = [
             "Authorization" : auth_string
         ]
@@ -97,19 +205,6 @@ class GroupInfoViewController: JSQMessagesViewController {
             "muted":false,
             "room":group_path
         ]
-
-        
-        /*Alamofire.request("http://chatby.vohras.tk/api/users/current/", encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
-            response in
-            print(response.request!)  // original URL request
-            print(response.response!) // HTTP URL response
-            print(response.data!)     // server data
-            print(response.result)
-            
-            let user_info = JSON(response.result.value!)
-            print(user_info)
-            
-        })*/
 
         Alamofire.request("http://chatby.vohras.tk/api/memberships/", method: .post, parameters: room_parameters, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
             response in
@@ -188,13 +283,16 @@ class GroupInfoViewController: JSQMessagesViewController {
     
     func toManageGroupInfo(_ sender:UIBarButtonItem) {
         let strybrd = UIStoryboard(name: "Login", bundle: nil);
-        let controller = strybrd.instantiateViewController(withIdentifier: "ManageGroupsInfoMain");
-        self.navigationController?.pushViewController(controller, animated: true);
-    }
+        //let controller = strybrd.instantiateViewController(withIdentifier: "ManageGroupsInfoMain");
+        let infocontr = strybrd.instantiateViewController(withIdentifier: "ManageGroupsInfoMain") as! ManageGroupsInfoViewController;
+        infocontr.group_path = group_path
+        //controller.group_url = group_path;
+        self.navigationController?.pushViewController(infocontr, animated: true);
+    }*/
 
     // Chat stuff all down here
 
-    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
+    /*override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
         return messages[indexPath.item];
     }
 
@@ -202,8 +300,29 @@ class GroupInfoViewController: JSQMessagesViewController {
         return messages.count;
     }
 
-    func sendMesage(text: String!, senderID: String!, senderName: String!) {
+    func sendMessage() {
         // Do this
+        let auth_string = "Token " + keychain.get("auth")!
+        
+        let header = [
+            "Authorization" : auth_string
+        ]
+        
+        let mess_param : Parameters = [
+            "anonymous": "false",
+            "content": "hi",
+            "room": group_path,
+        ]
+        
+        print("sending message")
+        Alamofire.request("http://chatby.vohras.tk/api/messages", method: .post, parameters: mess_param, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
+            response in
+            print(response.request!)  // original URL request
+            print(response.response!) // HTTP URL response
+            print(response.data!)     // server data
+            print(response.result)
+            
+        })
     }
     
     func recievedMessagePressed(sender: UIBarButtonItem) {
@@ -214,8 +333,8 @@ class GroupInfoViewController: JSQMessagesViewController {
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         JSQSystemSoundPlayer.jsq_playMessageSentSound();
-        
-        //sendMessage();
+        print("did press send")
+        sendMessage();
         finishSendingMessage(animated: true);
     }
     
@@ -277,6 +396,59 @@ class GroupInfoViewController: JSQMessagesViewController {
         }
         
         return kJSQMessagesCollectionViewCellLabelHeightDefault
+    }*/
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
+        let bubbleFactory = JSQMessagesBubbleImageFactory()
+        let message = messages[indexPath.item]
+        return bubbleFactory?.outgoingMessagesBubbleImage(with: UIColor.blue)
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
+        return JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "ph"), diameter: 30)
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
+        return messages[indexPath.item]
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return messages.count;
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell
+        return cell
+    }
+    
+    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
+        
+        let auth_string = "Token " + keychain.get("auth")!
+        
+        let header = [
+            "Authorization" : auth_string
+        ]
+        
+        let mess_param : Parameters = [
+            "anonymous": "false",
+            "content": text,
+            "room": group_path,
+            ]
+        
+        print("sending message")
+        Alamofire.request("http://chatby.vohras.tk/api/messages/", method: .post, parameters: mess_param, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
+            response in
+            print(response.request!)  // original URL request
+            print(response.response!) // HTTP URL response
+            print(response.data!)     // server data
+            print(response.result)
+            
+        })
+        
+        messages.append(JSQMessage(senderId: senderId, displayName: senderDisplayName, text: text))
+        collectionView.reloadData()
+        
+        finishSendingMessage()
     }
     
 }

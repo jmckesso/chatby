@@ -130,26 +130,6 @@ class UserSettingsViewController: UIViewController {
         print(" --- Changing Password --- ")
         print(" ")
         
-        let auth_string = "Token " + keychain.get("auth")!
-        
-        let header = [
-            "Authorization" : auth_string
-        ]
-        
-        
-        Alamofire.request("http://chatby.vohras.tk/api/users/current/", encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
-         response in
-         print(response.request!)  // original URL request
-         print(response.response!) // HTTP URL response
-         print(response.data!)     // server data
-         print(response.result)
-         
-         let user_info = JSON(response.result.value!)
-         print(user_info)
-         
-         })
-        
-        
         
         let alert = UIAlertController(title: "Change Password", message: "Change Your Password", preferredStyle: .alert);
         let confirmAction = UIAlertAction(title: "Confirm",
@@ -165,7 +145,23 @@ class UserSettingsViewController: UIViewController {
                                                     print("passwords must be different")
                                                 }
                                                 else {
+                                                    let auth_string = "Token " + keychain.get("auth")!
                                                     
+                                                    let header = [
+                                                        "Authorization" : auth_string
+                                                    ]
+                                                    
+                                                    let pass_parameters : Parameters = [
+                                                        "password":newPass!,
+                                                    ]
+                                                    
+                                                    Alamofire.request("http://chatby.vohras.tk/api/users/current/", method: .patch, parameters: pass_parameters, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
+                                                        response in
+                                                        print(response.request!)  // original URL request
+                                                        print(response.response!) // HTTP URL response
+                                                        print(response.data!)     // server data
+                                                        print(response.result)
+                                                    })
                                                 }
                                             }
                                             

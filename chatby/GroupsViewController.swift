@@ -38,17 +38,10 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var group_url = "http://chatby.vohras.tk/api/rooms/"
     
-    // Jacob, put the data in the data array, replace the instances of testData with data, ???, profit
-    
-    
     var data = [[String]]();
-    let testData = ["Cat", "Dog", "Austin's Fursona"];
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        
-        print("here")
-        print(keychain.get("auth"))
         
         Alamofire.request(group_url).validate().responseJSON(completionHandler: { response in
             print(response.request!)  // original URL request

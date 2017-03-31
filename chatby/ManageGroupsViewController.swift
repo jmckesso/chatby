@@ -16,6 +16,8 @@ class ManageGroupsViewController: UIViewController, UITableViewDelegate, UITable
     var data = [String]();
     var table = UITableView();
     
+    var group_path:String!
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         
@@ -87,10 +89,8 @@ class ManageGroupsViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, didSelectRowAt: IndexPath) {
         let infostory = UIStoryboard(name: "Login", bundle: nil);
         let infocontr = infostory.instantiateViewController(withIdentifier: "GroupInfoMain") as! GroupInfoViewController;
-        //let g_path = self.data[didSelectRowAt.row][1]
         let g_name = self.data[didSelectRowAt.row]
-        //infocontr.group_path = g_path;
-        infocontr.groupName = g_name
+        infocontr.group_path = group_path;
         self.navigationController?.pushViewController(infocontr, animated: true);
     }
     
