@@ -199,6 +199,22 @@ class UserSettingsViewController: UIViewController {
         let alert = UIAlertController(title: "Delete Your Account?", message: nil, preferredStyle: .alert);
         let confirmAct = UIAlertAction(title: "Yes", style: .destructive, handler: {(alert:UIAlertAction) in
             // Delete your account - Hillary Clinton
+            
+            let auth_string = "Token " + keychain.get("auth")!
+            
+            let header = [
+                "Authorization" : auth_string
+            ]
+            
+            Alamofire.request("http://chatby.vohras.tk/api/users/current/", method: .delete, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
+                response in
+                print(response.request!)  // original URL request
+                print(response.response!) // HTTP URL response
+                print(response.data!)     // server data
+                print(response.result)
+            })
+            
+            
         });
         let cancelAct = UIAlertAction(title: "No", style: .cancel, handler: {(alert:UIAlertAction) -> Void in});
         
@@ -225,11 +241,6 @@ class UserSettingsViewController: UIViewController {
     }
     
     func changeName() {
-        
-        print(" ")
-        print(" --- Changing Name --- ")
-        print(" ")
-
         
         let changeNameAlert = UIAlertController(title: "Change Name", message: "Input new name here", preferredStyle: .alert);
         let confirmName = UIAlertAction(title: "Confirm", style: .default, handler: {(alert:UIAlertAction) in
@@ -295,9 +306,6 @@ class UserSettingsViewController: UIViewController {
                 print(response.data!)     // server data
                 print(response.result)
             })
-            
-            
-            
             
         });
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {(alert:UIAlertAction) -> Void in});
