@@ -43,6 +43,7 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad();
         
+ 
         Alamofire.request(group_url).validate().responseJSON(completionHandler: { response in
             print(response.request!)  // original URL request
             print(response.response!) // HTTP URL response

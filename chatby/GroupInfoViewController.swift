@@ -78,6 +78,7 @@ class GroupInfoViewController: JSQMessagesViewController {
                 }
                 
                 
+    
                 /*Alamofire.request("http://chatby.vohras.tk/api/users/").validate().responseJSON(completionHandler: { response in
                     let users = JSON(response.result.value!)
                     
@@ -168,11 +169,11 @@ class GroupInfoViewController: JSQMessagesViewController {
                 print("ah naw")
             }
             
-        }
+        }*/
         
         drawUI();
 
-        automaticallyScrollsToMostRecentMessage = true;
+        /*automaticallyScrollsToMostRecentMessage = true;
         self.inputToolbar.delegate = nil;
 
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(GroupInfoViewController.DismissKeyboard));
@@ -229,10 +230,10 @@ class GroupInfoViewController: JSQMessagesViewController {
         
     }
     
-    // UI Shit down here
+    // UI Shit down here*/
     
     func drawUI() {
-        self.title = groupName;
+        /*self.title = groupName;
         let inpWid:CGFloat = self.view.bounds.width;
         
         let label: UILabel = UILabel(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2) + 20,
@@ -269,15 +270,15 @@ class GroupInfoViewController: JSQMessagesViewController {
                                                blue: 254.0/255,
                                                alpha: 1.0).cgColor;
         confirmBtn.layer.borderWidth = 1;
-        confirmBtn.layer.backgroundColor = UIColor.white.cgColor;
+        confirmBtn.layer.backgroundColor = UIColor.white.cgColor;*/
         
         let settingsBtn = UIBarButtonItem(barButtonSystemItem: .edit,
                                           target: self,
                                           action: #selector(toManageGroupInfo(_:)));
         self.navigationItem.rightBarButtonItem = settingsBtn;
         
-        self.view.addSubview(confirmBtn);
-        self.view.addSubview(label);
+        /*self.view.addSubview(confirmBtn);
+        self.view.addSubview(label);*/
         
     }
     
@@ -288,7 +289,7 @@ class GroupInfoViewController: JSQMessagesViewController {
         infocontr.group_path = group_path
         //controller.group_url = group_path;
         self.navigationController?.pushViewController(infocontr, animated: true);
-    }*/
+    }
 
     // Chat stuff all down here
 
