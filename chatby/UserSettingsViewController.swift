@@ -19,10 +19,6 @@ import SwiftyJSON
 
 class UserSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    /*var chngPassBtn:UIButton!;
-    var deleteAccBtn:UIButton!;
-    var changeInfoBtn:UIButton!;*/
-    
     var table_view: UITableView!
     var image_view: UIImageView!
     var profile_table_data: [[String]] = [["Email", ""],["Username", ""],["Fullname",""]]
@@ -35,22 +31,12 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
             "Authorization" : auth_string
         ]
         
-        print("alamo request")
-        
         Alamofire.request("http://chatby.vohras.tk/api/users/current/", method: .get, headers: header).validate().responseJSON(completionHandler:  { response in
-            //print(response.request!)  // original URL request
-            //print(response.response!) // HTTP URL response
-            //print(response.data!)     // server data
-            //print(response.result)
             
             let json = JSON(response.result.value!)
             let email = json["email"].stringValue
             let username = json["username"].stringValue
             let full_name = json["first_name"].stringValue + " " + json["last_name"].stringValue
-            
-            print(email)
-            print(username)
-            print(full_name)
             
             self.profile_table_data[0][1] = email
             self.profile_table_data[1][1] = username
@@ -80,8 +66,6 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
         
         super.viewDidLoad();
         
-        //drawUI();
-        
         self.title = "Profile";
     }
     
@@ -97,8 +81,6 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
         
             cell.cell_type.text = self.profile_table_data[indexPath.row][0]
             cell.cell_info.text = self.profile_table_data[indexPath.row][1]
-            
-            print("populating table")
             
             cell.selectionStyle = UITableViewCellSelectionStyle.none
         
@@ -127,123 +109,26 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
         if indexPath.row == 3 {
             //change password
             print("chaning password")
+            changePass()
             
         }
         else if indexPath.row == 4 {
             //logout
             print("logging out")
+            logout()
         }
         else if indexPath.row == 5 {
             //delete account
             print("deleting account")
+            deleteAccount()
+            
             
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-
-    
-    /*func drawUI() {
-        let inpWid:CGFloat = self.view.bounds.width;
-
-        chngPassBtn = UIButton(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2) + 5,
-                                            y: self.view.frame.maxY - 200,
-                                            width: self.view.bounds.width - 10,
-                                            height: 65));
-        chngPassBtn.backgroundColor = UIColor.gray;
-        chngPassBtn.setTitleColor(UIColor.white, for: UIControlState.normal);
-        chngPassBtn.setTitleColor(UIColor.lightGray, for: UIControlState.highlighted);
-        chngPassBtn.setTitle("Change Password", for: .normal);
-        chngPassBtn.addTarget(self, action: #selector(changePass(_:)), for: .touchUpInside);
-        
-        chngPassBtn.setTitleColor(UIColor(colorLiteralRed: 14.0/255,
-                                         green: 122.0/255,
-                                         blue: 254.0/255,
-                                         alpha: 1.0), for: UIControlState.normal);
-        chngPassBtn.setTitleColor(UIColor(colorLiteralRed: 14.0/255,
-                                         green: 122.0/255,
-                                         blue: 254.0/255,
-                                         alpha: 0.5), for: UIControlState.highlighted);
-        
-        chngPassBtn.layer.cornerRadius = 5;
-        chngPassBtn.layer.borderColor = UIColor(colorLiteralRed: 14.0/255,
-                                               green: 122.0/255,
-                                               blue: 254.0/255,
-                                               alpha: 1.0).cgColor;
-        chngPassBtn.layer.borderWidth = 1;
-        chngPassBtn.layer.backgroundColor = UIColor.white.cgColor;
-        
-        
-        deleteAccBtn = UIButton(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2) + 5,
-                                             y: self.view.frame.maxY - 125,
-                                             width: self.view.bounds.width - 10,
-                                             height: 65));
-        deleteAccBtn.backgroundColor = UIColor.gray;
-        deleteAccBtn.setTitleColor(UIColor(colorLiteralRed: 14.0/255,
-                                           green: 122.0/255,
-                                           blue: 254.0/255,
-                                           alpha: 1.0), for: UIControlState.normal);
-        deleteAccBtn.setTitleColor(UIColor(colorLiteralRed: 14.0/255,
-                                           green: 122.0/255,
-                                           blue: 254.0/255,
-                                           alpha: 0.5), for: UIControlState.highlighted);
-        deleteAccBtn.setTitle("Delete Account", for: .normal);
-        deleteAccBtn.addTarget(self, action: #selector(deleteAccount(_:)), for: .touchUpInside);
-        
-        deleteAccBtn.setTitleColor(UIColor(colorLiteralRed: 255.0/255,
-                                          green: 0/255,
-                                          blue: 0/255,
-                                          alpha: 1.0), for: UIControlState.normal);
-        deleteAccBtn.setTitleColor(UIColor(colorLiteralRed: 255.0/255,
-                                          green: 0/255,
-                                          blue: 0/255,
-                                          alpha: 0.5), for: UIControlState.highlighted);
-        
-        deleteAccBtn.layer.cornerRadius = 5;
-        deleteAccBtn.layer.borderColor = UIColor.red.cgColor;
-        deleteAccBtn.layer.borderWidth = 1;
-        deleteAccBtn.layer.backgroundColor = UIColor.white.cgColor;
-        
-        changeInfoBtn = UIButton(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2) + 5,
-                                              y: self.view.frame.maxY - 275,
-                                              width: self.view.bounds.width - 10,
-                                              height: 65));
-        changeInfoBtn.backgroundColor = UIColor.gray;
-        changeInfoBtn.setTitleColor(UIColor.white, for: UIControlState.normal);
-        changeInfoBtn.setTitleColor(UIColor.lightGray, for: UIControlState.highlighted);
-        changeInfoBtn.setTitle("Change Info", for: .normal);
-        changeInfoBtn.addTarget(self, action: #selector(changeInfoSheet(_:)), for: .touchUpInside);
-        
-        changeInfoBtn.setTitleColor(UIColor(colorLiteralRed: 14.0/255,
-                                            green: 122.0/255,
-                                            blue: 254.0/255,
-                                            alpha: 1.0), for: UIControlState.normal);
-        changeInfoBtn.setTitleColor(UIColor(colorLiteralRed: 14.0/255,
-                                            green: 122.0/255,
-                                            blue: 254.0/255,
-                                            alpha: 0.5), for: UIControlState.highlighted);
-        
-        changeInfoBtn.layer.cornerRadius = 5;
-        changeInfoBtn.layer.borderColor = UIColor(colorLiteralRed: 14.0/255,
-                                                  green: 122.0/255,
-                                                  blue: 254.0/255,
-                                                  alpha: 1.0).cgColor;
-        changeInfoBtn.layer.borderWidth = 1;
-        changeInfoBtn.layer.backgroundColor = UIColor.white.cgColor;
-        
-        self.view.addSubview(chngPassBtn);
-        self.view.addSubview(deleteAccBtn);
-        self.view.addSubview(changeInfoBtn);
-        
-    }
-    
-    func changePass(_ sender:UIButton) {
-        
-        print(" ")
-        print(" --- Changing Password --- ")
-        print(" ")
-        
-        
+    //can we clean below this up at all?  idk how UI shit works
+    func changePass() {
         let alert = UIAlertController(title: "Change Password", message: "Change Your Password", preferredStyle: .alert);
         let confirmAction = UIAlertAction(title: "Confirm",
                                           style: .default,
@@ -304,7 +189,7 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
         self.present(alert, animated: true, completion: nil);
     }
     
-    func deleteAccount(_ sender:UIButton) {
+    func deleteAccount() {
         let alert = UIAlertController(title: "Delete Your Account?", message: nil, preferredStyle: .alert);
         let confirmAct = UIAlertAction(title: "Yes", style: .destructive, handler: {(alert:UIAlertAction) in
             // Delete your account - Hillary Clinton
@@ -333,7 +218,29 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
         self.present(alert, animated: true, completion: nil);
     }
     
-    func changeInfoSheet(_ sender:UIButton) {
+    func logout() {
+        let alert = UIAlertController(title: "Are you sure you want to logout?", message: nil, preferredStyle: .alert);
+        let confirmAct = UIAlertAction(title: "Yes", style: .destructive, handler: {(alert:UIAlertAction) in
+            keychain.delete("auth");
+            print("keychain should be deleted");
+            let logboard = UIStoryboard(name: "Login", bundle: nil);
+            let logcontr = logboard.instantiateViewController(withIdentifier: "LoginMain");
+            let style = UIModalTransitionStyle.coverVertical;
+            logcontr.modalTransitionStyle = style;
+            self.present(logcontr, animated: true, completion: nil);
+        });
+        
+        let cancelAct = UIAlertAction(title: "No", style: .cancel, handler: {(alert:UIAlertAction) -> Void in});
+        
+        alert.addAction(confirmAct);
+        alert.addAction(cancelAct);
+        
+        self.present(alert, animated: true, completion: nil);
+        
+        
+    }
+    
+    /*func changeInfoSheet(_ sender:UIButton) {
         let alert = UIAlertController(title: "Change Info", message: nil, preferredStyle: .actionSheet);
         let changeNameAction = UIAlertAction(title: "Change Name", style: .default, handler: {(alert:UIAlertAction) in
             self.changeName();
