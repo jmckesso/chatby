@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>LBTAComponents.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-chatby.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,6 +32,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>1A196107BC8DB338FC11C9CE9510573C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>4AEEF4D1A1E2B4159306505F36872226</key>
 		<dict>
 			<key>primary</key>
@@ -37,12 +47,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8B4688675BB07B334C8BFD281E0821AF</key>
+		<key>9E7829566A148D23BBE7B4D878F2CF67</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9E7829566A148D23BBE7B4D878F2CF67</key>
+		<key>ED21FD8AB1F52E09A6ED96FA534974C7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

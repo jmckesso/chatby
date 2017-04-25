@@ -20,12 +20,14 @@
 		2348AE2C1E529E160096EDDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2348AE2B1E529E160096EDDE /* Assets.xcassets */; };
 		2348AE2F1E529E160096EDDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2348AE2D1E529E160096EDDE /* LaunchScreen.storyboard */; };
 		2348AE3A1E529E170096EDDE /* chatbyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2348AE391E529E170096EDDE /* chatbyTests.swift */; };
+		236951D31EAF54110070DABA /* GroupPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236951D21EAF54110070DABA /* GroupPage.swift */; };
+		236951D51EAF56F60070DABA /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236951D41EAF56F60070DABA /* GroupCell.swift */; };
+		236951D71EAF69680070DABA /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236951D61EAF69680070DABA /* CustomTabBarController.swift */; };
 		23A6ADBD1E8CAA480088D4CC /* Pods_chatby.framework in Embed Frameworks (2 items) */ = {isa = PBXBuildFile; fileRef = 5583840A3DAA6F35F6E669C3 /* Pods_chatby.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		23ADD1EE1E5D1ADE00C81665 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23ADD1EC1E5D19EA00C81665 /* Alamofire.framework */; };
 		23ADD1EF1E5D1ADE00C81665 /* Alamofire.framework in Embed Frameworks (2 items) */ = {isa = PBXBuildFile; fileRef = 23ADD1EC1E5D19EA00C81665 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		23ADD1F21E5DF00900C81665 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23ADD1F11E5DF00900C81665 /* SwiftyJSON.framework */; };
 		23ADD1F31E5DF02600C81665 /* SwiftyJSON.framework in Embed Frameworks (2 items) */ = {isa = PBXBuildFile; fileRef = 23ADD1F11E5DF00900C81665 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		23ADD1F51E5E0AF400C81665 /* GroupsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADD1F41E5E0AF400C81665 /* GroupsTableViewController.swift */; };
 		23ADD1F71E5E108400C81665 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADD1F61E5E108400C81665 /* RegisterViewController.swift */; };
 		3F52E7801E5F6494001649F8 /* GroupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F52E77F1E5F6494001649F8 /* GroupInfoViewController.swift */; };
 		3F9CD79D1E8CA2A800817FFB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9CD79C1E8CA2A800817FFB /* Message.swift */; };
@@ -86,9 +88,11 @@
 		2348AE351E529E170096EDDE /* chatbyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chatbyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2348AE391E529E170096EDDE /* chatbyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatbyTests.swift; sourceTree = "<group>"; };
 		2348AE3B1E529E170096EDDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		236951D21EAF54110070DABA /* GroupPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupPage.swift; sourceTree = "<group>"; };
+		236951D41EAF56F60070DABA /* GroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
+		236951D61EAF69680070DABA /* CustomTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		23ADD1EC1E5D19EA00C81665 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		23ADD1F11E5DF00900C81665 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
-		23ADD1F41E5E0AF400C81665 /* GroupsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupsTableViewController.swift; sourceTree = "<group>"; };
 		23ADD1F61E5E108400C81665 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		31C08DD795333D510FE36CC0 /* Pods_chatbyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_chatbyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F52E77F1E5F6494001649F8 /* GroupInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupInfoViewController.swift; sourceTree = "<group>"; };
@@ -212,16 +216,18 @@
 		3FA78EE81E5EBB050022F2D8 /* viewcontrollers */ = {
 			isa = PBXGroup;
 			children = (
+				236951D61EAF69680070DABA /* CustomTabBarController.swift */,
 				3FA92FA81E8AF7E8001511FA /* UserInfoViewController.swift */,
 				3FA92FAA1E8C54D4001511FA /* UserSettingsViewController.swift */,
 				2329775A1EAE0A6500E313C2 /* ProfileCell.swift */,
 				2329775C1EAECD1E00E313C2 /* ProfileCell2.swift */,
 				23ADD1F61E5E108400C81665 /* RegisterViewController.swift */,
 				2348AE261E529E160096EDDE /* ViewController.swift */,
-				23ADD1F41E5E0AF400C81665 /* GroupsTableViewController.swift */,
+				236951D21EAF54110070DABA /* GroupPage.swift */,
+				236951D41EAF56F60070DABA /* GroupCell.swift */,
+				3FA78EE91E5EC5460022F2D8 /* GroupsViewController.swift */,
 				3FA78EDF1E5EBAB50022F2D8 /* LoginViewController.swift */,
 				3FA78EE01E5EBAB50022F2D8 /* SignupViewController.swift */,
-				3FA78EE91E5EC5460022F2D8 /* GroupsViewController.swift */,
 				3FC478F51E8C5C5600315E62 /* ManageGroupsViewController.swift */,
 				3F52E77F1E5F6494001649F8 /* GroupInfoViewController.swift */,
 				3F9CD79E1E8D6DC900817FFB /* ManageGroupsInfoViewController.swift */,
@@ -448,7 +454,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				236951D31EAF54110070DABA /* GroupPage.swift in Sources */,
 				3FA78EEA1E5EC5460022F2D8 /* GroupsViewController.swift in Sources */,
+				236951D71EAF69680070DABA /* CustomTabBarController.swift in Sources */,
 				3FA78EE31E5EBAB60022F2D8 /* SignupViewController.swift in Sources */,
 				2348AE271E529E160096EDDE /* ViewController.swift in Sources */,
 				3FC478F61E8C5C5600315E62 /* ManageGroupsViewController.swift in Sources */,
@@ -456,8 +464,8 @@
 				3FA92FAB1E8C54D5001511FA /* UserSettingsViewController.swift in Sources */,
 				3FA78EEC1E5ED7E50022F2D8 /* AddGroupViewController.swift in Sources */,
 				3FA92FA91E8AF7E8001511FA /* UserInfoViewController.swift in Sources */,
+				236951D51EAF56F60070DABA /* GroupCell.swift in Sources */,
 				3FA92FA71E8AEF02001511FA /* TabMenuViewController.swift in Sources */,
-				23ADD1F51E5E0AF400C81665 /* GroupsTableViewController.swift in Sources */,
 				2329775D1EAECD1E00E313C2 /* ProfileCell2.swift in Sources */,
 				3FA78EE21E5EBAB60022F2D8 /* LoginViewController.swift in Sources */,
 				23ADD1F71E5E108400C81665 /* RegisterViewController.swift in Sources */,

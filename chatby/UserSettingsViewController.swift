@@ -25,12 +25,11 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     override func viewDidLoad() {
         
+        self.title = "Account"
+        
         table_view = UITableView()
         table_view.dataSource = self
         table_view.delegate = self
-        
-        //table_view.rowHeight = UITableViewAutomaticDimension
-        //table_view.estimatedRowHeight = 240
         
         table_view.tableFooterView = UIView(frame: .zero)
         table_view.isScrollEnabled = false
@@ -38,6 +37,8 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
         
         table_view.register(ProfileCell.self, forCellReuseIdentifier: "cell")
         table_view.register(ProfileCell2.self, forCellReuseIdentifier: "cell2")
+        
+        self.automaticallyAdjustsScrollViewInsets = false
         
         self.view.addSubview(table_view)
         

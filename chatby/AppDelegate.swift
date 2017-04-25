@@ -17,9 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        let tabBarController = UITabBarController()
+        window?.rootViewController = CustomTabBarController()
         
-        let tabViewController1 = GroupsTableViewController()
+        /*let tabBarController = UITabBarController()
+        
+        let tabViewController1 = GroupPage()
         let tabViewController2 = UserSettingsViewController()
         let tabViewController3 = UserSettingsViewController()
         
@@ -29,27 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         tabViewController1.tabBarItem = UITabBarItem(title: "Nearby", image: UIImage(named: "nearby"), tag: 1)
         tabViewController2.tabBarItem = UITabBarItem(title: "Active", image: UIImage(named: "active"), tag: 2)
-        tabViewController3.tabBarItem = UITabBarItem(title: "Account", image: UIImage(named: "account"), tag: 3)
-        
-        /*let rootboard = UIStoryboard(name: "Login", bundle: nil);
-        let controller1 = rootboard.instantiateViewController(withIdentifier: "GroupsTableMain");
-        let controller2 = rootboard.instantiateViewController(withIdentifier: "UserInfoMain");
-        let controller3 = rootboard.instantiateViewController(withIdentifier: "UserInfoMain");
-        
-        let tabViewController = UITabBarController();
-        
-        let tab1 = UINavigationController(rootViewController: controller1);
-        let tab2 = UINavigationController(rootViewController: controller2);
-        let tab3 = UINavigationController(rootViewController: controller3);
-        
-        tab1.title = "Nearby";
-        tab2.title = "Active";
-        tab3.title = "AAccount";
-        
-        let tabs = [tab1, tab2, tab3];
-        tabViewController.viewControllers = tabs;
-        
-        window?.rootViewController = tabViewController;*/
+        tabViewController3.tabBarItem = UITabBarItem(title: "Account", image: UIImage(named: "account"), tag: 3)*/
         
         return true
     }
