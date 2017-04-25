@@ -13,7 +13,7 @@ import Alamofire
 import SwiftyJSON
 
 /* Changed the Profile page - Now everything is stored in a table.  The table has two different cell types.  Still to do, clarify variable
-    names, implement functionality for the buttons, load in user data.  Colors probably need to be changed and the table for some reason
+    names, implement functionality for the buttons.  Colors probably need to be changed and the table for some reason
     doesn't extend to the far left but imo that's minor*/
 
 
@@ -25,9 +25,40 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     var table_view: UITableView!
     var image_view: UIImageView!
-    var profile_table_data: [[String]] = [["Email", "Three"],["Username", "Six"],["Fullname","Nine"]]
+    var profile_table_data: [[String]] = [["Email", ""],["Username", ""],["Fullname",""]]
     
     override func viewDidLoad() {
+        
+        let auth_string = "Token " + keychain.get("auth")!
+        
+        let header = [
+            "Authorization" : auth_string
+        ]
+        
+        print("alamo request")
+        
+        Alamofire.request("http://chatby.vohras.tk/api/users/current/", method: .get, headers: header).validate().responseJSON(completionHandler:  { response in
+            //print(response.request!)  // original URL request
+            //print(response.response!) // HTTP URL response
+            //print(response.data!)     // server data
+            //print(response.result)
+            
+            let json = JSON(response.result.value!)
+            let email = json["email"].stringValue
+            let username = json["username"].stringValue
+            let full_name = json["first_name"].stringValue + " " + json["last_name"].stringValue
+            
+            print(email)
+            print(username)
+            print(full_name)
+            
+            self.profile_table_data[0][1] = email
+            self.profile_table_data[1][1] = username
+            self.profile_table_data[2][1] = full_name
+            
+            self.table_view.reloadData()
+            
+        })
         
         let image = UIImage(named: "profile_holder")
         image_view = UIImageView(image: image)
@@ -47,8 +78,6 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
         
         self.view.addSubview(table_view)
         
-        table_view.reloadData()
-
         super.viewDidLoad();
         
         //drawUI();
@@ -68,6 +97,8 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
         
             cell.cell_type.text = self.profile_table_data[indexPath.row][0]
             cell.cell_info.text = self.profile_table_data[indexPath.row][1]
+            
+            print("populating table")
             
             cell.selectionStyle = UITableViewCellSelectionStyle.none
         
@@ -93,6 +124,20 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //Change the selected background view of the cell.
+        if indexPath.row == 3 {
+            //change password
+            print("chaning password")
+            
+        }
+        else if indexPath.row == 4 {
+            //logout
+            print("logging out")
+        }
+        else if indexPath.row == 5 {
+            //delete account
+            print("deleting account")
+            
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
