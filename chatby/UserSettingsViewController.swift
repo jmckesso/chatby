@@ -17,7 +17,7 @@ import SwiftyJSON
     doesn't extend to the far left but imo that's minor*/
 
 
-class UserSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class UserSettingsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ProfileCellCallsDelegate {
     
     var table_view: UITableView!
     var image_view: UIImageView!
@@ -82,7 +82,11 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
             cell.cell_type.text = self.profile_table_data[indexPath.row][0]
             cell.cell_info.text = self.profile_table_data[indexPath.row][1]
             
+            cell.edit_button.tag = indexPath.row
+            
             cell.selectionStyle = UITableViewCellSelectionStyle.none
+            
+            cell.delegate = self
         
             return cell
         }
@@ -105,20 +109,16 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //Change the selected background view of the cell.
         if indexPath.row == 3 {
-            //change password
             print("chaning password")
             changePass()
             
         }
         else if indexPath.row == 4 {
-            //logout
             print("logging out")
             logout()
         }
         else if indexPath.row == 5 {
-            //delete account
             print("deleting account")
             deleteAccount()
             
@@ -127,7 +127,24 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    //can we clean below this up at all?  idk how UI shit works
+    func editButton(type:String) {
+        if type == "email" {
+            print("changing email")
+            changeEmail()
+        }
+        else if type == "username" {
+            print("changing username")
+            changeUsername()
+        }
+        else if type == "fullname" {
+            changeName()
+        }
+    }
+    
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Old stuff below//////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func changePass() {
         let alert = UIAlertController(title: "Change Password", message: "Change Your Password", preferredStyle: .alert);
         let confirmAction = UIAlertAction(title: "Confirm",
@@ -200,13 +217,7 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
                 "Authorization" : auth_string
             ]
             
-            Alamofire.request("http://chatby.vohras.tk/api/users/current/", method: .delete, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
-                response in
-                print(response.request!)  // original URL request
-                print(response.response!) // HTTP URL response
-                print(response.data!)     // server data
-                print(response.result)
-            })
+            Alamofire.request("http://chatby.vohras.tk/api/users/current/", method: .delete, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: { response in })
             
             
         });
@@ -240,7 +251,7 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
         
     }
     
-    /*func changeInfoSheet(_ sender:UIButton) {
+    func changeInfoSheet(_ sender:UIButton) {
         let alert = UIAlertController(title: "Change Info", message: nil, preferredStyle: .actionSheet);
         let changeNameAction = UIAlertAction(title: "Change Name", style: .default, handler: {(alert:UIAlertAction) in
             self.changeName();
@@ -275,16 +286,12 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
                 "last_name":lastName!
             ]
             
-            Alamofire.request("http://chatby.vohras.tk/api/users/current/", method: .patch, parameters: name_parameters, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
-                response in
-                print(response.request!)  // original URL request
-                print(response.response!) // HTTP URL response
-                print(response.data!)     // server data
-                print(response.result)
+            Alamofire.request("http://chatby.vohras.tk/api/users/current/", method: .patch, parameters: name_parameters, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: { response in
             })
+            
+            self.profile_table_data[2][1] = firstName! + " " + lastName!
+            self.table_view.reloadData()
 
-            
-            
         })
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: {(alert:UIAlertAction) -> Void in});
         changeNameAlert.addTextField(configurationHandler: {(textField:UITextField) in
@@ -302,7 +309,7 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
     func changeUsername() {
         let changeUsernameAlert = UIAlertController(title: "Change Username", message: "Input new username", preferredStyle: .alert);
         let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: {(alert:UIAlertAction)  in
-            // Code to change username here
+
             let username = changeUsernameAlert.textFields?[0].text;
             
             let auth_string = "Token " + keychain.get("auth")!
@@ -315,13 +322,11 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
                 "username":username!,
             ]
             
-            Alamofire.request("http://chatby.vohras.tk/api/users/current/", method: .patch, parameters: name_parameters, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
-                response in
-                print(response.request!)  // original URL request
-                print(response.response!) // HTTP URL response
-                print(response.data!)     // server data
-                print(response.result)
-            })
+            Alamofire.request("http://chatby.vohras.tk/api/users/current/", method: .patch, parameters: name_parameters, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: { response in })
+            
+            self.profile_table_data[1][1] = username!
+            
+            self.table_view.reloadData()
             
         });
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {(alert:UIAlertAction) -> Void in});
@@ -334,7 +339,41 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
         changeUsernameAlert.addAction(cancelAction);
         
         self.present(changeUsernameAlert, animated: true, completion: nil);
-    }*/
+    }
+    
+    func changeEmail() {
+        let changeEmailAlert = UIAlertController(title: "Change Email", message: "Input new email", preferredStyle: .alert);
+        let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: {(alert:UIAlertAction)  in
+            // Code to change username here
+            let email = changeEmailAlert.textFields?[0].text;
+            
+            let auth_string = "Token " + keychain.get("auth")!
+            
+            let header = [
+                "Authorization" : auth_string
+            ]
+            
+            let name_parameters : Parameters = [
+                "email":email!,
+                ]
+            
+            Alamofire.request("http://chatby.vohras.tk/api/users/current/", method: .patch, parameters: name_parameters, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: { response in })
+            
+            self.profile_table_data[0][1] = email!
+            self.table_view.reloadData()
+            
+        });
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {(alert:UIAlertAction) -> Void in});
+        
+        changeEmailAlert.addTextField(configurationHandler: {(textField:UITextField) in
+            textField.placeholder = "New Email";
+        })
+        
+        changeEmailAlert.addAction(confirmAction);
+        changeEmailAlert.addAction(cancelAction);
+        
+        self.present(changeEmailAlert, animated: true, completion: nil);
+    }
     
 }
 

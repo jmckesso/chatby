@@ -7,6 +7,13 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
+import KeychainSwift
+
+protocol ProfileCellCallsDelegate {
+    func editButton(type: String);
+}
 
 class ProfileCell: UITableViewCell {
     
@@ -21,10 +28,11 @@ class ProfileCell: UITableViewCell {
 
     }
     
+    var delegate:ProfileCellCallsDelegate?
+    
     let cell_type: UILabel = {
         let label = UILabel()
         label.text = "Sample"
-        //label.font = UIFont(name: label.font.fontName, size: 10)
         label.font = UIFont.systemFont(ofSize: 10)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -33,7 +41,6 @@ class ProfileCell: UITableViewCell {
     let cell_info: UILabel = {
         let label = UILabel()
         label.text = "Sample 2"
-        //label.font = UIFont(name: label.font.fontName, size: 12)
         label.font = UIFont.boldSystemFont(ofSize: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -60,8 +67,22 @@ class ProfileCell: UITableViewCell {
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v1]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v1": edit_button]))
     }
     
-    func editInfo() {
-        print("edit blah")
+    func editInfo(sender: UIButton) {
+        let button_row = sender.tag
+        
+        if button_row == 0 {
+            self.delegate?.editButton(type: "email")
+            
+        }
+        else if button_row == 1 {
+            self.delegate?.editButton(type: "username")
+            
+        }
+        else if button_row == 2 {
+            print("changing full name")
+            self.delegate?.editButton(type: "fullname")
+        }
+        
     }
 
 }
