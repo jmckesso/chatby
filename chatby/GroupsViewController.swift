@@ -45,10 +45,6 @@ class GroupsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
  
         Alamofire.request(group_url).validate().responseJSON(completionHandler: { response in
-            print(response.request!)  // original URL request
-            print(response.response!) // HTTP URL response
-            print(response.data!)     // server data
-            print(response.result)
             
             switch response.result {
             case .success:

@@ -125,10 +125,6 @@ class GroupInfoViewController: JSQMessagesViewController {
             "Authorization" : auth_string
         ]
         
-        print("\n --- Getting Current User --- \n")
-        print("senderId: " + self.senderId)
-        print("senderDisplayName: " + self.senderDisplayName)
-        
         Alamofire.request("http://chatby.vohras.tk/api/users/current/", method: .get, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
             response in
             switch response.result {
@@ -138,8 +134,6 @@ class GroupInfoViewController: JSQMessagesViewController {
                 self.senderDisplayName = user_data["username"].stringValue
                 
                 self.gettingMessageData()
-                
-                print("request done")
             case .failure:
                 print("ah naw")
             }
@@ -194,6 +188,8 @@ class GroupInfoViewController: JSQMessagesViewController {
         super.viewDidAppear(true);
         self.tabBarController?.tabBar.isHidden = true;
     }
+    
+    
     
     /*func joingroup(_ sender: UIBarButtonItem) {
         let auth_string = "Token " + keychain.get("auth")!

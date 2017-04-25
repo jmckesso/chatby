@@ -31,10 +31,6 @@ class ManageGroupsViewController: UIViewController, UITableViewDelegate, UITable
         
         Alamofire.request("http://chatby.vohras.tk/api/users/current/", method: .get, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
             response in
-            print(response.request!)  // original URL request
-            print(response.response!) // HTTP URL response
-            print(response.data!)     // server data
-            print(response.result)
             
             let curr = JSON(response.result.value!)
             curr_user = curr["url"].stringValue
@@ -42,14 +38,9 @@ class ManageGroupsViewController: UIViewController, UITableViewDelegate, UITable
         
         
         Alamofire.request("http://chatby.vohras.tk/api/rooms/").validate().responseJSON(completionHandler: { response in
-            print(response.request!)  // original URL request
-            print(response.response!) // HTTP URL response
-            print(response.data!)     // server data
-            print(response.result)
             
             switch response.result {
             case .success:
-                print("super success")
                 let groups = JSON(response.result.value!)
                 
                 for (_,subJson):(String, JSON) in groups {
@@ -95,8 +86,7 @@ class ManageGroupsViewController: UIViewController, UITableViewDelegate, UITable
         let infostory = UIStoryboard(name: "Login", bundle: nil);
         let infocontr = infostory.instantiateViewController(withIdentifier: "GroupInfoMain") as! GroupInfoViewController;
         //let g_name = self.data[didSelectRowAt.row]
-        print("\n --- CHECKING --- \n")
-        print(self.data[didSelectRowAt.row])
+
         infocontr.group_path = self.data[didSelectRowAt.row][1];
         self.navigationController?.pushViewController(infocontr, animated: true);
     }

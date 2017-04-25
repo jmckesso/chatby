@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		18BBCB0B2D3451371325427F /* Pods_chatbyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31C08DD795333D510FE36CC0 /* Pods_chatbyTests.framework */; };
+		2329775B1EAE0A6500E313C2 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2329775A1EAE0A6500E313C2 /* ProfileCell.swift */; };
+		2329775D1EAECD1E00E313C2 /* ProfileCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2329775C1EAECD1E00E313C2 /* ProfileCell2.swift */; };
 		233462541E5FE1A60014BF0A /* KeychainSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 233462531E5FE1A60014BF0A /* KeychainSwift.framework */; };
 		233462551E5FE1B40014BF0A /* KeychainSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 233462531E5FE1A60014BF0A /* KeychainSwift.framework */; };
 		233462561E5FE1B40014BF0A /* KeychainSwift.framework in Embed Frameworks (2 items) */ = {isa = PBXBuildFile; fileRef = 233462531E5FE1A60014BF0A /* KeychainSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -70,6 +72,8 @@
 
 /* Begin PBXFileReference section */
 		1EE541AD47D42784EC75EDC6 /* Pods-chatby.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatby.debug.xcconfig"; path = "Pods/Target Support Files/Pods-chatby/Pods-chatby.debug.xcconfig"; sourceTree = "<group>"; };
+		2329775A1EAE0A6500E313C2 /* ProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		2329775C1EAECD1E00E313C2 /* ProfileCell2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCell2.swift; sourceTree = "<group>"; };
 		233462531E5FE1A60014BF0A /* KeychainSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainSwift.framework; path = Carthage/Build/iOS/KeychainSwift.framework; sourceTree = "<group>"; };
 		233462571E6092500014BF0A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		2348AE211E529E160096EDDE /* chatby.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chatby.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -210,6 +214,8 @@
 			children = (
 				3FA92FA81E8AF7E8001511FA /* UserInfoViewController.swift */,
 				3FA92FAA1E8C54D4001511FA /* UserSettingsViewController.swift */,
+				2329775A1EAE0A6500E313C2 /* ProfileCell.swift */,
+				2329775C1EAECD1E00E313C2 /* ProfileCell2.swift */,
 				23ADD1F61E5E108400C81665 /* RegisterViewController.swift */,
 				2348AE261E529E160096EDDE /* ViewController.swift */,
 				23ADD1F41E5E0AF400C81665 /* GroupsTableViewController.swift */,
@@ -452,9 +458,11 @@
 				3FA92FA91E8AF7E8001511FA /* UserInfoViewController.swift in Sources */,
 				3FA92FA71E8AEF02001511FA /* TabMenuViewController.swift in Sources */,
 				23ADD1F51E5E0AF400C81665 /* GroupsTableViewController.swift in Sources */,
+				2329775D1EAECD1E00E313C2 /* ProfileCell2.swift in Sources */,
 				3FA78EE21E5EBAB60022F2D8 /* LoginViewController.swift in Sources */,
 				23ADD1F71E5E108400C81665 /* RegisterViewController.swift in Sources */,
 				3F52E7801E5F6494001649F8 /* GroupInfoViewController.swift in Sources */,
+				2329775B1EAE0A6500E313C2 /* ProfileCell.swift in Sources */,
 				3F9CD79D1E8CA2A800817FFB /* Message.swift in Sources */,
 				3F9CD79F1E8D6DCA00817FFB /* ManageGroupsInfoViewController.swift in Sources */,
 			);
