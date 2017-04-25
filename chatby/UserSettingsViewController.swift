@@ -25,11 +25,31 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     override func viewDidLoad() {
         
+        table_view = UITableView()
+        table_view.dataSource = self
+        table_view.delegate = self
+        
+        //table_view.rowHeight = UITableViewAutomaticDimension
+        //table_view.estimatedRowHeight = 240
+        
+        table_view.tableFooterView = UIView(frame: .zero)
+        table_view.isScrollEnabled = false
+        table_view.rowHeight = 50
+        
+        table_view.register(ProfileCell.self, forCellReuseIdentifier: "cell")
+        table_view.register(ProfileCell2.self, forCellReuseIdentifier: "cell2")
+        
+        self.view.addSubview(table_view)
+        
+        self.view.backgroundColor = UIColor.lightGray
+        
         let auth_string = "Token " + keychain.get("auth")!
         
         let header = [
             "Authorization" : auth_string
         ]
+        
+        let frame_width = view.frame.width
         
         Alamofire.request("http://chatby.vohras.tk/api/users/current/", method: .get, headers: header).validate().responseJSON(completionHandler:  { response in
             
@@ -44,29 +64,22 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
             
             self.table_view.reloadData()
             
+            let row_height = self.table_view.rowHeight
+            
+            self.table_view.frame = CGRect(x: 0, y: 200, width: frame_width, height: row_height * 6)
+            
+            self.table_view.reloadData()
+            
         })
         
         let image = UIImage(named: "profile_holder")
         image_view = UIImageView(image: image)
-        image_view.frame = CGRect(x: view.frame.width/2 - 25, y: 125, width: 50, height: 50)
+        image_view.frame = CGRect(x: view.frame.width/2 - 25, y: 100, width: 50, height: 50)
         
         self.view.addSubview(image_view)
         
-        table_view = UITableView(frame: CGRect(x: 0, y: 200, width: view.frame.width, height: view.frame.height), style: UITableViewStyle.plain)
-        table_view.dataSource = self
-        table_view.delegate = self
-        
-        table_view.tableFooterView = UIView(frame: .zero)
-        table_view.isScrollEnabled = false
-        
-        table_view.register(ProfileCell.self, forCellReuseIdentifier: "cell")
-        table_view.register(ProfileCell2.self, forCellReuseIdentifier: "cell2")
-        
-        self.view.addSubview(table_view)
-        
         super.viewDidLoad();
         
-        self.title = "Profile";
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
