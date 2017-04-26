@@ -2,17 +2,20 @@ PODS:
   - JSQMessagesViewController (7.2.0):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
+  - KCFloatingActionButton (2.2.0)
   - LBTAComponents (0.1.9)
 
 DEPENDENCIES:
   - JSQMessagesViewController
+  - KCFloatingActionButton (~> 2.2.0)
   - LBTAComponents
 
 SPEC CHECKSUMS:
   JSQMessagesViewController: 73cab48aa92fc2d512f3b6724f3425cc47a19eb5
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
+  KCFloatingActionButton: 8c71fa25774e422c8d407f82b4b27809d0cd5233
   LBTAComponents: 9a5d314080d1f80208062ccc81a2d25225c5f572
 
-PODFILE CHECKSUM: 37caa0c8239ea08592575ac1bc0a8b1912b4a73a
+PODFILE CHECKSUM: 57f5fc31ede51ad09feef0ef86ba5536f0290adc
 
 COCOAPODS: 1.2.0

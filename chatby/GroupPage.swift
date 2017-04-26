@@ -11,6 +11,8 @@ import Alamofire
 import SwiftyJSON
 import KeychainSwift
 import CoreLocation
+import KCFloatingActionButton
+import LBTAComponents
 
 class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, CLLocationManagerDelegate {
 
@@ -68,6 +70,8 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     let keychain = KeychainSwift()
     
+    var add_active = false
+    
     var collection_view: UICollectionView!
     
     var locationManager: CLLocationManager?
@@ -90,8 +94,12 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     override func viewDidLoad() {
         
         self.title = "Nearby"
+        
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0)
+        
+        let item1 = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(rightButtonAction(sender:)))
+        self.navigationItem.rightBarButtonItem = item1
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
@@ -140,6 +148,7 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
             
                 //self.collection_view.reloadData()
         })
+        
         
         self.view.addSubview(collection_view)
         
@@ -210,6 +219,15 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
+    }
+    
+    func rightButtonAction(sender: UIBarButtonItem) {
+        print("tappin that ass")
+    
+        let create_vc = CreateGroup()
+        let nav_contr = UINavigationController(rootViewController: create_vc)
+        nav_contr.modalTransitionStyle = .coverVertical
+        self.present(nav_contr, animated: true, completion: nil)
     }
     
 }

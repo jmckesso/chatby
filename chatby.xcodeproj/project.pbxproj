@@ -32,6 +32,7 @@
 		23F0FF521EB05D5F00ADB66A /* ActivePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F0FF511EB05D5F00ADB66A /* ActivePage.swift */; };
 		23F0FF541EB06F1200ADB66A /* ActiveHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F0FF531EB06F1200ADB66A /* ActiveHeader.swift */; };
 		23F0FF561EB07C1500ADB66A /* NearbyHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F0FF551EB07C1500ADB66A /* NearbyHeader.swift */; };
+		23F0FF581EB1050A00ADB66A /* CreateGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F0FF571EB1050A00ADB66A /* CreateGroup.swift */; };
 		3F52E7801E5F6494001649F8 /* GroupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F52E77F1E5F6494001649F8 /* GroupInfoViewController.swift */; };
 		3F9CD79D1E8CA2A800817FFB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9CD79C1E8CA2A800817FFB /* Message.swift */; };
 		3F9CD79F1E8D6DCA00817FFB /* ManageGroupsInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9CD79E1E8D6DC900817FFB /* ManageGroupsInfoViewController.swift */; };
@@ -100,6 +101,7 @@
 		23F0FF511EB05D5F00ADB66A /* ActivePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivePage.swift; sourceTree = "<group>"; };
 		23F0FF531EB06F1200ADB66A /* ActiveHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveHeader.swift; sourceTree = "<group>"; };
 		23F0FF551EB07C1500ADB66A /* NearbyHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyHeader.swift; sourceTree = "<group>"; };
+		23F0FF571EB1050A00ADB66A /* CreateGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGroup.swift; sourceTree = "<group>"; };
 		31C08DD795333D510FE36CC0 /* Pods_chatbyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_chatbyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F52E77F1E5F6494001649F8 /* GroupInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupInfoViewController.swift; sourceTree = "<group>"; };
 		3F9CD79C1E8CA2A800817FFB /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				23F0FF511EB05D5F00ADB66A /* ActivePage.swift */,
 				23F0FF531EB06F1200ADB66A /* ActiveHeader.swift */,
 				236951D21EAF54110070DABA /* GroupPage.swift */,
+				23F0FF571EB1050A00ADB66A /* CreateGroup.swift */,
 				23F0FF551EB07C1500ADB66A /* NearbyHeader.swift */,
 				236951D41EAF56F60070DABA /* GroupCell.swift */,
 				23ADD1F61E5E108400C81665 /* RegisterViewController.swift */,
@@ -479,6 +482,7 @@
 				23F0FF541EB06F1200ADB66A /* ActiveHeader.swift in Sources */,
 				2329775D1EAECD1E00E313C2 /* ProfileCell2.swift in Sources */,
 				3FA78EE21E5EBAB60022F2D8 /* LoginViewController.swift in Sources */,
+				23F0FF581EB1050A00ADB66A /* CreateGroup.swift in Sources */,
 				23ADD1F71E5E108400C81665 /* RegisterViewController.swift in Sources */,
 				3F52E7801E5F6494001649F8 /* GroupInfoViewController.swift in Sources */,
 				23F0FF521EB05D5F00ADB66A /* ActivePage.swift in Sources */,
