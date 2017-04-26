@@ -23,6 +23,11 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     let auth_page = "http://chatby.vohras.tk/api/auth/";
     
     override func viewDidLoad() {
+        
+        print("login view")
+        
+        view.backgroundColor = UIColor.white
+        
         super.viewDidLoad();
 
         drawLoginFields();
@@ -77,6 +82,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                 print("keychain::::")
                 print(keychain.get("auth"))
                 self.dismiss(animated: true, completion: nil);
+                
+                
+                
             case .failure:
                 print("mega fail")
                 

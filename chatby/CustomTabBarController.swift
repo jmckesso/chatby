@@ -7,11 +7,28 @@
 //
 
 import UIKit
+import KeychainSwift
 
 class CustomTabBarController: UITabBarController {
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if (keychain.get("auth") == "") {
+            print("going to login")
+            let login_vc = LogInViewController()
+            self.present(login_vc, animated: true, completion: nil)
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if (keychain.getBool("auth") == false) {
+            let login_vc = LoginViewController(nibName: "LoginViewController", bundle: nil)
+            self.navigationController?.pushViewController(login_vc, animated: true)
+        }
         let groups_controller = GroupPage()
         let groupsNavController = UINavigationController(rootViewController: groups_controller)
         groupsNavController.tabBarItem.title = "Nearby"
