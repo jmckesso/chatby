@@ -29,6 +29,9 @@
 		23ADD1F21E5DF00900C81665 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23ADD1F11E5DF00900C81665 /* SwiftyJSON.framework */; };
 		23ADD1F31E5DF02600C81665 /* SwiftyJSON.framework in Embed Frameworks (2 items) */ = {isa = PBXBuildFile; fileRef = 23ADD1F11E5DF00900C81665 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		23ADD1F71E5E108400C81665 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADD1F61E5E108400C81665 /* RegisterViewController.swift */; };
+		23F0FF521EB05D5F00ADB66A /* ActivePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F0FF511EB05D5F00ADB66A /* ActivePage.swift */; };
+		23F0FF541EB06F1200ADB66A /* ActiveHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F0FF531EB06F1200ADB66A /* ActiveHeader.swift */; };
+		23F0FF561EB07C1500ADB66A /* NearbyHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F0FF551EB07C1500ADB66A /* NearbyHeader.swift */; };
 		3F52E7801E5F6494001649F8 /* GroupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F52E77F1E5F6494001649F8 /* GroupInfoViewController.swift */; };
 		3F9CD79D1E8CA2A800817FFB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9CD79C1E8CA2A800817FFB /* Message.swift */; };
 		3F9CD79F1E8D6DCA00817FFB /* ManageGroupsInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9CD79E1E8D6DC900817FFB /* ManageGroupsInfoViewController.swift */; };
@@ -94,6 +97,9 @@
 		23ADD1EC1E5D19EA00C81665 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		23ADD1F11E5DF00900C81665 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		23ADD1F61E5E108400C81665 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		23F0FF511EB05D5F00ADB66A /* ActivePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivePage.swift; sourceTree = "<group>"; };
+		23F0FF531EB06F1200ADB66A /* ActiveHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveHeader.swift; sourceTree = "<group>"; };
+		23F0FF551EB07C1500ADB66A /* NearbyHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyHeader.swift; sourceTree = "<group>"; };
 		31C08DD795333D510FE36CC0 /* Pods_chatbyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_chatbyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F52E77F1E5F6494001649F8 /* GroupInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupInfoViewController.swift; sourceTree = "<group>"; };
 		3F9CD79C1E8CA2A800817FFB /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -220,10 +226,13 @@
 				3FA92FAA1E8C54D4001511FA /* UserSettingsViewController.swift */,
 				2329775A1EAE0A6500E313C2 /* ProfileCell.swift */,
 				2329775C1EAECD1E00E313C2 /* ProfileCell2.swift */,
+				23F0FF511EB05D5F00ADB66A /* ActivePage.swift */,
+				23F0FF531EB06F1200ADB66A /* ActiveHeader.swift */,
+				236951D21EAF54110070DABA /* GroupPage.swift */,
+				23F0FF551EB07C1500ADB66A /* NearbyHeader.swift */,
+				236951D41EAF56F60070DABA /* GroupCell.swift */,
 				23ADD1F61E5E108400C81665 /* RegisterViewController.swift */,
 				2348AE261E529E160096EDDE /* ViewController.swift */,
-				236951D21EAF54110070DABA /* GroupPage.swift */,
-				236951D41EAF56F60070DABA /* GroupCell.swift */,
 				3FA78EE91E5EC5460022F2D8 /* GroupsViewController.swift */,
 				3FA78EDF1E5EBAB50022F2D8 /* LoginViewController.swift */,
 				3FA78EE01E5EBAB50022F2D8 /* SignupViewController.swift */,
@@ -461,15 +470,18 @@
 				2348AE271E529E160096EDDE /* ViewController.swift in Sources */,
 				3FC478F61E8C5C5600315E62 /* ManageGroupsViewController.swift in Sources */,
 				2348AE251E529E160096EDDE /* AppDelegate.swift in Sources */,
+				23F0FF561EB07C1500ADB66A /* NearbyHeader.swift in Sources */,
 				3FA92FAB1E8C54D5001511FA /* UserSettingsViewController.swift in Sources */,
 				3FA78EEC1E5ED7E50022F2D8 /* AddGroupViewController.swift in Sources */,
 				3FA92FA91E8AF7E8001511FA /* UserInfoViewController.swift in Sources */,
 				236951D51EAF56F60070DABA /* GroupCell.swift in Sources */,
 				3FA92FA71E8AEF02001511FA /* TabMenuViewController.swift in Sources */,
+				23F0FF541EB06F1200ADB66A /* ActiveHeader.swift in Sources */,
 				2329775D1EAECD1E00E313C2 /* ProfileCell2.swift in Sources */,
 				3FA78EE21E5EBAB60022F2D8 /* LoginViewController.swift in Sources */,
 				23ADD1F71E5E108400C81665 /* RegisterViewController.swift in Sources */,
 				3F52E7801E5F6494001649F8 /* GroupInfoViewController.swift in Sources */,
+				23F0FF521EB05D5F00ADB66A /* ActivePage.swift in Sources */,
 				2329775B1EAE0A6500E313C2 /* ProfileCell.swift in Sources */,
 				3F9CD79D1E8CA2A800817FFB /* Message.swift in Sources */,
 				3F9CD79F1E8D6DCA00817FFB /* ManageGroupsInfoViewController.swift in Sources */,

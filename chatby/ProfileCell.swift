@@ -48,6 +48,7 @@ class ProfileCell: UITableViewCell {
     let edit_button: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Edit", for: .normal)
+        button.tintColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

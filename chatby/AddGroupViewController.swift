@@ -87,7 +87,6 @@ class AddGroupViewController: UIViewController, UITextFieldDelegate, CLLocationM
             "Authorization": "Token " + keychain.get("auth")!
         ]
         
-        
         Alamofire.request(make_url, method: .post, parameters: group_param, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
             response in
             print(response.request!)  // original URL request

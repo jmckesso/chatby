@@ -29,12 +29,15 @@ class CustomTabBarController: UITabBarController {
             let login_vc = LoginViewController(nibName: "LoginViewController", bundle: nil)
             self.navigationController?.pushViewController(login_vc, animated: true)
         }
+        
+        self.tabBar.tintColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0)
+        
         let groups_controller = GroupPage()
         let groupsNavController = UINavigationController(rootViewController: groups_controller)
         groupsNavController.tabBarItem.title = "Nearby"
         groupsNavController.tabBarItem.image = UIImage(named: "nearby")
         
-        let active_controller = UserSettingsViewController()
+        let active_controller = ActivePage()
         let activeNavController = UINavigationController(rootViewController: active_controller)
         activeNavController.tabBarItem.title = "Active"
         activeNavController.tabBarItem.image = UIImage(named: "active")

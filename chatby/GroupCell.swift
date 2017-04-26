@@ -51,11 +51,12 @@ class GroupCell2: UICollectionViewCell {
     }()
     
     let group_pic: UIImageView = {
-        let image = UIImage(named: "profile_holder")
+        let image = UIImage(named: "profile_2")
         let image_view = UIImageView(image: image)
         //let image_view = UIImageView()
         //image_view.backgroundColor = UIColor.red
         image_view.frame = CGRect(x: 0, y: 0, width: 5, height: 5)
+        image_view.tintColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0)
         image_view.contentMode = .scaleAspectFit
         //image_view.translatesAutoresizingMaskIntoConstraints = false
         return image_view
@@ -110,7 +111,7 @@ class GroupCell2: UICollectionViewCell {
         
         clock_pic.anchor(self.topAnchor, left: nil, bottom: nil, right: expire_time.leftAnchor, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 2, widthConstant: 9, heightConstant: 9)
         
-        divider_line.anchor(nil, left: group_pic.rightAnchor, bottom: self.bottomAnchor, right: self.rightAnchor, topConstant: 0, leftConstant: 4, bottomConstant: 1, rightConstant: 0, widthConstant: 0, heightConstant: 1)
+        divider_line.anchor(nil, left: group_pic.rightAnchor, bottom: self.bottomAnchor, right: self.rightAnchor, topConstant: 0, leftConstant: 4, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 1)
         
     }
 

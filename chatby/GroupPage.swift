@@ -10,17 +10,75 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import KeychainSwift
+import CoreLocation
 
-class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, CLLocationManagerDelegate {
 
+    var statesDictionary = ["AL": "Alabama",
+                            "AK": "Alaska",
+                            "AZ": "Arizona",
+                            "AR": "Arkansas",
+                            "CA": "California",
+                            "CO": "Colorado",
+                            "CT": "Connecticut",
+                            "DE": "Delaware",
+                            "FL": "Florida",
+                            "GA": "Georgia",
+                            "HI": "Hawaii",
+                            "ID": "Idaho",
+                            "IL": "Illinois",
+                            "IN": "Indiana",
+                            "IA": "Iowa",
+                            "KS": "Kansas",
+                            "KY": "Kentucky",
+                            "LA": "Louisiana",
+                            "ME": "Maine",
+                            "MD": "Maryland",
+                            "MA": "Massachusetts",
+                            "MI": "Michigan",
+                            "MN": "Minnesota",
+                            "MS": "Mississippi",
+                            "MO": "Missouri",
+                            "MT": "Montana",
+                            "NE": "Nebraska",
+                            "NV": "Nevada",
+                            "NH": "New Hampshire",
+                            "NJ": "New Jersey",
+                            "NM": "New Mexico",
+                            "NY": "New York",
+                            "NC": "North Carolina",
+                            "ND": "North Dakota",
+                            "OH": "Ohio",
+                            "OK": "Oklahoma",
+                            "OR": "Oregon",
+                            "PA": "Pennsylvania",
+                            "RI": "Rhode Island",
+                            "SC": "South Carolina",
+                            "SD": "South Dakota",
+                            "TN": "Tennessee",
+                            "TX": "Texas",
+                            "UT": "Utah",
+                            "VT": "Vermont",
+                            "VA": "Virginia",
+                            "WA": "Washington",
+                            "WV": "West Virginia",
+                            "WI": "Wisconsin",
+                            "WY": "Wyoming"]
+    
+    
     let keychain = KeychainSwift()
     
     var collection_view: UICollectionView!
+    
+    var locationManager: CLLocationManager?
+    var current_location: CLLocation?
     
     var nav: UINavigationBar!;
     var table = UITableView();
     var auth_token: JSON!
     
+    
+    var curr = ""
     //let refreshControl = UIRefreshControl();
     
     let group_url = "http://chatby.vohras.tk/api/rooms/"
@@ -31,7 +89,9 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     override func viewDidLoad() {
         
-        self.title = "Active"
+        self.title = "Nearby"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0)
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
@@ -44,8 +104,14 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
         collection_view.backgroundColor = UIColor.white
         collection_view.alwaysBounceVertical = true
         
-        collection_view.register(UICollectionViewCell.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerID")
+        collection_view.register(NearbyHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerID")
         collection_view.register(GroupCell2.self, forCellWithReuseIdentifier: "cell")
+        
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.startUpdatingLocation()
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.requestAlwaysAuthorization()
         
         print("loading groups")
         
@@ -72,7 +138,7 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
             
                 print(self.data.count)
             
-                self.collection_view.reloadData()
+                //self.collection_view.reloadData()
         })
         
         self.view.addSubview(collection_view)
@@ -106,13 +172,44 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerID", for: indexPath)
-        header.backgroundColor = UIColor.lightGray
+        let header:NearbyHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerID", for: indexPath) as! NearbyHeader
+        header.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
+        header.curr_loc.text = self.curr
         return header
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 50)
+        return CGSize(width: view.frame.width, height: 40)
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        self.current_location = locations[0]
+        
+        let geoCoder = CLGeocoder()
+        let location = CLLocation(latitude: (current_location?.coordinate.latitude)!, longitude: (current_location?.coordinate.longitude)!)
+        
+        geoCoder.reverseGeocodeLocation(location, completionHandler: { placemarks, error in
+            guard let addressDict = placemarks?[0].addressDictionary else {
+                return
+            }
+
+            let city = addressDict["City"]! as! String
+            let state = addressDict["State"]! as! String
+            let state_long = self.statesDictionary[state]
+            
+            self.curr = city + ", " + state_long!
+            self.collection_view.reloadData()
+            
+        })
+        
+        locationManager?.stopUpdatingLocation()
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
     }
     
 }

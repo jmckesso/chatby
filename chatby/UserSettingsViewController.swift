@@ -26,6 +26,8 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         
         self.title = "Account"
+        self.navigationController?.navigationBar.barTintColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0)
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
         
         table_view = UITableView()
         table_view.dataSource = self
@@ -42,7 +44,7 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
         
         self.view.addSubview(table_view)
         
-        self.view.backgroundColor = UIColor.lightGray
+        self.view.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
         
         let auth_string = "Token " + keychain.get("auth")!
         
@@ -73,8 +75,9 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
             
         })
         
-        let image = UIImage(named: "profile_holder")
+        let image = UIImage(named: "profile_2")
         image_view = UIImageView(image: image)
+        image_view.tintColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0)
         image_view.frame = CGRect(x: view.frame.width/2 - 25, y: 100, width: 50, height: 50)
         
         self.view.addSubview(image_view)
@@ -116,7 +119,7 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
         else if indexPath.row == 5 {
             cell.cell_text.text = "Delete Account"
             cell.cell_text.textColor = UIColor.white
-            cell.backgroundColor = UIColor.red
+            cell.backgroundColor = UIColor(red:0.99, green:0.33, blue:0.34, alpha:1.0)
         }
         
         return cell
