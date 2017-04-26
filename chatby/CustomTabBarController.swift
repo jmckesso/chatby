@@ -14,7 +14,7 @@ class CustomTabBarController: UITabBarController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if (keychain.get("auth") == "") {
+        if (keychain.get("auth") == "" || keychain.get("auth") == nil) {
             print("going to login")
             let login_vc = LogInViewController()
             self.present(login_vc, animated: true, completion: nil)
