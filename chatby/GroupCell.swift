@@ -23,15 +23,19 @@ class GroupCell2: UICollectionViewCell {
     let group_name: UILabel = {
         let label = UILabel()
         label.text = "Sample"
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = UIColor.blue
+        //label.adjustsFontSizeToFitWidth = true
+        label.font = UIFont.boldSystemFont(ofSize: 11)
+        //label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let member_count: UILabel = {
         let label = UILabel()
         label.text = "Sample"
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.backgroundColor = UIColor.green
+        label.font = UIFont.systemFont(ofSize: 9)
+        label.textColor = UIColor.gray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -39,32 +43,39 @@ class GroupCell2: UICollectionViewCell {
     let expire_time: UILabel = {
         let label = UILabel()
         label.text = "Sample"
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.backgroundColor = UIColor.cyan
+        label.font = UIFont.systemFont(ofSize: 9)
+        label.textColor = UIColor.red
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let group_pic: UIImageView = {
-        let image = UIImage(named: "profile_holder")
-        let image_view = UIImageView(image: image)
+        //let image = UIImage(named: "profile_holder")
+        //let image_view = UIImageView(image: image)
+        let image_view = UIImageView()
+        image_view.backgroundColor = UIColor.red
         image_view.frame = CGRect(x: 0, y: 0, width: 5, height: 5)
         image_view.contentMode = .scaleAspectFit
-        image_view.translatesAutoresizingMaskIntoConstraints = false
+        //image_view.translatesAutoresizingMaskIntoConstraints = false
         return image_view
     }()
     
     let member_pic: UIImageView = {
         let image_view = UIImageView()
-        image_view.image = UIImage(named: "profile_holder")
+        //image_view.image = UIImage(named: "profile_holder")
+        image_view.backgroundColor = UIColor.yellow
         image_view.contentMode = .scaleAspectFill
         image_view.translatesAutoresizingMaskIntoConstraints = false
         return image_view
     }()
     
     let clock_pic: UIImageView = {
-        let image = UIImage(named: "profile_holder")
-        let image_view = UIImageView(image: image)
-        image_view.frame = CGRect(x: 0, y: 0, width: 5, height: 5)
+        //let image = UIImage(named: "profile_holder")
+        //let image_view = UIImageView(image: image)
+        let image_view = UIImageView();
+        image_view.backgroundColor = UIColor.lightGray
+        //image_view.frame = CGRect(x: 0, y: 0, width: 5, height: 5)
         image_view.contentMode = .scaleAspectFit
         image_view.translatesAutoresizingMaskIntoConstraints = false
         return image_view
@@ -72,31 +83,34 @@ class GroupCell2: UICollectionViewCell {
     
     let divider_line: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(white: 0.5, alpha: 0.5)
+        view.backgroundColor = UIColor.black
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     func editViews() {
         
-        //addSubview(group_name)
-        //addSubview(member_count)
-        //addSubview(expire_time)
+        addSubview(group_name)
+        addSubview(member_count)
+        addSubview(expire_time)
         addSubview(group_pic)
-        //addSubview(member_pic)
-        //addSubview(clock_pic)
+        addSubview(member_pic)
+        addSubview(clock_pic)
         addSubview(divider_line)
-        
-        //group_pic.anchor()
         
         group_pic.anchor(self.topAnchor, left: self.leftAnchor, bottom: nil, right: nil, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 25, heightConstant: 25)
         
-        //addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-8-[v0]-[v1]-[v2]-[v3]-[v4]-[v5]-8-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": group_pic, "v1": group_name, "v2": member_pic, "v3": member_count, "v4": clock_pic, "v5": expire_time]))
-        //addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": group_pic]))
-        //addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v1][v2]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v1": group_name, "v2": member_pic]))
+        group_name.anchor(self.topAnchor, left: group_pic.rightAnchor, bottom: nil, right: clock_pic.leftAnchor, topConstant: 12, leftConstant: 4, bottomConstant: 0, rightConstant: 4, widthConstant: 250, heightConstant: 13)
         
-        //addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-16-[v0]-2-[v1][v2][v3][v4][v5]-16-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": member_pic, "v1": group_name, "v2": member_pic, "v3": member_count, "v4": clock_pic, "v5": expire_time]))
-        //addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": group_name]))
+        member_pic.anchor(group_name.bottomAnchor, left: group_name.leftAnchor, bottom: nil, right: nil, topConstant: 4, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 10, heightConstant: 9)
+        
+        member_count.anchor(group_name.bottomAnchor, left: member_pic.rightAnchor, bottom: nil, right: clock_pic.leftAnchor, topConstant: 4, leftConstant: 2, bottomConstant: 0, rightConstant: 4, widthConstant: 250, heightConstant: 9)
+        
+        expire_time.anchor(self.topAnchor, left: nil, bottom: nil, right: self.rightAnchor, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 12, widthConstant: 100, heightConstant: 9)
+        
+        clock_pic.anchor(self.topAnchor, left: nil, bottom: nil, right: expire_time.leftAnchor, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 2, widthConstant: 9, heightConstant: 9)
+        
+        divider_line.anchor(nil, left: group_pic.rightAnchor, bottom: self.bottomAnchor, right: self.rightAnchor, topConstant: 0, leftConstant: 4, bottomConstant: 1, rightConstant: 0, widthConstant: 0, heightConstant: 1)
         
     }
 
