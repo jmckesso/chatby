@@ -26,6 +26,8 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     let group_url = "http://chatby.vohras.tk/api/rooms/"
     
     var data = [[String]]();
+    var member_counts = [Int]();
+    var expire_dates = [String]();
     
     override func viewDidLoad() {
         
@@ -52,10 +54,20 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
                 for (_,subJson):(String, JSON) in groups {
                     let name = subJson["name"].stringValue
                     let path = subJson["url"].stringValue
+                    let expire = subJson["expire_time"].stringValue
+                    let member_c = subJson["members"].count
                     var entry = [String]()
                     entry.append(name)
                     entry.append(path)
+                    
+                    print(name)
+                    print(path)
+                    print(expire)
+                    print(member_c)
+                    
                     self.data.append(entry)
+                    self.member_counts.append(member_c)
+                    self.expire_dates.append(expire)
                 }
             
                 print(self.data.count)
@@ -74,12 +86,22 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return data.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell:GroupCell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath as IndexPath) as! GroupCell2
-        //cell.group_name.text = data[indexPath.row][0]
+        cell.group_name.text = data[indexPath.row][0]
+        cell.member_count.text = String(member_counts[indexPath.row]) + " members"
+        
+        let myDate = expire_dates[indexPath.row]
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        let date = dateFormatter.date(from:myDate)!
+        dateFormatter.dateFormat = "MMM dd 'at' h:mm"
+        let dateString = dateFormatter.string(from:date)
+        
+        cell.expire_time.text = dateString
         return cell
     }
     

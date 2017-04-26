@@ -217,7 +217,6 @@
 			isa = PBXGroup;
 			children = (
 				236951D61EAF69680070DABA /* CustomTabBarController.swift */,
-				3FA92FA81E8AF7E8001511FA /* UserInfoViewController.swift */,
 				3FA92FAA1E8C54D4001511FA /* UserSettingsViewController.swift */,
 				2329775A1EAE0A6500E313C2 /* ProfileCell.swift */,
 				2329775C1EAECD1E00E313C2 /* ProfileCell2.swift */,
@@ -233,6 +232,7 @@
 				3F9CD79E1E8D6DC900817FFB /* ManageGroupsInfoViewController.swift */,
 				3FA92FA61E8AEF02001511FA /* TabMenuViewController.swift */,
 				3FA78EEB1E5ED7E50022F2D8 /* AddGroupViewController.swift */,
+				3FA92FA81E8AF7E8001511FA /* UserInfoViewController.swift */,
 			);
 			name = viewcontrollers;
 			sourceTree = "<group>";

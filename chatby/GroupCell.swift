@@ -23,7 +23,7 @@ class GroupCell2: UICollectionViewCell {
     let group_name: UILabel = {
         let label = UILabel()
         label.text = "Sample"
-        label.backgroundColor = UIColor.blue
+        //label.backgroundColor = UIColor.blue
         //label.adjustsFontSizeToFitWidth = true
         label.font = UIFont.boldSystemFont(ofSize: 11)
         //label.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +33,7 @@ class GroupCell2: UICollectionViewCell {
     let member_count: UILabel = {
         let label = UILabel()
         label.text = "Sample"
-        label.backgroundColor = UIColor.green
+        //label.backgroundColor = UIColor.green
         label.font = UIFont.systemFont(ofSize: 9)
         label.textColor = UIColor.gray
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -43,7 +43,7 @@ class GroupCell2: UICollectionViewCell {
     let expire_time: UILabel = {
         let label = UILabel()
         label.text = "Sample"
-        label.backgroundColor = UIColor.cyan
+        //label.backgroundColor = UIColor.cyan
         label.font = UIFont.systemFont(ofSize: 9)
         label.textColor = UIColor.red
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -51,10 +51,10 @@ class GroupCell2: UICollectionViewCell {
     }()
     
     let group_pic: UIImageView = {
-        //let image = UIImage(named: "profile_holder")
-        //let image_view = UIImageView(image: image)
-        let image_view = UIImageView()
-        image_view.backgroundColor = UIColor.red
+        let image = UIImage(named: "profile_holder")
+        let image_view = UIImageView(image: image)
+        //let image_view = UIImageView()
+        //image_view.backgroundColor = UIColor.red
         image_view.frame = CGRect(x: 0, y: 0, width: 5, height: 5)
         image_view.contentMode = .scaleAspectFit
         //image_view.translatesAutoresizingMaskIntoConstraints = false
@@ -63,7 +63,7 @@ class GroupCell2: UICollectionViewCell {
     
     let member_pic: UIImageView = {
         let image_view = UIImageView()
-        //image_view.image = UIImage(named: "profile_holder")
+        image_view.image = UIImage(named: "profile_holder")
         image_view.backgroundColor = UIColor.yellow
         image_view.contentMode = .scaleAspectFill
         image_view.translatesAutoresizingMaskIntoConstraints = false
@@ -71,11 +71,11 @@ class GroupCell2: UICollectionViewCell {
     }()
     
     let clock_pic: UIImageView = {
-        //let image = UIImage(named: "profile_holder")
-        //let image_view = UIImageView(image: image)
-        let image_view = UIImageView();
-        image_view.backgroundColor = UIColor.lightGray
-        //image_view.frame = CGRect(x: 0, y: 0, width: 5, height: 5)
+        let image = UIImage(named: "profile_holder")
+        let image_view = UIImageView(image: image)
+        //let image_view = UIImageView();
+        //image_view.backgroundColor = UIColor.lightGray
+        image_view.frame = CGRect(x: 0, y: 0, width: 5, height: 5)
         image_view.contentMode = .scaleAspectFit
         image_view.translatesAutoresizingMaskIntoConstraints = false
         return image_view
@@ -106,7 +106,7 @@ class GroupCell2: UICollectionViewCell {
         
         member_count.anchor(group_name.bottomAnchor, left: member_pic.rightAnchor, bottom: nil, right: clock_pic.leftAnchor, topConstant: 4, leftConstant: 2, bottomConstant: 0, rightConstant: 4, widthConstant: 250, heightConstant: 9)
         
-        expire_time.anchor(self.topAnchor, left: nil, bottom: nil, right: self.rightAnchor, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 12, widthConstant: 100, heightConstant: 9)
+        expire_time.anchor(self.topAnchor, left: nil, bottom: nil, right: self.rightAnchor, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 12, widthConstant: 70, heightConstant: 9)
         
         clock_pic.anchor(self.topAnchor, left: nil, bottom: nil, right: expire_time.leftAnchor, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 2, widthConstant: 9, heightConstant: 9)
         
