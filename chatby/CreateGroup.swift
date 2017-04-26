@@ -87,7 +87,7 @@ class CreateGroup: UIViewController {
         self.view.backgroundColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0)
 
         locationManager = CLLocationManager()
-        locationManager?.delegate = self
+        //locationManager?.delegate = self
         locationManager?.startUpdatingLocation()
         locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         locationManager?.requestAlwaysAuthorization()
