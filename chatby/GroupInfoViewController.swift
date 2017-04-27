@@ -116,6 +116,10 @@ class GroupInfoViewController: JSQMessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad();
         
+        self.title = groupName;
+        self.inputToolbar.contentView.leftBarButtonItem = nil;
+        self.inputToolbar.contentView.textView.placeHolder = "Message";
+
         self.senderId = "temp"
         self.senderDisplayName = "temp"
         
@@ -139,32 +143,7 @@ class GroupInfoViewController: JSQMessagesViewController {
             }
             
         })
-        
-        //self.senderId = "1"
-        //self.senderDisplayName = "Jake"
-        
-        /*print("--- Group Info ---")
-        print(group_path)
 
-        self.senderId = "null";
-        self.senderDisplayName = "null";
-        
-        Alamofire.request(message_list).responseJSON { response in
-            //print(response.request!)  // original URL request
-            //print(response.response!) // HTTP URL response
-            //print(response.data!)     // server data
-            //print(response.result)   // result of response serialization
-            
-            switch response.result {
-            case .success:
-                print("Super dia");
-                
-            case .failure:
-                print("ah naw")
-            }
-            
-        }*/
-        
         drawUI();
 
         /*automaticallyScrollsToMostRecentMessage = true;
@@ -288,117 +267,35 @@ class GroupInfoViewController: JSQMessagesViewController {
     }
 
     // Chat stuff all down here
-
-    /*override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
-        return messages[indexPath.item];
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return messages.count;
-    }
-
-    func sendMessage() {
-        // Do this
-        let auth_string = "Token " + keychain.get("auth")!
-        
-        let header = [
-            "Authorization" : auth_string
-        ]
-        
-        let mess_param : Parameters = [
-            "anonymous": "false",
-            "content": "hi",
-            "room": group_path,
-        ]
-        
-        print("sending message")
-        Alamofire.request("http://chatby.vohras.tk/api/messages", method: .post, parameters: mess_param, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
-            response in
-            print(response.request!)  // original URL request
-            print(response.response!) // HTTP URL response
-            print(response.data!)     // server data
-            print(response.result)
-            
-        })
-    }
-    
-    func recievedMessagePressed(sender: UIBarButtonItem) {
-        showTypingIndicator = true;
-        scrollToBottom(animated: true);
-        finishReceivingMessage(animated: true);
-    }
-    
-    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
-        JSQSystemSoundPlayer.jsq_playMessageSentSound();
-        print("did press send")
-        sendMessage();
-        finishSendingMessage(animated: true);
-    }
-    
-    override func didPressAccessoryButton(_ sender: UIButton!) {
-        print("Pressed accessory button");
-        
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell;
-        let message = messages[indexPath.item];
-        
-        if message.senderId == senderId {
-            cell.textView!.textColor = UIColor.black
-            cell.textView!.layer.borderColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [0.0, CGFloat(122.0/255.0), 1.0, 1.0]);
-        } else {
-            cell.textView!.textColor = UIColor.black
-            cell.textView!.layer.borderColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [CGFloat(91.0/255.0), CGFloat(194.0/255.0), CGFloat(54.0/255.0), 1.0]);
-        }
-        cell.textView!.layer.borderWidth = 1.5;
-        cell.textView!.layer.cornerRadius = 15;
-        cell.textView!.layer.masksToBounds = true;
-        cell.textView!.layer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [1.0, 1.0, 1.0, 1.0]);
-        
-        return cell;
-    }
-    
-    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
-        let message = messages[indexPath.item];
-        
-        // I sent the message
-        if message.senderId == senderId {
-            return nil;
-        }
-        // Same as previous sender, skip the label
-        if indexPath.item > 0 {
-            let previousMessage = messages[indexPath.item - 1];
-            if previousMessage.senderId == message.senderId {
-                return nil;
-            }
-        }
-        return NSAttributedString(string:message.senderDisplayName);
-    }
-    
-    override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellTopLabelAt indexPath: IndexPath!) -> CGFloat {
-        let message = messages[indexPath.item]
-        
-        // I sent the message
-        if message.senderId == senderId {
-            return CGFloat(0.0);
-        }
-        
-        // Same as previous sender, skip
-        if indexPath.item > 0 {
-            let previousMessage = messages[indexPath.item - 1];
-            if previousMessage.senderId == message.senderId {
-                return CGFloat(0.0);
-            }
-        }
-        
-        return kJSQMessagesCollectionViewCellLabelHeightDefault
-    }*/
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
         let bubbleFactory = JSQMessagesBubbleImageFactory()
         let message = messages[indexPath.item]
-        return bubbleFactory?.outgoingMessagesBubbleImage(with: UIColor.blue)
+        
+        if message.senderId != senderId {
+            return bubbleFactory?.incomingMessagesBubbleImage(with: UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0));
+        }
+
+        return bubbleFactory?.outgoingMessagesBubbleImage(with: UIColor.gray);
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
+        let message = messages[indexPath.row];
+        
+        // You sent it
+        if message.senderId == self.senderId {
+            return nil
+        }
+        
+        // Only puts label on first bubble of chain
+        if indexPath.item > 0 {
+            let previousMessage = messages[indexPath.row - 1];
+            if previousMessage.senderId == message.senderId {
+                return nil;
+            }
+        }
+    
+        return NSAttributedString(string: message.senderDisplayName)
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
