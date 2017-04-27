@@ -26,8 +26,9 @@ class CustomTabBarController: UITabBarController {
         super.viewDidLoad()
         
         if (keychain.getBool("auth") == false) {
-            let login_vc = LoginViewController(nibName: "LoginViewController", bundle: nil)
-            self.navigationController?.pushViewController(login_vc, animated: true)
+            print("Sup nerd");
+            let login_vc = LogInViewController();
+            self.present(login_vc, animated: true, completion: nil);
         }
         
         self.tabBar.tintColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0)

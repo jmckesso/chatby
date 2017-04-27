@@ -166,6 +166,10 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false;
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 50)
     }
@@ -199,6 +203,20 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 40)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Cell", self.data[indexPath.row], "selected");
+        let infostory = UIStoryboard(name: "Login", bundle: nil);
+        let infocontr = infostory.instantiateViewController(withIdentifier: "GroupInfoMain") as! GroupInfoViewController;
+        let g_path = self.data[indexPath.row][1];
+        let g_name = self.data[indexPath.row][0];
+        infocontr.group_path = g_path;
+        infocontr.groupName = g_name;
+        
+        self.navigationController?.pushViewController(infocontr, animated: true);
+        
+        print(infocontr);
     }
     
     

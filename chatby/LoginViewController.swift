@@ -26,7 +26,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         print("login view")
         
-        view.backgroundColor = UIColor.white
+        self.view.backgroundColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0)
         
         super.viewDidLoad();
 
@@ -121,10 +121,10 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
 
         // Create text fields
         let inpWid:CGFloat = 200.0;
-        let inpHei:CGFloat = 30.0;
+        let inpHei:CGFloat = 40.0;
 
         username = UITextField(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2),
-                                             y: self.view.bounds.height / 2.1,
+                                             y: self.view.bounds.height / 2.2,
                                              width: inpWid,
                                              height: inpHei));
 
@@ -134,8 +134,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                                              height: inpHei));
 
         let underline = CALayer();
-        let undWid:CGFloat = 2.0;
-        underline.borderColor = UIColor.black.cgColor;
+        let undWid:CGFloat = 1.0;
+        underline.borderColor = UIColor.white.cgColor;
         underline.frame = CGRect(x: 0,
                                  y: username.frame.size.height - undWid,
                                  width: username.frame.size.width,
@@ -143,11 +143,11 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
 
         underline.borderWidth = undWid;
         username.clipsToBounds = true;
-        username.textColor = UIColor.black;
+        username.textColor = UIColor.white;
         username.layer.addSublayer(underline);
         username.layer.masksToBounds = true;
         username.placeholder = "Username"
-        username.textAlignment = NSTextAlignment.center;
+        username.textAlignment = NSTextAlignment.left;
         username.returnKeyType = UIReturnKeyType.done;
         username.keyboardType = UIKeyboardType.emailAddress;
         username.alpha = 1.0;
@@ -157,8 +157,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         self.view.addSubview(username);
 
         let punderline = CALayer();
-        let pundWid:CGFloat = 2.0;
-        punderline.borderColor = UIColor.black.cgColor;
+        let pundWid:CGFloat = 1.0;
+        punderline.borderColor = UIColor.white.cgColor;
         punderline.frame = CGRect(x: 0,
                                  y: password.frame.size.height - pundWid,
                                  width: password.frame.size.width,
@@ -167,12 +167,12 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         punderline.borderWidth = pundWid;
 
         password.clipsToBounds = true;
-        password.textColor = UIColor.black;
+        password.textColor = UIColor.white;
         punderline.borderWidth = pundWid;
         password.layer.addSublayer(punderline);
         password.layer.masksToBounds = true;
         password.placeholder = "Password"
-        password.textAlignment = NSTextAlignment.center;
+        password.textAlignment = NSTextAlignment.left;
         username.returnKeyType = UIReturnKeyType.done;
         password.isEnabled = true;
         password.isSecureTextEntry = true;
@@ -192,7 +192,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         loginButton.backgroundColor = UIColor.clear;
         loginButton.layer.cornerRadius = 8.0;
         loginButton.setTitle("Login", for: UIControlState.normal);
-        loginButton.setTitleColor(UIColor.black, for: UIControlState.normal);
+        loginButton.setTitleColor(UIColor.white, for: UIControlState.normal);
         loginButton.titleLabel?.font = UIFont(name: "System", size: 20);
         loginButton.addTarget(self, action: #selector(LogInViewController.login(_:)), for: UIControlEvents.touchUpInside);
         loginButton.alpha = 1.0;
@@ -213,7 +213,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         signupButton.backgroundColor = UIColor.clear;
         signupButton.layer.cornerRadius = 8.0;
         signupButton.setTitle("Dont have an account?", for: UIControlState.normal);
-        signupButton.setTitleColor(UIColor.black, for: UIControlState.normal);
+        signupButton.setTitleColor(UIColor.white, for: UIControlState.normal);
         signupButton.titleLabel?.font = UIFont(name: "System", size: 20);
         signupButton.addTarget(self, action: #selector(LogInViewController.presentSignup(_:)), for: UIControlEvents.touchUpInside);
         signupButton.alpha = 1.0;
