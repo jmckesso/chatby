@@ -9,11 +9,17 @@
 import UIKit
 import LBTAComponents
 import CoreLocation
+import Alamofire
+import SwiftyJSON
 
-class CreateGroup: UIViewController {
+class CreateGroup: UIViewController, CLLocationManagerDelegate {
 
     var locationManager: CLLocationManager?
     var current_location: CLLocation?
+    
+    var request_format: String!
+    
+    var make_url = "http://chatby.vohras.tk/api/rooms/"
     
     let group_name: UITextField = {
         let text_field = UITextField()
@@ -125,20 +131,24 @@ class CreateGroup: UIViewController {
     
     func datePickerValueChanged(_ sender: UIDatePicker){
         
-        // Create date formatter
         let dateFormatter: DateFormatter = DateFormatter()
+        let sent = sender.date
         
-        // Set date format
         dateFormatter.dateFormat = "EEE, MMM dd 'at' h:mm a"
         
-        // Apply date format
-        let selectedDate: String = dateFormatter.string(from: sender.date)
+        var selectedDate: String = dateFormatter.string(from: sent)
         selected_date.text = selectedDate
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.ssssssZ"
+        
+        selectedDate = dateFormatter.string(from: sent)
+        print(selectedDate)
+        request_format = selectedDate
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.current_location = locations[0]
-        
+        locationManager?.stopUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -151,6 +161,29 @@ class CreateGroup: UIViewController {
     
     func confirmGroup(sender: UIBarButtonItem) {
         print("sending request")
+        
+        let header = [
+            "Authorization": "Token " + keychain.get("auth")!
+        ]
+        
+        let group_param : Parameters = [
+            "name": group_name.text!,
+            "radius": group_radius.text!,
+            "expire_time": request_format,
+            "image_url": "",
+            "latitude": current_location!.coordinate.latitude,
+            "longitude": current_location!.coordinate.longitude
+        ]
+        
+        Alamofire.request(make_url, method: .post, parameters: group_param, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
+            response in
+            switch response.result {
+            case .success:
+                    self.dismiss(animated: true, completion: nil);
+            case .failure:
+                print("failed to make group")
+            }
+        })
         
     }
 

@@ -91,6 +91,16 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     var member_counts = [Int]();
     var expire_dates = [String]();
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if self.isBeingPresented {
+            print("moving to parent")
+            collection_view.reloadData()
+        }
+        
+    }
+    
     override func viewDidLoad() {
         
         self.title = "Nearby"
