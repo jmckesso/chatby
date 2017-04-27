@@ -14,11 +14,14 @@ import KeychainSwift
 class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
 
     var collection_view: UICollectionView!
-    var data = [[String]]();
-    var member_counts = [Int]();
-    var expire_dates = [String]();
+    
+    var data_created = [[Any]]()
+    var data_favorited = [[Any]]()
+    var data_joined = [[Any]]()
     
     let group_url = "http://chatby.vohras.tk/api/rooms/"
+    
+    var curr_user = String()
     
     override func viewDidLoad() {
         
@@ -41,6 +44,17 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
         collection_view.register(ActiveHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerID")
         collection_view.register(GroupCell2.self, forCellWithReuseIdentifier: "cell")
         
+        let auth_string = "Token " + keychain.get("auth")!
+        
+        let header = [
+            "Authorization" : auth_string
+        ]
+        
+        Alamofire.request("http://chatby.vohras.tk/api/users/current/", method: .get, headers: header).validate().responseJSON(completionHandler:  { response in
+            let user = JSON(response.result.value!)
+            self.curr_user = user["url"].stringValue
+        })
+        
         Alamofire.request(group_url).validate().responseJSON(completionHandler: { response in
             let groups = JSON(response.result.value!)
             for (_,subJson):(String, JSON) in groups {
@@ -48,21 +62,25 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
                 let path = subJson["url"].stringValue
                 let expire = subJson["expire_time"].stringValue
                 let member_c = subJson["members"].count
-                var entry = [String]()
+                let created_by = subJson["created_by"].stringValue
+
+                let member_list = subJson["members"].rawValue as? [String]
+                
+                var entry = [Any]()
                 entry.append(name)
                 entry.append(path)
+                entry.append(expire)
+                entry.append(member_c)
                 
-                print(name)
-                print(path)
-                print(expire)
-                print(member_c)
+                if created_by == self.curr_user {
+                    self.data_created.append(entry)
+                }
                 
-                self.data.append(entry)
-                self.member_counts.append(member_c)
-                self.expire_dates.append(expire)
+                if (member_list?.contains(self.curr_user))! {
+                    self.data_joined.append(entry)
+                }
+                
             }
-            
-            print(self.data.count)
             
             self.collection_view.reloadData()
         })
@@ -70,15 +88,8 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
         self.view.addSubview(collection_view)
         
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 50)
     }
@@ -88,23 +99,49 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count
+        if section == 0 {
+            return data_created.count
+        }
+        else if section == 1 {
+            return data_favorited.count
+        }
+        else if section == 2 {
+            return data_joined.count
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell:GroupCell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath as IndexPath) as! GroupCell2
         //cell.backgroundColor = UIColor.red
-        cell.group_name.text = data[indexPath.row][0]
-        cell.member_count.text = String(member_counts[indexPath.row]) + " members"
+        if indexPath.section == 0 {
+            cell.group_name.text = (data_created[indexPath.row][0] as! String)
+            cell.member_count.text = String(data_created[indexPath.row][3] as! Int) + " members"
+            
+            let myDate = data_created[indexPath.row][2] as! String
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            let date = dateFormatter.date(from:myDate)!
+            dateFormatter.dateFormat = "MMM dd 'at' h:mm"
+            let dateString = dateFormatter.string(from:date)
+            
+            cell.expire_time.text = dateString
+        }
         
-        let myDate = expire_dates[indexPath.row]
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        let date = dateFormatter.date(from:myDate)!
-        dateFormatter.dateFormat = "MMM dd 'at' h:mm"
-        let dateString = dateFormatter.string(from:date)
+        if indexPath.section == 2 {
+            cell.group_name.text = (data_joined[indexPath.row][0] as! String)
+            cell.member_count.text = String(data_joined[indexPath.row][3] as! Int) + " members"
+            
+            let myDate = data_joined[indexPath.row][2] as! String
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            let date = dateFormatter.date(from:myDate)!
+            dateFormatter.dateFormat = "MMM dd 'at' h:mm"
+            let dateString = dateFormatter.string(from:date)
+            
+            cell.expire_time.text = dateString
+        }
         
-        cell.expire_time.text = dateString
         return cell
     }
     

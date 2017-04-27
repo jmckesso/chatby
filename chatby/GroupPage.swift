@@ -107,6 +107,7 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0)
         
         let item1 = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(rightButtonAction(sender:)))
+        item1.tintColor = UIColor.white
         self.navigationItem.rightBarButtonItem = item1
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -228,10 +229,6 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
                             break
                         }
                     }
-                    //self.urls.append(path)
-                    //self.names.append(name)
-                    //self.member_counts.append(member_c)
-                    //self.expire_dates.append(expire)
                     if contains == false {
                         self.data.append(entry)
                     }

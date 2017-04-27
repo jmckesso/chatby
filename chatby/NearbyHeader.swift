@@ -53,6 +53,8 @@ class NearbyHeader: UICollectionReusableView, UIPickerViewDataSource, UIPickerVi
         sort_picker.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
         sort_picker.reloadAllComponents()
         
+        sort_picker.showsSelectionIndicator = false
+        
         confirm_sort.addTarget(self, action: #selector(NearbyHeader.sortInfo), for: .touchUpInside)
         
         addSubview(curr_loc)
