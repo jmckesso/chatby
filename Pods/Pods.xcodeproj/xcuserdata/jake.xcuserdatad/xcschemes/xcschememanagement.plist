@@ -4,17 +4,17 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>DropDown.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>JSQMessagesViewController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>JSQSystemSoundPlayer.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>KCFloatingActionButton.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -47,6 +47,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>5168099F2EBFC99A707C03C9EADE01A5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>7FC4934728BE8A5C91D992A4E39CD80A</key>
 		<dict>
 			<key>primary</key>
@@ -57,12 +62,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A4775AE9C9E2CC7FEB5FCE15EDF158AB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A6E9CEC9E5ACFE69D21456CCB70BEEA0</key>
+		<key>B73B2ECBC4C194C577E4396713EB866D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

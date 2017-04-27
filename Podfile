@@ -8,7 +8,7 @@ target 'chatby' do
   # Pods for chatby
   pod 'JSQMessagesViewController'
   pod "LBTAComponents"
-  pod "KCFloatingActionButton", "~> 2.2.0"
+  pod 'DropDown'
 
   target 'chatbyTests' do
     inherit! :search_paths

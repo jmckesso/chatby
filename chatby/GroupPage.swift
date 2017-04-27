@@ -11,7 +11,6 @@ import Alamofire
 import SwiftyJSON
 import KeychainSwift
 import CoreLocation
-import KCFloatingActionButton
 import LBTAComponents
 
 class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, CLLocationManagerDelegate {
@@ -87,18 +86,15 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     let group_url = "http://chatby.vohras.tk/api/rooms/"
     
-    var data = [[String]]();
+    var names = [String]();
+    var urls = [String]();
     var member_counts = [Int]();
     var expire_dates = [String]();
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if self.isBeingPresented {
-            print("moving to parent")
-            collection_view.reloadData()
-        }
-        
+        loadData()
     }
     
     override func viewDidLoad() {
@@ -131,35 +127,6 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
         locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         locationManager?.requestAlwaysAuthorization()
         
-        print("loading groups")
-        
-        Alamofire.request(group_url).validate().responseJSON(completionHandler: { response in
-                let groups = JSON(response.result.value!)
-                for (_,subJson):(String, JSON) in groups {
-                    let name = subJson["name"].stringValue
-                    let path = subJson["url"].stringValue
-                    let expire = subJson["expire_time"].stringValue
-                    let member_c = subJson["members"].count
-                    var entry = [String]()
-                    entry.append(name)
-                    entry.append(path)
-                    
-                    print(name)
-                    print(path)
-                    print(expire)
-                    print(member_c)
-                    
-                    self.data.append(entry)
-                    self.member_counts.append(member_c)
-                    self.expire_dates.append(expire)
-                }
-            
-                print(self.data.count)
-            
-                //self.collection_view.reloadData()
-        })
-        
-        
         self.view.addSubview(collection_view)
         
         super.viewDidLoad()
@@ -175,12 +142,12 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count
+        return names.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell:GroupCell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath as IndexPath) as! GroupCell2
-        cell.group_name.text = data[indexPath.row][0]
+        cell.group_name.text = names[indexPath.row]
         cell.member_count.text = String(member_counts[indexPath.row]) + " members"
         
         let myDate = expire_dates[indexPath.row]
@@ -198,6 +165,7 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
         let header:NearbyHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerID", for: indexPath) as! NearbyHeader
         header.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
         header.curr_loc.text = self.curr
+        header.curr_loc.font = UIFont.systemFont(ofSize: 10)
         return header
     }
     
@@ -206,11 +174,11 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Cell", self.data[indexPath.row], "selected");
+        print("Cell", self.names[indexPath.row], "selected");
         let infostory = UIStoryboard(name: "Login", bundle: nil);
         let infocontr = infostory.instantiateViewController(withIdentifier: "GroupInfoMain") as! GroupInfoViewController;
-        let g_path = self.data[indexPath.row][1];
-        let g_name = self.data[indexPath.row][0];
+        let g_path = self.urls[indexPath.row];
+        let g_name = self.names[indexPath.row];
         infocontr.group_path = g_path;
         infocontr.groupName = g_name;
         
@@ -219,10 +187,39 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
         print(infocontr);
     }
     
+    func loadData() {
+        Alamofire.request(group_url).validate().responseJSON(completionHandler: { response in
+            let groups = JSON(response.result.value!)
+            for (_,subJson):(String, JSON) in groups {
+                let name = subJson["name"].stringValue
+                let path = subJson["url"].stringValue
+                let expire = subJson["expire_time"].stringValue
+                let member_c = subJson["members"].count
+                
+                let group_lat = subJson["latitude"].doubleValue
+                let group_long = subJson["longitude"].doubleValue
+                                
+                let group_location = CLLocation(latitude: group_lat, longitude: group_long)
+                let distance = group_location.distance(from: self.current_location!) / 1000
+                
+                let group_radius = subJson["radius"].doubleValue
+                
+                if distance <= group_radius && !self.urls.contains(path) {
+                    self.urls.append(path)
+                    self.names.append(name)
+                    self.member_counts.append(member_c)
+                    self.expire_dates.append(expire)
+                }
+                
+            }
+            self.collection_view.reloadData()
+        })
+    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         self.current_location = locations[0]
+        loadData()
         
         let geoCoder = CLGeocoder()
         let location = CLLocation(latitude: (current_location?.coordinate.latitude)!, longitude: (current_location?.coordinate.longitude)!)

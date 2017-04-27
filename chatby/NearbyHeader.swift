@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import DropDown
 
 class NearbyHeader: UICollectionReusableView {
+    
     let curr_loc: UILabel = {
         let label = UILabel()
         label.text = "Sample"
@@ -17,10 +19,15 @@ class NearbyHeader: UICollectionReusableView {
         return label
     }()
     
+    //let drop_down: DropDown = {
+        //let dd = DropDown()
+        //dd.dataSource = ["Car", "Truck", "Motorcycle"]
+        //return dd
+    //}()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         edit_views()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,7 +37,7 @@ class NearbyHeader: UICollectionReusableView {
     func edit_views() {
         addSubview(curr_loc)
         
-        curr_loc.anchor(self.topAnchor, left: self.leftAnchor, bottom: nil, right: self.rightAnchor, topConstant: 10, leftConstant: 8, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 20)
+        curr_loc.anchor(self.topAnchor, left: self.leftAnchor, bottom: nil, right: self.rightAnchor, topConstant: 10, leftConstant: (self.frame.width) / 2 , bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 20)
     }
     
 }
