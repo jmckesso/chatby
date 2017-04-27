@@ -79,7 +79,6 @@ class ProfileCell: UITableViewCell {
             
         }
         else if button_row == 2 {
-            print("changing full name")
             self.delegate?.editButton(type: "fullname")
         }
         

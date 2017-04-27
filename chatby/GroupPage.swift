@@ -13,7 +13,7 @@ import KeychainSwift
 import CoreLocation
 import LBTAComponents
 
-class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, CLLocationManagerDelegate {
+class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, CLLocationManagerDelegate, NearbyHeaderCallsDelegate {
 
     var statesDictionary = ["AL": "Alabama",
                             "AK": "Alaska",
@@ -86,10 +86,12 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     let group_url = "http://chatby.vohras.tk/api/rooms/"
     
-    var names = [String]();
-    var urls = [String]();
-    var member_counts = [Int]();
-    var expire_dates = [String]();
+    var data = [[Any]]();
+    
+    //var names = [String]();
+    //var urls = [String]();
+    //var member_counts = [Int]();
+    //var expire_dates = [String]();
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -142,15 +144,15 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return names.count
+        return data.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell:GroupCell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath as IndexPath) as! GroupCell2
-        cell.group_name.text = names[indexPath.row]
-        cell.member_count.text = String(member_counts[indexPath.row]) + " members"
+        cell.group_name.text = (data[indexPath.row][0] as! String)
+        cell.member_count.text = String(data[indexPath.row][3] as! Int) + " members"
         
-        let myDate = expire_dates[indexPath.row]
+        let myDate = data[indexPath.row][2] as! String
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         let date = dateFormatter.date(from:myDate)!
@@ -166,6 +168,9 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
         header.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
         header.curr_loc.text = self.curr
         header.curr_loc.font = UIFont.systemFont(ofSize: 10)
+        
+        header.delegate = self
+        
         return header
     }
     
@@ -174,41 +179,62 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Cell", self.names[indexPath.row], "selected");
+        print("Cell", self.data[indexPath.row][0], "selected");
         let infostory = UIStoryboard(name: "Login", bundle: nil);
         let infocontr = infostory.instantiateViewController(withIdentifier: "GroupInfoMain") as! GroupInfoViewController;
-        let g_path = self.urls[indexPath.row];
-        let g_name = self.names[indexPath.row];
+        let g_path = self.data[indexPath.row][1] as! String;
+        let g_name = self.data[indexPath.row][0] as! String;
         infocontr.group_path = g_path;
         infocontr.groupName = g_name;
         
         self.navigationController?.pushViewController(infocontr, animated: true);
-        
-        print(infocontr);
     }
     
     func loadData() {
         Alamofire.request(group_url).validate().responseJSON(completionHandler: { response in
             let groups = JSON(response.result.value!)
             for (_,subJson):(String, JSON) in groups {
+                
+                var entry = [Any]()
+                
                 let name = subJson["name"].stringValue
                 let path = subJson["url"].stringValue
                 let expire = subJson["expire_time"].stringValue
                 let member_c = subJson["members"].count
                 
+                entry.append(name)
+                entry.append(path)
+                entry.append(expire)
+                entry.append(member_c)
+                
                 let group_lat = subJson["latitude"].doubleValue
                 let group_long = subJson["longitude"].doubleValue
-                                
+                
                 let group_location = CLLocation(latitude: group_lat, longitude: group_long)
                 let distance = group_location.distance(from: self.current_location!) / 1000
                 
+                entry.append(group_location)
+                
                 let group_radius = subJson["radius"].doubleValue
                 
-                if distance <= group_radius && !self.urls.contains(path) {
-                    self.urls.append(path)
-                    self.names.append(name)
-                    self.member_counts.append(member_c)
-                    self.expire_dates.append(expire)
+                entry.append(group_radius)
+                
+                var contains = false
+                
+                if distance <= group_radius {
+                    for d in self.data {
+                        if d[1] as! String == path {
+                            contains = true
+                            break
+                        }
+                    }
+                    //self.urls.append(path)
+                    //self.names.append(name)
+                    //self.member_counts.append(member_c)
+                    //self.expire_dates.append(expire)
+                    if contains == false {
+                        self.data.append(entry)
+                    }
                 }
                 
             }
@@ -228,16 +254,13 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
             guard let addressDict = placemarks?[0].addressDictionary else {
                 return
             }
-
             let city = addressDict["City"]! as! String
             let state = addressDict["State"]! as! String
             let state_long = self.statesDictionary[state]
             
             self.curr = city + ", " + state_long!
             self.collection_view.reloadData()
-            
         })
-        
         locationManager?.stopUpdatingLocation()
         
     }
@@ -247,12 +270,46 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     }
     
     func rightButtonAction(sender: UIBarButtonItem) {
-        print("tappin that ass")
-    
         let create_vc = CreateGroup()
         let nav_contr = UINavigationController(rootViewController: create_vc)
         nav_contr.modalTransitionStyle = .coverVertical
         self.present(nav_contr, animated: true, completion: nil)
+    }
+    
+    func sortButton(type:String) {
+        if type == "default" {
+            print("sorting default")
+        }
+        else if type == "close" {
+            print("sorting closest")
+            self.data = self.data.sorted{ ($0[4] as? CLLocation)!.distance(from: self.current_location!) < ($1[4] as? CLLocation)!.distance(from: self.current_location!) }
+            self.collection_view.reloadData()
+        }
+        else if type == "far" {
+            print("sorting far")
+            self.data = self.data.sorted{ ($0[4] as? CLLocation)!.distance(from: self.current_location!) > ($1[4] as? CLLocation)!.distance(from: self.current_location!) }
+            self.collection_view.reloadData()
+        }
+        else if type == "trm" {
+            print("sorting time remaining most")
+            self.data = self.data.sorted{ ($0[2] as? String)! > ($1[2] as? String)! }
+            self.collection_view.reloadData()
+        }
+        else if type == "trl" {
+            print("sorting time remaining least")
+            self.data = self.data.sorted{ ($0[2] as? String)! < ($1[2] as? String)! }
+            self.collection_view.reloadData()
+        }
+        else if type == "mcm" {
+            print("sorting member count least")
+            self.data = self.data.sorted{ ($0[3] as? Int)! > ($1[3] as? Int)! }
+            self.collection_view.reloadData()
+        }
+        else if type == "mcl" {
+            print("sorting member count most")
+            self.data = self.data.sorted{ ($0[3] as? Int)! < ($1[3] as? Int)! }
+            self.collection_view.reloadData()
+        }
     }
     
 }
