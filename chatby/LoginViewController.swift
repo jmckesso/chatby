@@ -68,7 +68,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             switch response.result {
             case .success:
                 let session_key = JSON(response.result.value!)
-                print(session_key)
                 
                 keychain.set(session_key["token"].stringValue, forKey: "auth")
                 //self.navigationController?.popViewController(animated: true)
@@ -80,18 +79,23 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                 //window?.backgroundColor = UIColor.white
                 //window?.makeKeyAndVisible()
                 
-                let tabController = CustomTabBarController()
-                let navController = UINavigationController(rootViewController: tabController)
-                navController.navigationBar.isHidden = true
+                //let tabController = CustomTabBarController()
+                //let navController = UINavigationController(rootViewController: tabController)
+                //navController.navigationBar.isHidden = true
                 //self.(tabController, animated: true, completion: nil)
-                self.navigationController?.pushViewController(tabController, animated: true)
+                //self.navigationController?.pushViewController(tabController, animated: true)
                 //window?.rootViewController = navController
                 
                 //window?.rootViewController = CustomTabBarController()
 
-                //self.dismiss(animated: true, completion: nil);
+                let tabController = CustomTabBarController()
+                let navController = UINavigationController(rootViewController: tabController)
+                navController.navigationBar.isHidden = true
+                    //self.(tabController, animated: true, completion: nil)
+                self.navigationController?.pushViewController(tabController, animated: true)
+                    //window?.rootViewController = navController
+                self.dismiss(animated: true, completion: nil)
                 
-
             case .failure:
                 
                 let animation = CABasicAnimation(keyPath: "position");

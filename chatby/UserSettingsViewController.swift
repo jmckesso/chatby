@@ -233,7 +233,10 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
         let alert = UIAlertController(title: "Are you sure you want to logout?", message: nil, preferredStyle: .alert);
         let confirmAct = UIAlertAction(title: "Yes", style: .destructive, handler: {(alert:UIAlertAction) in
             keychain.delete("auth");
-            self.navigationController?.popToRootViewController(animated: true)
+            let login_vc = LogInViewController()
+            self.present(login_vc, animated: true, completion: nil)
+            //let login_nav = UINavigationController(rootViewController: login_vc)
+            //self.navigationController?.popToRootViewController(animated: true)
             //self.navigationController?.popViewController(animated: true)
             //self.navigationController?.popViewController(animated: true)
             //let logboard = UIStoryboard(name: "Login", bundle: nil);

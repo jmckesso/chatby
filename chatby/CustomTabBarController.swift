@@ -38,6 +38,8 @@ class CustomTabBarController: UITabBarController {
             self.present(login_vc, animated: true, completion: nil);
         }
         else {
+            
+            print("tab bar")
         
         self.tabBar.tintColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0)
         
