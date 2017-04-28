@@ -280,6 +280,7 @@ class GroupInfo: JSQMessagesViewController, MenuDismissControllerDelegate {
         return cell
     }
     
+
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAt indexPath: IndexPath!) {
         //let message = messages[indexPath.row];
     }
