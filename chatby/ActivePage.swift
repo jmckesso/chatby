@@ -78,17 +78,7 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
                 entry.append(expire)
                 entry.append(member_c)
                 
-                //let group_lat = subJson["latitude"].doubleValue
-                //let group_long = subJson["longitude"].doubleValue
-                
-                //let group_location = CLLocation(latitude: group_lat, longitude: group_long)
-                //let distance = group_location.distance(from: self.current_location!) / 1000
-                
-                //entry.append(group_location)
-                
-                //let group_radius = subJson["radius"].doubleValue
-                //entry.append(group_radius)
-                
+
                 let group_json = subJson.dictionaryObject
                 entry.append(group_json!)
                 

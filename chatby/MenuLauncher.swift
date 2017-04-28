@@ -23,6 +23,7 @@ class MenuLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectionVi
     
     var is_member = false
     var is_favorite = false
+    var is_anon = false
     
     let menu: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -106,7 +107,12 @@ class MenuLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectionVi
             }
         }
         if indexPath.row == 2 {
-            print("Chatting anon")
+            if cell.cell_name.text == "Chat Anonymously" {
+                anonOn()
+            }
+            else if cell.cell_name.text == "Chat Publicly" {
+                anonOff()
+            }
         }
         if indexPath.row == 3 {
             print("Managing users")
@@ -159,8 +165,14 @@ class MenuLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectionVi
             }
         }
         else if indexPath.row == 2 {
-            cell.divider_line.backgroundColor = UIColor.white
-            cell.cell_name.text = "Chat Anonymously"
+            if is_anon == true {
+                cell.divider_line.backgroundColor = UIColor.white
+                cell.cell_name.text = "Chat Publicly"
+            }
+            else if is_anon == false {
+                cell.divider_line.backgroundColor = UIColor.white
+                cell.cell_name.text = "Chat Anonymously"
+            }
             let creator = curr_group["created_by"] as! String
             if creator != curr_user {
                 cell.divider_line.backgroundColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0)
@@ -176,6 +188,16 @@ class MenuLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectionVi
             cell.divider_line.backgroundColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0)
         }
         return cell
+    }
+    
+    func anonOn() {
+        print("anon on")
+        self.is_anon = true
+    }
+    
+    func anonOff() {
+        print("anon off")
+        self.is_anon = false
     }
     
     func updateFavorites() {

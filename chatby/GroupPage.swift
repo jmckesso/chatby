@@ -94,7 +94,6 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
         
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         getFavorites()
         loadData()
     }
@@ -192,6 +191,7 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Cell", self.data[indexPath.row][0], "selected");
+
         let info_vc = GroupInfo()
         info_vc.group_name = self.data[indexPath.row][0] as! String
         info_vc.curr_user = self.curr_user
@@ -201,6 +201,7 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
         let nav_contr = UINavigationController(rootViewController: info_vc)
         nav_contr.modalTransitionStyle = .coverVertical
         self.present(nav_contr, animated: true, completion: nil)
+        
     }
     
     func getFavorites() {
