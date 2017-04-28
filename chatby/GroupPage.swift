@@ -192,14 +192,16 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Cell", self.data[indexPath.row][0], "selected");
+        let info_vc = GroupInfo()
+        info_vc.group_name = self.data[indexPath.row][0] as! String
+        info_vc.curr_user = self.curr_user
+        info_vc.favorites = self.favs
+        info_vc.group_page = self.data[indexPath.row][1] as! String
+        info_vc.curr_group = self.data[indexPath.row][6] as! [String: Any]
+        let nav_contr = UINavigationController(rootViewController: info_vc)
+        nav_contr.modalTransitionStyle = .coverVertical
+        self.present(nav_contr, animated: true, completion: nil)
         
-        //let infocontr = infostory.instantiateViewController(withIdentifier: "GroupInfoMain") as! GroupInfoViewController;
-        //let g_path = self.data[indexPath.row][1] as! String;
-        //let g_name = self.data[indexPath.row][0] as! String;
-        //infocontr.group_path = g_path;
-        //infocontr.groupName = g_name;
-        
-        //self.navigationController?.pushViewController(infocontr, animated: true);
     }
     
     func getFavorites() {

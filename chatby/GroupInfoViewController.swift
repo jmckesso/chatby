@@ -31,17 +31,10 @@ class GroupInfoViewController: JSQMessagesViewController {
         
         Alamofire.request("http://chatby.vohras.tk/api/users/").validate().responseJSON(completionHandler: { response in
             let users = JSON(response.result.value!)
-            //print("users \n")
-            //print(users)
-            
-            
             var j = 0
             while (j < users.count) {
-                //print("print comparing id to stringVal")
-                //print(id + " : " + users[j]["url"].stringValue)
                 if (id == users[j]["url"].stringValue) {
                     let name = users[j]["username"].stringValue
-                    //print("appending message")
                     self.messages.append(JSQMessage(senderId: id, senderDisplayName: name, date: date, text: content))
                 }
                 j = j + 1
@@ -53,16 +46,10 @@ class GroupInfoViewController: JSQMessagesViewController {
     }
     
     func gettingMessageData() {
-        //print("\n --- Getting Message List --- \n")
-        
-
         Alamofire.request(message_list).validate().responseJSON(completionHandler: { response in
-            
             switch response.result {
             case .success:
-                //print("super success")
                 let output = JSON(response.result.value!)
-                //print(output)
                 let message = JSON(response.result.value!)
                 var i = 0;
                 while (i < message.count) {
@@ -80,37 +67,8 @@ class GroupInfoViewController: JSQMessagesViewController {
                     }
                     i = i + 1
                 }
-                
-    
-                /*Alamofire.request("http://chatby.vohras.tk/api/users/").validate().responseJSON(completionHandler: { response in
-                    let users = JSON(response.result.value!)
-                    
-                    var j = 0
-                    while (j < users.count) {
-                        if (id == users[j]["url"].stringValue) {
-                            name = users[j]["username"].stringValue
-                        }
-                        j = j + 1
-                    }
-                    
-                    self.collectionView.reloadData()
-                    
-                })
-                
-                var i = 0
-                while (i < message.count) {
-                    if (room == self.group_path) {
-                        self.messages.append(JSQMessage(senderId: id, displayName: name, text: t))
-                        self.collectionView.reloadData()
-                    }
-                    i = i + 1
-                }
-                
-                self.collectionView.reloadData()*/
-                
-                
             case .failure:
-                print("mega fail")
+                break
             }
             
         })
@@ -118,7 +76,6 @@ class GroupInfoViewController: JSQMessagesViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad();
-        
         
         self.title = groupName;
         self.inputToolbar.contentView.leftBarButtonItem = nil;
@@ -186,104 +143,19 @@ class GroupInfoViewController: JSQMessagesViewController {
         self.tabBarController?.tabBar.isHidden = true;
     }
     
-    
-    
-    /*func joingroup(_ sender: UIBarButtonItem) {
-        let auth_string = "Token " + keychain.get("auth")!
-
-        let header = [
-            "Authorization" : auth_string
-        ]
-        
-        let room_parameters : Parameters = [
-            "muted":false,
-            "room":group_path
-        ]
-
-        Alamofire.request("http://chatby.vohras.tk/api/memberships/", method: .post, parameters: room_parameters, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
-            response in
-            print(response.request!)  // original URL request
-            print(response.response!) // HTTP URL response
-            print(response.data!)     // server data
-            print(response.result)
-            
-            switch response.result {
-                case .success:
-                    self.navigationController?.popViewController(animated: true);
-                case .failure:
-                    break
-            }
-            
-            print(response.result.value!)
-        })
-
-        
-        //confirmBtn.isEnabled = false;
-        
-        
-    }
-    
-    // UI Shit down here*/
-    
     func drawUI() {
-        /*self.title = groupName;
-        let inpWid:CGFloat = self.view.bounds.width;
-        
-        let label: UILabel = UILabel(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2) + 20,
-                                                   y: self.view.bounds.height / 4,
-                                                   width: inpWid,
-                                                   height: 100));
-        
-        label.text = groupName;
-        label.textAlignment = NSTextAlignment.left;
-        label.textColor = UIColor.black;
-        
-        confirmBtn = UIButton(frame: CGRect(x: self.view.bounds.width / 2 - (inpWid / 2) + 5,
-                                                            y: self.view.frame.maxY - 140,
-                                                            width: self.view.bounds.width - 10,
-                                                            height: 65));
-        confirmBtn.backgroundColor = UIColor.gray;
-        confirmBtn.setTitleColor(UIColor.white, for: UIControlState.normal);
-        confirmBtn.setTitleColor(UIColor.lightGray, for: UIControlState.highlighted);
-        confirmBtn.setTitle("Join Group", for: .normal);
-        confirmBtn.addTarget(self, action: #selector(joingroup(_:)), for: .touchUpInside);
-        
-        confirmBtn.setTitleColor(UIColor(colorLiteralRed: 14.0/255,
-                                         green: 122.0/255,
-                                         blue: 254.0/255,
-                                         alpha: 1.0), for: UIControlState.normal);
-        confirmBtn.setTitleColor(UIColor(colorLiteralRed: 14.0/255,
-                                         green: 122.0/255,
-                                         blue: 254.0/255,
-                                         alpha: 0.5), for: UIControlState.highlighted);
-        
-        confirmBtn.layer.cornerRadius = 5;
-        confirmBtn.layer.borderColor = UIColor(colorLiteralRed: 14.0/255,
-                                               green: 122.0/255,
-                                               blue: 254.0/255,
-                                               alpha: 1.0).cgColor;
-        confirmBtn.layer.borderWidth = 1;
-        confirmBtn.layer.backgroundColor = UIColor.white.cgColor;*/
-        
         let settingsBtn = UIBarButtonItem(barButtonSystemItem: .edit,
                                           target: self,
                                           action: #selector(toManageGroupInfo(_:)));
         settingsBtn.tintColor = UIColor(cgColor: UIColor.white.cgColor);
         self.navigationItem.rightBarButtonItem = settingsBtn;
         self.navigationController?.navigationBar.tintColor = UIColor(cgColor: UIColor.white.cgColor);
-        
-        
-        /*self.view.addSubview(confirmBtn);
-        self.view.addSubview(label);*/
-        
     }
     
     func toManageGroupInfo(_ sender:UIBarButtonItem) {
         let strybrd = UIStoryboard(name: "Login", bundle: nil);
-        //let controller = strybrd.instantiateViewController(withIdentifier: "ManageGroupsInfoMain");
         let infocontr = strybrd.instantiateViewController(withIdentifier: "ManageGroupsInfoMain") as! ManageGroupsInfoViewController;
         infocontr.group_path = group_path
-        //controller.group_url = group_path;
         self.navigationController?.pushViewController(infocontr, animated: true);
     }
 
@@ -444,13 +316,7 @@ class GroupInfoViewController: JSQMessagesViewController {
             ]
         
         print("sending message")
-        Alamofire.request("http://chatby.vohras.tk/api/messages/", method: .post, parameters: mess_param, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
-            response in
-            print(response.request!)  // original URL request
-            print(response.response!) // HTTP URL response
-            print(response.data!)     // server data
-            print(response.result)
-            
+        Alamofire.request("http://chatby.vohras.tk/api/messages/", method: .post, parameters: mess_param, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: { response in
         })
         
         messages.append(JSQMessage(senderId: senderId, displayName: senderDisplayName, text: text))

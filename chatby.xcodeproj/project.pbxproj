@@ -326,7 +326,7 @@
 				TargetAttributes = {
 					2348AE201E529E160096EDDE = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 44L47DE54H;
+						DevelopmentTeam = YEB7THV825;
 						ProvisioningStyle = Automatic;
 					};
 					2348AE341E529E170096EDDE = {
@@ -650,14 +650,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 44L47DE54H;
+				DEVELOPMENT_TEAM = YEB7THV825;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = chatby/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.squad.chatby;
+				PRODUCT_BUNDLE_IDENTIFIER = com.squad.chatby.cs407;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -670,14 +670,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 44L47DE54H;
+				DEVELOPMENT_TEAM = YEB7THV825;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = chatby/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.squad.chatby;
+				PRODUCT_BUNDLE_IDENTIFIER = com.squad.chatby.cs407;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
