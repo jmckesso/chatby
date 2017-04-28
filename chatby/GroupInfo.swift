@@ -12,7 +12,7 @@ import SwiftyJSON
 import LBTAComponents
 import Alamofire
 
-class GroupInfo: JSQMessagesViewController {
+class GroupInfo: JSQMessagesViewController, MenuDismissControllerDelegate {
     
     var messages = [JSQMessage]()
 
@@ -30,8 +30,13 @@ class GroupInfo: JSQMessagesViewController {
     var curr_group: [String: Any]!
     var favorites: JSON!
     
+    
+    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
+        self.tabBarController?.tabBar.isHidden = true
         
         self.title = group_name
         
@@ -106,13 +111,12 @@ class GroupInfo: JSQMessagesViewController {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(GroupInfoViewController.DismissKeyboard));
         view.addGestureRecognizer(tap);
         
-        
-        
     }
     
     let menu_launcher = MenuLauncher()
     
     func handleMore() {
+        menu_launcher.delegate = self
         menu_launcher.favorites = self.favorites
         menu_launcher.curr_group = self.curr_group
         menu_launcher.curr_user = self.curr_user
@@ -120,9 +124,12 @@ class GroupInfo: JSQMessagesViewController {
     }
     
     func dismissView(sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil);
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
+    func groupDeleted() {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
     //Chat stuff
     
     

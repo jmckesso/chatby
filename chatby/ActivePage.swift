@@ -26,11 +26,37 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
     let favorites_url = "http://chatby.vohras.tk/api/roomlikes/"
     
     var curr_user = String()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tabBarController?.tabBar.isHidden = false
         
+        
+        data_created.removeAll()
+        data_favorited.removeAll()
+        data_joined.removeAll()
+        
+        getFavorites()
+        loadData()
+    }
+    
+    /*override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tabBarController?.tabBar.isHidden = false
+
+        
+        data_created.removeAll()
+        data_favorited.removeAll()
+        data_joined.removeAll()
+        
+        getFavorites()
+        loadData()
+    }*/
+    
     override func viewDidLoad() {
         
-        
         self.title = "Active"
+        
         self.navigationController?.navigationBar.barTintColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0)
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
         
@@ -47,7 +73,13 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
         
         collection_view.register(ActiveHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerID")
         collection_view.register(GroupCell2.self, forCellWithReuseIdentifier: "cell")
+
+        self.view.addSubview(collection_view)
         
+        super.viewDidLoad()
+    }
+
+    func loadData() {
         let auth_string = "Token " + keychain.get("auth")!
         
         let header = [
@@ -58,8 +90,6 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
             let user = JSON(response.result.value!)
             self.curr_user = user["url"].stringValue
         })
-        
-        getFavorites()
         
         Alamofire.request(group_url).validate().responseJSON(completionHandler: { response in
             let groups = JSON(response.result.value!)
@@ -78,7 +108,7 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
                 entry.append(expire)
                 entry.append(member_c)
                 
-
+                
                 let group_json = subJson.dictionaryObject
                 entry.append(group_json!)
                 
@@ -103,12 +133,8 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
             
             self.collection_view.reloadData()
         })
-        
-        self.view.addSubview(collection_view)
-        
-        super.viewDidLoad()
     }
-
+    
     func getFavorites() {
         Alamofire.request(favorites_url).validate().responseJSON(completionHandler: { response in
             switch response.result {
@@ -144,18 +170,45 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell:GroupCell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath as IndexPath) as! GroupCell2
 
-        cell.group_name.text = (data_created[indexPath.row][0] as! String)
-        cell.member_count.text = String(data_created[indexPath.row][3] as! Int) + " members"
+        if indexPath.section == 0 {
+            cell.group_name.text = (data_created[indexPath.row][0] as! String)
+            cell.member_count.text = String(data_created[indexPath.row][3] as! Int) + " members"
             
-        let myDate = data_created[indexPath.row][2] as! String
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-        let date = dateFormatter.date(from:myDate)!
-        dateFormatter.dateFormat = "MMM dd 'at' h:mm"
-        let dateString = dateFormatter.string(from:date)
+            let myDate = data_created[indexPath.row][2] as! String
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            let date = dateFormatter.date(from:myDate)!
+            dateFormatter.dateFormat = "MMM dd 'at' h:mm"
+            let dateString = dateFormatter.string(from:date)
             
-        cell.expire_time.text = dateString
-
+            cell.expire_time.text = dateString
+        }
+        else if indexPath.section == 1 {
+            cell.group_name.text = (data_favorited[indexPath.row][0] as! String)
+            cell.member_count.text = String(data_favorited[indexPath.row][3] as! Int) + " members"
+            
+            let myDate = data_favorited[indexPath.row][2] as! String
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            let date = dateFormatter.date(from:myDate)!
+            dateFormatter.dateFormat = "MMM dd 'at' h:mm"
+            let dateString = dateFormatter.string(from:date)
+            
+            cell.expire_time.text = dateString
+        }
+        else if indexPath.section == 2 {
+            cell.group_name.text = (data_joined[indexPath.row][0] as! String)
+            cell.member_count.text = String(data_joined[indexPath.row][3] as! Int) + " members"
+            
+            let myDate = data_joined[indexPath.row][2] as! String
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+            let date = dateFormatter.date(from:myDate)!
+            dateFormatter.dateFormat = "MMM dd 'at' h:mm"
+            let dateString = dateFormatter.string(from:date)
+            
+            cell.expire_time.text = dateString
+        }
         return cell
     }
     
@@ -163,37 +216,32 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
         print(indexPath.row)
         
         let info_vc = GroupInfo()
-        
+
         if indexPath.section == 0 {
             info_vc.group_name = self.data_created[indexPath.row][0] as! String
             info_vc.curr_user = self.curr_user
             info_vc.favorites = self.favorites
             info_vc.group_page = self.data_created[indexPath.row][1] as! String
             info_vc.curr_group = self.data_created[indexPath.row][4] as! [String: Any]
-            let nav_contr = UINavigationController(rootViewController: info_vc)
-            nav_contr.modalTransitionStyle = .coverVertical
-            self.present(nav_contr, animated: true, completion: nil)
+            self.navigationController?.pushViewController(info_vc, animated: true)
         }
-        if indexPath.section == 1 {
+        else if indexPath.section == 1 {
             info_vc.group_name = self.data_favorited[indexPath.row][0] as! String
             info_vc.curr_user = self.curr_user
             info_vc.favorites = self.favorites
             info_vc.group_page = self.data_favorited[indexPath.row][1] as! String
             info_vc.curr_group = self.data_favorited[indexPath.row][4] as! [String: Any]
-            let nav_contr = UINavigationController(rootViewController: info_vc)
-            nav_contr.modalTransitionStyle = .coverVertical
-            self.present(nav_contr, animated: true, completion: nil)
+            self.navigationController?.pushViewController(info_vc, animated: true)
         }
-        if indexPath.section == 2 {
+        else if indexPath.section == 2{
             info_vc.group_name = self.data_joined[indexPath.row][0] as! String
             info_vc.curr_user = self.curr_user
             info_vc.favorites = self.favorites
             info_vc.group_page = self.data_joined[indexPath.row][1] as! String
             info_vc.curr_group = self.data_joined[indexPath.row][4] as! [String: Any]
-            let nav_contr = UINavigationController(rootViewController: info_vc)
-            nav_contr.modalTransitionStyle = .coverVertical
-            self.present(nav_contr, animated: true, completion: nil)
+            self.navigationController?.pushViewController(info_vc, animated: true)
         }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

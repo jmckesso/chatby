@@ -11,12 +11,18 @@ import SwiftyJSON
 import KeychainSwift
 import Alamofire
 
+protocol MenuDismissControllerDelegate {
+    func groupDeleted()
+}
+
 class MenuLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
     
     let blackView = UIView()
     var curr_user = String()
     
     let favorites_url = "http://chatby.vohras.tk/api/roomlikes/"
+    
+    var delegate:MenuDismissControllerDelegate?
     
     var curr_group: [String: Any]!
     var favorites: JSON!
@@ -115,15 +121,16 @@ class MenuLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectionVi
             }
         }
         if indexPath.row == 3 {
-            print("Managing users")
+            manageUsers()
         }
         if indexPath.row == 4 {
-            print("Deleting room")
+            deleteGroup()
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell:MenuCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MenuCell
+        
     
         let members = curr_group["members"] as? [String]
         let group_path = curr_group["url"] as! String
@@ -144,6 +151,8 @@ class MenuLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectionVi
         else {
             is_member = false
         }
+        
+        cell.backgroundColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0)
         
         if indexPath.row == 0 {
             cell.divider_line.backgroundColor = UIColor.white
@@ -183,21 +192,53 @@ class MenuLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectionVi
             cell.cell_name.text = "Manage Users"
         }
         else if indexPath.row == 4 {
-            cell.divider_line.backgroundColor = UIColor.white
             cell.cell_name.text = "Delete Group"
-            cell.divider_line.backgroundColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0)
+            cell.backgroundColor = UIColor(red:0.99, green:0.33, blue:0.34, alpha:1.0)
+            cell.divider_line.backgroundColor = UIColor(red:0.99, green:0.33, blue:0.34, alpha:1.0)
         }
         return cell
+    }
+    
+    func deleteGroup() {
+        print("delete group")
+        
+        let auth_string = "Token " + keychain.get("auth")!
+        
+        let header = [
+            "Authorization" : auth_string
+        ]
+        
+        let group_path = curr_group["url"] as! String
+        
+        Alamofire.request(group_path, method: .delete, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: { response in
+            switch response.result {
+            case .success:
+                print("deleted")
+                self.dismissMore()
+             self.delegate?.groupDeleted()
+            case .failure:
+                print("failed")
+                break
+            }
+        })
+        
+        
+    }
+    
+    func manageUsers() {
+        print("manage users")
     }
     
     func anonOn() {
         print("anon on")
         self.is_anon = true
+        self.menu.reloadData()
     }
     
     func anonOff() {
         print("anon off")
         self.is_anon = false
+        self.menu.reloadData()
     }
     
     func updateFavorites() {

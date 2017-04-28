@@ -91,12 +91,27 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     var data = [[Any]]()
     var favs: JSON!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
         
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        data.removeAll()
+        
         getFavorites()
         loadData()
+        
     }
+    
+    /*override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = false
+        
+        data.removeAll()
+        
+        getFavorites()
+        loadData()
+    }*/
     
     override func viewDidLoad() {
         
@@ -146,9 +161,6 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
 
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = false;
-    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 50)
@@ -179,7 +191,6 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
         header.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
         header.curr_loc.text = self.curr
         header.curr_loc.font = UIFont.systemFont(ofSize: 10)
-        
         header.delegate = self
         
         return header
@@ -198,9 +209,11 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
         info_vc.favorites = self.favs
         info_vc.group_page = self.data[indexPath.row][1] as! String
         info_vc.curr_group = self.data[indexPath.row][6] as! [String: Any]
-        let nav_contr = UINavigationController(rootViewController: info_vc)
-        nav_contr.modalTransitionStyle = .coverVertical
-        self.present(nav_contr, animated: true, completion: nil)
+        self.navigationController?.pushViewController(info_vc, animated: true)
+        
+        //let nav_contr = UINavigationController(rootViewController: info_vc)
+        //nav_contr.modalTransitionStyle = .coverVertical
+        //self.present(nav_contr, animated: true, completion: nil)
         
     }
     
@@ -245,6 +258,11 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
                 
                 let group_json = subJson.dictionaryObject
                 entry.append(group_json!)
+ 
+                let myDate = Date()
+                let date_formatter = DateFormatter()
+                date_formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                let date = date_formatter.string(from:myDate)
                 
                 var contains = false
                 
@@ -255,13 +273,14 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
                             break
                         }
                     }
-                    if contains == false {
+                    if contains == false  && date < expire {
                         self.data.append(entry)
                     }
                 }
+                self.collection_view.reloadData()
                 
             }
-            self.collection_view.reloadData()
+
         })
     }
     
