@@ -233,11 +233,14 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
         let alert = UIAlertController(title: "Are you sure you want to logout?", message: nil, preferredStyle: .alert);
         let confirmAct = UIAlertAction(title: "Yes", style: .destructive, handler: {(alert:UIAlertAction) in
             keychain.delete("auth");
-            let logboard = UIStoryboard(name: "Login", bundle: nil);
-            let logcontr = logboard.instantiateViewController(withIdentifier: "LoginMain");
-            let style = UIModalTransitionStyle.coverVertical;
-            logcontr.modalTransitionStyle = style;
-            self.present(logcontr, animated: true, completion: nil);
+            self.navigationController?.popToRootViewController(animated: true)
+            //self.navigationController?.popViewController(animated: true)
+            //self.navigationController?.popViewController(animated: true)
+            //let logboard = UIStoryboard(name: "Login", bundle: nil);
+            //let logcontr = logboard.instantiateViewController(withIdentifier: "LoginMain");
+            //let style = UIModalTransitionStyle.coverVertical;
+            //logcontr.modalTransitionStyle = style;
+            //self.present(logcontr, animated: true, completion: nil);
         });
         
         let cancelAct = UIAlertAction(title: "No", style: .cancel, handler: {(alert:UIAlertAction) -> Void in});

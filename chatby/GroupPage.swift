@@ -170,8 +170,11 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
  
     func refreshStream() {
+        
+        getFavorites()
+        loadData()
+        
         self.collection_view?.reloadData()
-            
         refreshControl?.endRefreshing()
     }
 

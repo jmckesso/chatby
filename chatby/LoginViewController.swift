@@ -16,50 +16,45 @@ let keychain = KeychainSwift()
 
 class LogInViewController: UIViewController, UITextFieldDelegate {
     
-    var username: UITextField!;
-    var password: UITextField!;
+    var username = UITextField()
+    var password = UITextField()
 
-    var logo: UILabel!;
+    var logo = UILabel()
 
     let list_of_users = "http://chatby.vohras.tk/api/users/";
     let auth_page = "http://chatby.vohras.tk/api/auth/";
     
     override func viewDidLoad() {
         
-        print("login view")
+        print("view did load")
         
         self.view.backgroundColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0)
         
         super.viewDidLoad();
 
         drawLoginFields();
+        print("draw login")
         drawLoginButton();
+        print("draw button")
         drawSignupButton();
-
-        //NotificationCenter.default.addObserver(self, selector: #selector(LogInViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        //NotificationCenter.default.addObserver(self, selector: #selector(LogInViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        print("draw signup")
 
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LogInViewController.DismissKeyboard));
         view.addGestureRecognizer(tap);
+        print("tap")
+        
+        
 
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning();
-    }
-
-    // Functional shit goes here
 
     func login(_ sender: UIButton) {
         let user = username.text
         let pass = password.text
         
         if (user == "") {
-            print("username field cannot be blank")
             return
         }
         else if (pass == "") {
-            print("password cannot be blank")
             return
         }
         
@@ -69,26 +64,35 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         ]
         
         Alamofire.request(auth_page, method: .post, parameters: user_log, encoding: JSONEncoding.default).validate().responseJSON(completionHandler: { response in
-            print(response.request!)  // original URL request
-            print(response.response!) // HTTP URL response
-            print(response.data!)     // server data
-            print(response.result)
             
             switch response.result {
             case .success:
-                print("super success")
                 let session_key = JSON(response.result.value!)
                 print(session_key)
                 
                 keychain.set(session_key["token"].stringValue, forKey: "auth")
-                print("keychain::::")
-                print(keychain.get("auth")!)
-                self.dismiss(animated: true, completion: nil);
+                //self.navigationController?.popViewController(animated: true)
+                print("dismissing")
                 
+                //var window: UIWindow?
                 
+                //window = UIWindow(frame: UIScreen.main.bounds)
+                //window?.backgroundColor = UIColor.white
+                //window?.makeKeyAndVisible()
                 
+                let tabController = CustomTabBarController()
+                let navController = UINavigationController(rootViewController: tabController)
+                navController.navigationBar.isHidden = true
+                //self.(tabController, animated: true, completion: nil)
+                self.navigationController?.pushViewController(tabController, animated: true)
+                //window?.rootViewController = navController
+                
+                //window?.rootViewController = CustomTabBarController()
+
+                //self.dismiss(animated: true, completion: nil);
+                
+
             case .failure:
-                print("mega fail")
                 
                 let animation = CABasicAnimation(keyPath: "position");
                 animation.duration = 0.07;

@@ -124,18 +124,44 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
                 date_formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
                 let date = date_formatter.string(from:myDate)
                 
-                if created_by == self.curr_user && date < expire {
+                var contains_created = false
+                var contains_favorited = false
+                var contains_joined = false
+                
+                for d in self.data_created {
+                    if d[1] as! String == path {
+                        contains_created = true
+                        break
+                    }
+                }
+                
+                for d in self.data_favorited {
+                    if d[1] as! String == path {
+                        contains_favorited = true
+                        break
+                    }
+                }
+                
+                for d in self.data_joined {
+                    if d[1] as! String == path {
+                        contains_joined = true
+                        break
+                    }
+                }
+
+                
+                if created_by == self.curr_user && date < expire  && contains_created == false {
                     self.data_created.append(entry)
                 }
                 
-                if (member_list?.contains(self.curr_user))! && date < expire {
+                if (member_list?.contains(self.curr_user))! && date < expire && contains_joined == false {
                     self.data_joined.append(entry)
                 }
                 
                 for (_, fav):(String, JSON) in self.favorites {
                     let room_fav = fav["room"].stringValue
                     let user_fav = fav["user"].stringValue
-                    if room_fav == path && user_fav == self.curr_user  && date < expire {
+                    if room_fav == path && user_fav == self.curr_user  && date < expire && contains_favorited == false {
                         self.data_favorited.append(entry)
                         break
                     }
@@ -148,8 +174,15 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
     }
     
     func refreshStream() {
-        self.collection_view?.reloadData()
         
+        //data_created.removeAll()
+        //data_favorited.removeAll()
+        //data_joined.removeAll()
+        
+        getFavorites()
+        loadData()
+        
+        self.collection_view?.reloadData()
         refreshControl?.endRefreshing()
     }
     

@@ -12,23 +12,32 @@ import KeychainSwift
 class CustomTabBarController: UITabBarController {
     
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        /*super.viewDidAppear(animated)
         self.navigationController?.navigationBar.tintColor = UIColor.white;
-
+        print("view did appear")
+        
         if (keychain.get("auth") == "" || keychain.get("auth") == nil) {
+            print("presenting login vc")
             let login_vc = LogInViewController()
-            self.present(login_vc, animated: true, completion: nil)
-        }
+            _ = UINavigationController(rootViewController: login_vc)
+            //self.pushViewController(loginNavController, animated: true)
+        }*/
         
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if (keychain.getBool("auth") == false) {
-            let login_vc = LogInViewController();
+        print("view did load")
+        
+        if (keychain.get("auth") == nil) {
+            print("presenting login")
+            let login_vc = LogInViewController()
+            //let loginNavController = UINavigationController(rootViewController: login_vc)
+            //view.pushViewController(loginNavController, animated: true)
             self.present(login_vc, animated: true, completion: nil);
         }
+        else {
         
         self.tabBar.tintColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0)
         
@@ -48,5 +57,7 @@ class CustomTabBarController: UITabBarController {
         accountNavController.tabBarItem.image = UIImage(named: "account")
         
         viewControllers = [groupsNavController, activeNavController, accountNavController]
+        }
+        //viewControllers = [groupsNavController]
     }
 }

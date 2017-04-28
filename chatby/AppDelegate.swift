@@ -18,10 +18,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
     
-        window = UIWindow(frame: UIScreen.main.bounds)
         
-        window?.rootViewController = CustomTabBarController()
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.backgroundColor = UIColor.white
         window?.makeKeyAndVisible()
+        
+        if (keychain.get("auth") == nil) {
+            print("presenting login")
+            let login_vc = LogInViewController()
+            let loginNavController = UINavigationController(rootViewController: login_vc)
+            loginNavController.navigationBar.isHidden = true
+            //view.pushViewController(loginNavController, animated: true)
+            //self.present(login_vc, animated: true, completion: nil);
+            window?.rootViewController = loginNavController
+        }
+        else {
+            let tabController = CustomTabBarController()
+            navController = UINavigationController(rootViewController: tabController)
+            window?.rootViewController = navController
+            
+            window?.rootViewController = CustomTabBarController()
+            //window?.makeKeyAndVisible()
+        }
+        
+        //let tabController = CustomTabBarController()
+        //navController = UINavigationController(rootViewController: tabController)
+        //window?.rootViewController = navController
+        
+        //window?.rootViewController = CustomTabBarController()
+        //window?.makeKeyAndVisible()
 
         
         
