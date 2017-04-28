@@ -29,21 +29,21 @@ class GroupInfoViewController: JSQMessagesViewController {
     let membership_list = "http://chatby.vohras.tk/api/memberships/";
     
     func setName(content: String, room: String, id: String) {
-        print("--- Setting Name --- ")
+        //print("--- Setting Name --- ")
         
         Alamofire.request("http://chatby.vohras.tk/api/users/").validate().responseJSON(completionHandler: { response in
             let users = JSON(response.result.value!)
-            print("users \n")
+            //print("users \n")
             //print(users)
             
             
             var j = 0
             while (j < users.count) {
-                print("print comparing id to stringVal")
-                print(id + " : " + users[j]["url"].stringValue)
+                //print("print comparing id to stringVal")
+                //print(id + " : " + users[j]["url"].stringValue)
                 if (id == users[j]["url"].stringValue) {
                     let name = users[j]["username"].stringValue
-                    print("appending message")
+                    //print("appending message")
                     self.messages.append(JSQMessage(senderId: id, displayName: name, text: content))
                 }
                 j = j + 1
@@ -54,18 +54,17 @@ class GroupInfoViewController: JSQMessagesViewController {
     }
     
     func gettingMessageData() {
-        print("\n --- Getting Message List --- \n")
+        //print("\n --- Getting Message List --- \n")
         
 
         Alamofire.request(message_list).validate().responseJSON(completionHandler: { response in
             
             switch response.result {
             case .success:
-                print("super success")
+                //print("super success")
                 let output = JSON(response.result.value!)
-                print(output)
+                //print(output)
                 let message = JSON(response.result.value!)
-                
                 var i = 0;
                 while (i < message.count) {
                     let t = message[i]["content"].stringValue
@@ -119,6 +118,8 @@ class GroupInfoViewController: JSQMessagesViewController {
         self.title = groupName;
         self.inputToolbar.contentView.leftBarButtonItem = nil;
         self.inputToolbar.contentView.textView.placeHolder = "Message";
+        
+        self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSize(width: 0, height: 0);
 
         self.senderId = "temp"
         self.senderDisplayName = "temp"
@@ -146,11 +147,8 @@ class GroupInfoViewController: JSQMessagesViewController {
 
         drawUI();
 
-        /*automaticallyScrollsToMostRecentMessage = true;
-        self.inputToolbar.delegate = nil;
-
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(GroupInfoViewController.DismissKeyboard));
-        view.addGestureRecognizer(tap);*/
+        view.addGestureRecognizer(tap);
     }
 
     func DismissKeyboard(){
@@ -273,10 +271,42 @@ class GroupInfoViewController: JSQMessagesViewController {
         let message = messages[indexPath.item]
         
         if message.senderId != senderId {
-            return bubbleFactory?.incomingMessagesBubbleImage(with: UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0));
+            return bubbleFactory?.incomingMessagesBubbleImage(with: UIColor.lightGray);
         }
 
-        return bubbleFactory?.outgoingMessagesBubbleImage(with: UIColor.gray);
+        return bubbleFactory?.outgoingMessagesBubbleImage(with: UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0));
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAt indexPath: IndexPath!) -> CGFloat {
+        let message = messages[indexPath.row];
+        
+        if message.senderId == self.senderId {
+            return 0;
+        }
+        if indexPath.item > 0 {
+            let previousMessage = messages[indexPath.row - 1];
+            if previousMessage.senderId == message.senderId {
+                return 0;
+            }
+        }
+        
+        return kJSQMessagesCollectionViewCellLabelHeightDefault;
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForCellTopLabelAt indexPath: IndexPath!) -> CGFloat {
+        let message = messages[indexPath.row];
+
+        if message.senderId == self.senderId {
+            return 0;
+        }
+        if indexPath.item > 0 {
+            let previousMessage = messages[indexPath.row - 1];
+            if previousMessage.senderId == message.senderId {
+                return 0;
+            }
+        }
+        
+        return kJSQMessagesCollectionViewCellLabelHeightDefault;
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
@@ -294,12 +324,44 @@ class GroupInfoViewController: JSQMessagesViewController {
                 return nil;
             }
         }
+        print("User:", self.messages[indexPath.row]);
+        return NSAttributedString(string: self.messages[indexPath.row].senderDisplayName);
+    }
     
-        return NSAttributedString(string: message.senderDisplayName)
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForCellTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
+        let message = messages[indexPath.row];
+        
+        // You sent it
+        if message.senderId == self.senderId {
+            return nil
+        }
+        
+        // Only puts label on first bubble of chain
+        if indexPath.item > 0 {
+            let previousMessage = messages[indexPath.row - 1];
+            if previousMessage.senderId == message.senderId {
+                return nil;
+            }
+        }
+        
+        return JSQMessagesTimestampFormatter.shared().attributedTimestamp(for: message.date);
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
-        return JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "ph"), diameter: 30)
+        let message = messages[indexPath.row];
+        
+        if(message.senderId != senderId) {
+            return JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "profile_2"), diameter: 30)
+        }
+        
+        if indexPath.item > 0 {
+            let previousMessage = messages[indexPath.row - 1];
+            if previousMessage.senderId == message.senderId {
+                return nil;
+            }
+        }
+        
+        return nil;
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
@@ -311,8 +373,25 @@ class GroupInfoViewController: JSQMessagesViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let message = messages[indexPath.row];
         let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell
+        
+        if message.senderId == senderId {
+            //cell.backgroundColor = UIColor(cgColor: UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0).cgColor);
+            cell.avatarContainerView.isHidden = true;
+            
+        }
+        if message.senderId != senderId {
+            //cell.backgroundColor = UIColor(cgColor: UIColor.lightGray.cgColor);
+            cell.messageBubbleTopLabel.textInsets = UIEdgeInsetsMake(0.0, 50.0, 0.0, 0.0);
+        }
+        
         return cell
+    }
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAt indexPath: IndexPath!) {
+        let message = messages[indexPath.row];
+        
     }
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
