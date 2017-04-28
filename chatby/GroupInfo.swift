@@ -281,7 +281,7 @@ class GroupInfo: JSQMessagesViewController, MenuDismissControllerDelegate {
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAt indexPath: IndexPath!) {
-        let message = messages[indexPath.row];
+        //let message = messages[indexPath.row];
     }
     
     override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
@@ -346,7 +346,7 @@ class GroupInfo: JSQMessagesViewController, MenuDismissControllerDelegate {
     }
     
     func roomDeleteAlert(_ sender: Any?) {
-        let time: JSQMessagesTimestampFormatter;
+        //let time: JSQMessagesTimestampFormatter;
         
         //let alert = UIAlertController(title: "Conversation End Time", message: "Conversation will end at", , preferredStyle: .no)
     }
@@ -380,7 +380,6 @@ class GroupInfo: JSQMessagesViewController, MenuDismissControllerDelegate {
         Alamofire.request(message_list).validate().responseJSON(completionHandler: { response in
             switch response.result {
             case .success:
-                let output = JSON(response.result.value!)
                 let message = JSON(response.result.value!)
                 var i = 0;
                 while (i < message.count) {
