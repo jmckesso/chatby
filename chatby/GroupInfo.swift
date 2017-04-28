@@ -30,11 +30,10 @@ class GroupInfo: JSQMessagesViewController, MenuDismissControllerDelegate {
     var curr_group: [String: Any]!
     var favorites: JSON!
     
-    
-    
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
         
         self.tabBarController?.tabBar.isHidden = true
         
@@ -121,6 +120,10 @@ class GroupInfo: JSQMessagesViewController, MenuDismissControllerDelegate {
         menu_launcher.curr_group = self.curr_group
         menu_launcher.curr_user = self.curr_user
         menu_launcher.showMenu()
+    }
+    
+    func manageUsers() {
+        print("manage from info")
     }
     
     func dismissView(sender: UIBarButtonItem) {

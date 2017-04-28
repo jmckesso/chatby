@@ -69,6 +69,8 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     let keychain = KeychainSwift()
     
+    var refreshControl: UIRefreshControl!
+    
     var add_active = false
     
     var collection_view: UICollectionView!
@@ -137,6 +139,11 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
         
         collection_view.register(NearbyHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerID")
         collection_view.register(GroupCell2.self, forCellWithReuseIdentifier: "cell")
+        collection_view.alwaysBounceVertical = true
+        
+        refreshControl = UIRefreshControl()
+        collection_view.addSubview(refreshControl)
+        refreshControl.addTarget(self, action: #selector(refreshStream), for: .valueChanged)
         
         locationManager = CLLocationManager()
         locationManager?.delegate = self
@@ -161,6 +168,14 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
 
     }
     
+ 
+    func refreshStream() {
+        print("refresh")
+        self.collection_view?.reloadData()
+            
+        refreshControl?.endRefreshing()
+    }
+
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 50)

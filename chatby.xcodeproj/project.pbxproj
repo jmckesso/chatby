@@ -11,6 +11,8 @@
 		2317186D1EB232DB00EABE73 /* GroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2317186C1EB232DB00EABE73 /* GroupInfo.swift */; };
 		2317186F1EB2471800EABE73 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2317186E1EB2471800EABE73 /* MenuCell.swift */; };
 		231718731EB24C2200EABE73 /* MenuLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231718721EB24C2200EABE73 /* MenuLauncher.swift */; };
+		231718751EB3603600EABE73 /* ManageLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231718741EB3603600EABE73 /* ManageLauncher.swift */; };
+		231718771EB375D100EABE73 /* ManageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231718761EB375D100EABE73 /* ManageCell.swift */; };
 		2329775B1EAE0A6500E313C2 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2329775A1EAE0A6500E313C2 /* ProfileCell.swift */; };
 		2329775D1EAECD1E00E313C2 /* ProfileCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2329775C1EAECD1E00E313C2 /* ProfileCell2.swift */; };
 		233462541E5FE1A60014BF0A /* KeychainSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 233462531E5FE1A60014BF0A /* KeychainSwift.framework */; };
@@ -84,6 +86,8 @@
 		2317186C1EB232DB00EABE73 /* GroupInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupInfo.swift; sourceTree = "<group>"; };
 		2317186E1EB2471800EABE73 /* MenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		231718721EB24C2200EABE73 /* MenuLauncher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuLauncher.swift; sourceTree = "<group>"; };
+		231718741EB3603600EABE73 /* ManageLauncher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageLauncher.swift; sourceTree = "<group>"; };
+		231718761EB375D100EABE73 /* ManageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageCell.swift; sourceTree = "<group>"; };
 		2329775A1EAE0A6500E313C2 /* ProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		2329775C1EAECD1E00E313C2 /* ProfileCell2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCell2.swift; sourceTree = "<group>"; };
 		233462531E5FE1A60014BF0A /* KeychainSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainSwift.framework; path = Carthage/Build/iOS/KeychainSwift.framework; sourceTree = "<group>"; };
@@ -239,6 +243,8 @@
 				236951D21EAF54110070DABA /* GroupPage.swift */,
 				2317186C1EB232DB00EABE73 /* GroupInfo.swift */,
 				231718721EB24C2200EABE73 /* MenuLauncher.swift */,
+				231718741EB3603600EABE73 /* ManageLauncher.swift */,
+				231718761EB375D100EABE73 /* ManageCell.swift */,
 				2317186E1EB2471800EABE73 /* MenuCell.swift */,
 				23F0FF571EB1050A00ADB66A /* CreateGroup.swift */,
 				23F0FF551EB07C1500ADB66A /* NearbyHeader.swift */,
@@ -484,6 +490,7 @@
 				2348AE251E529E160096EDDE /* AppDelegate.swift in Sources */,
 				23F0FF561EB07C1500ADB66A /* NearbyHeader.swift in Sources */,
 				3FA92FAB1E8C54D5001511FA /* UserSettingsViewController.swift in Sources */,
+				231718751EB3603600EABE73 /* ManageLauncher.swift in Sources */,
 				3FA78EEC1E5ED7E50022F2D8 /* AddGroupViewController.swift in Sources */,
 				3FA92FA91E8AF7E8001511FA /* UserInfoViewController.swift in Sources */,
 				2317186D1EB232DB00EABE73 /* GroupInfo.swift in Sources */,
@@ -494,6 +501,7 @@
 				3FA78EE21E5EBAB60022F2D8 /* LoginViewController.swift in Sources */,
 				23F0FF581EB1050A00ADB66A /* CreateGroup.swift in Sources */,
 				23ADD1F71E5E108400C81665 /* RegisterViewController.swift in Sources */,
+				231718771EB375D100EABE73 /* ManageCell.swift in Sources */,
 				3F52E7801E5F6494001649F8 /* GroupInfoViewController.swift in Sources */,
 				23F0FF521EB05D5F00ADB66A /* ActivePage.swift in Sources */,
 				2317186F1EB2471800EABE73 /* MenuCell.swift in Sources */,

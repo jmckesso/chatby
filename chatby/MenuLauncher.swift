@@ -40,6 +40,15 @@ class MenuLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectionVi
         return cv
     }()
     
+    let manage_launcher = ManageLauncher()
+    
+    func handleMore() {
+        //manage_launcher.delegate = self
+        manage_launcher.group_url = self.curr_group["url"] as! String
+        manage_launcher.curr_user = self.curr_user
+        manage_launcher.showMenu()
+    }
+    
     func showMenu() {
         var height = CGFloat()
         
@@ -222,11 +231,11 @@ class MenuLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectionVi
             }
         })
         
-        
     }
     
     func manageUsers() {
         print("manage users")
+        handleMore()
     }
     
     func anonOn() {

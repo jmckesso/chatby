@@ -22,6 +22,8 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
     
     var favorites: JSON!
     
+    var refreshControl: UIRefreshControl!
+    
     let group_url = "http://chatby.vohras.tk/api/rooms/"
     let favorites_url = "http://chatby.vohras.tk/api/roomlikes/"
     
@@ -73,6 +75,11 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
         
         collection_view.register(ActiveHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerID")
         collection_view.register(GroupCell2.self, forCellWithReuseIdentifier: "cell")
+        collection_view.alwaysBounceVertical = true
+        
+        refreshControl = UIRefreshControl()
+        collection_view.addSubview(refreshControl)
+        refreshControl.addTarget(self, action: #selector(refreshStream), for: .valueChanged)
 
         self.view.addSubview(collection_view)
         
@@ -112,18 +119,23 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
                 let group_json = subJson.dictionaryObject
                 entry.append(group_json!)
                 
-                if created_by == self.curr_user {
+                let myDate = Date()
+                let date_formatter = DateFormatter()
+                date_formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                let date = date_formatter.string(from:myDate)
+                
+                if created_by == self.curr_user && date < expire {
                     self.data_created.append(entry)
                 }
                 
-                if (member_list?.contains(self.curr_user))! {
+                if (member_list?.contains(self.curr_user))! && date < expire {
                     self.data_joined.append(entry)
                 }
                 
                 for (_, fav):(String, JSON) in self.favorites {
                     let room_fav = fav["room"].stringValue
                     let user_fav = fav["user"].stringValue
-                    if room_fav == path && user_fav == self.curr_user {
+                    if room_fav == path && user_fav == self.curr_user  && date < expire {
                         self.data_favorited.append(entry)
                         break
                     }
@@ -133,6 +145,13 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
             
             self.collection_view.reloadData()
         })
+    }
+    
+    func refreshStream() {
+        print("refresh")
+        self.collection_view?.reloadData()
+        
+        refreshControl?.endRefreshing()
     }
     
     func getFavorites() {
