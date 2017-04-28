@@ -13,6 +13,7 @@ import Alamofire
 
 protocol MenuDismissControllerDelegate {
     func groupDeleted()
+    func changeAnon(status: Bool)
 }
 
 class MenuLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
@@ -239,14 +240,14 @@ class MenuLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectionVi
     }
     
     func anonOn() {
-        print("anon on")
         self.is_anon = true
+        self.delegate?.changeAnon(status: true)
         self.menu.reloadData()
     }
     
     func anonOff() {
-        print("anon off")
         self.is_anon = false
+        self.delegate?.changeAnon(status: false)
         self.menu.reloadData()
     }
     

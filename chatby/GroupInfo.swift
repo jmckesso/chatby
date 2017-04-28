@@ -20,6 +20,8 @@ class GroupInfo: JSQMessagesViewController, MenuDismissControllerDelegate {
     var group_page = String()
     var curr_user = String()
     
+    var is_anon = false
+    
     var auth_token: JSON!
     var confirmBtn :UIButton!;
     
@@ -122,9 +124,16 @@ class GroupInfo: JSQMessagesViewController, MenuDismissControllerDelegate {
         menu_launcher.showMenu()
     }
     
-    func manageUsers() {
-        print("manage from info")
+    func changeAnon(status: Bool) {
+        if status == true {
+            is_anon = true
+        }
+        else {
+            is_anon = false
+        }
     }
+    
+
     
     func dismissView(sender: UIBarButtonItem) {
         _ = self.navigationController?.popViewController(animated: true)
