@@ -21,6 +21,7 @@ class ManageGroupsViewController: UIViewController, UITableViewDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad();
         
+        
         let auth_string = "Token " + keychain.get("auth")!
         
         let header = [
@@ -60,8 +61,8 @@ class ManageGroupsViewController: UIViewController, UITableViewDelegate, UITable
                 print("mega fail")
             }
         })
-        
         tableInitM();
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -93,6 +94,7 @@ class ManageGroupsViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableInitM() {
         table = UITableView(frame: self.view.bounds, style: UITableViewStyle.plain);
+        table.contentInset = UIEdgeInsetsMake(100.0, 0.0, 0.0, 0.0);
         table.dataSource = self;
         table.delegate = self;
         self.table.register(UITableViewCell.self, forCellReuseIdentifier: "cell");

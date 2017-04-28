@@ -13,6 +13,8 @@ class CustomTabBarController: UITabBarController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.navigationController?.navigationBar.tintColor = UIColor.white;
+
         
         if (keychain.get("auth") == "" || keychain.get("auth") == nil) {
             print("going to login")

@@ -19,6 +19,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     var username: UITextField!;
     var password: UITextField!;
 
+    var logo: UILabel!;
+
     let list_of_users = "http://chatby.vohras.tk/api/users/";
     let auth_page = "http://chatby.vohras.tk/api/auth/";
     
@@ -80,7 +82,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
                 
                 keychain.set(session_key["token"].stringValue, forKey: "auth")
                 print("keychain::::")
-                print(keychain.get("auth"))
+                print(keychain.get("auth")!)
                 self.dismiss(animated: true, completion: nil);
                 
                 
@@ -182,6 +184,19 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
 
     func drawLoginButton() {
+        let logowid: CGFloat = 200.0;
+        let logohei: CGFloat = 50.0;
+
+        logo = UILabel(frame: CGRect(x: self.view.bounds.width / 2 - (logowid / 2),
+                                     y: self.view.bounds.height / 2.5 - (logohei / 2),
+                                     width: logowid,
+                                     height: logohei));
+        logo.text = "chatby";
+        logo.textColor = UIColor.white;
+        logo.font = UIFont.boldSystemFont(ofSize: 32.0);
+
+        self.view.addSubview(logo);
+
         let lgnWid:CGFloat = 200.0;
         let lgnHei:CGFloat = 30.0;
 
@@ -203,10 +218,10 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
 
     func drawSignupButton() {
         let sgnWid:CGFloat = 200.0;
-        let sgnHei:CGFloat = 30.0;
+        let sgnHei:CGFloat = 60.0;
 
         let signupButton:UIButton =  UIButton(frame: CGRect(x: self.view.bounds.width / 2 - (sgnWid / 2),
-                                                            y: self.view.bounds.height / 1.25 - (sgnHei / 2),
+                                                            y: self.view.bounds.height - (sgnHei),
                                                             width: sgnWid,
                                                             height: sgnHei));
 

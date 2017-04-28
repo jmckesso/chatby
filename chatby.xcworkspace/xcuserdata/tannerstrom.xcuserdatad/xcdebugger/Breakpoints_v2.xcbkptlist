@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "chatby/GroupInfoViewController.swift"
-            timestampString = "512528053.273293"
+            timestampString = "515046879.551778"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
             landmarkName = "GroupInfoViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "chatby/GroupInfoViewController.swift"
-            timestampString = "512587536.734752"
+            timestampString = "515053018.064075"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "260"
-            endingLineNumber = "260"
+            startingLineNumber = "257"
+            endingLineNumber = "257"
             landmarkName = "drawUI()"
             landmarkType = "7">
          </BreakpointContent>
@@ -57,12 +57,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "chatby/CustomTabBarController.swift"
-            timestampString = "514934393.540388"
+            filePath = "chatby/CreateGroup.swift"
+            timestampString = "514925672.083786"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -73,13 +73,29 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "chatby/CreateGroup.swift"
-            timestampString = "514925672.083786"
+            filePath = "chatby/GroupInfoViewController.swift"
+            timestampString = "515055913.135692"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "472"
+            endingLineNumber = "472"
+            landmarkName = "collectionView(_:canPerformAction:forItemAt:withSender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "chatby/GroupInfoViewController.swift"
+            timestampString = "515050921.730476"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "gettingMessageData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
