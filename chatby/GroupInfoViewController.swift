@@ -268,8 +268,9 @@ class GroupInfoViewController: JSQMessagesViewController {
         let settingsBtn = UIBarButtonItem(barButtonSystemItem: .edit,
                                           target: self,
                                           action: #selector(toManageGroupInfo(_:)));
+        settingsBtn.tintColor = UIColor(cgColor: UIColor.white.cgColor);
         self.navigationItem.rightBarButtonItem = settingsBtn;
-        
+        self.navigationController?.navigationBar.tintColor = UIColor(cgColor: UIColor.white.cgColor);
         
         
         /*self.view.addSubview(confirmBtn);
@@ -373,7 +374,13 @@ class GroupInfoViewController: JSQMessagesViewController {
         let message = messages[indexPath.row];
         
         if(message.senderId != senderId) {
-            return JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "profile_2"), diameter: 30)
+            let avi = UIImage(named: "profile_2");
+            let image_view = UIImageView(image: avi);
+            image_view.tintColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0);
+            
+            let image = JSQMessagesAvatarImageFactory.avatarImage(with: image_view.image, diameter: 30)
+            return image;
+
         }
         
         if indexPath.item > 0 {
