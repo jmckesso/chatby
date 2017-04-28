@@ -61,7 +61,6 @@ class ManageGroupsViewController: UIViewController, UITableViewDelegate, UITable
                 print("mega fail")
             }
         })
-        
         tableInitM();
         
     }

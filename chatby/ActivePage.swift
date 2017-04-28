@@ -22,7 +22,7 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
     let group_url = "http://chatby.vohras.tk/api/rooms/"
     
     var curr_user = String()
-    
+        
     override func viewDidLoad() {
         
         
@@ -63,7 +63,7 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
                 let expire = subJson["expire_time"].stringValue
                 let member_c = subJson["members"].count
                 let created_by = subJson["created_by"].stringValue
-
+                
                 let member_list = subJson["members"].rawValue as? [String]
                 
                 var entry = [Any]()

@@ -26,7 +26,7 @@ class GroupInfoViewController: JSQMessagesViewController {
     let message_list = "http://chatby.vohras.tk/api/messages/";
     let membership_list = "http://chatby.vohras.tk/api/memberships/";
     
-    func setName(content: String, room: String, id: String) {
+    func setName(content: String, room: String, id: String, date: Date) {
         //print("--- Setting Name --- ")
         
         Alamofire.request("http://chatby.vohras.tk/api/users/").validate().responseJSON(completionHandler: { response in
@@ -42,10 +42,11 @@ class GroupInfoViewController: JSQMessagesViewController {
                 if (id == users[j]["url"].stringValue) {
                     let name = users[j]["username"].stringValue
                     //print("appending message")
-                    self.messages.append(JSQMessage(senderId: id, displayName: name, text: content))
+                    self.messages.append(JSQMessage(senderId: id, senderDisplayName: name, date: date, text: content))
                 }
                 j = j + 1
             }
+            self.messages = self.messages.sorted(by: { $0.date.compare($1.date) == ComparisonResult.orderedAscending })
             self.collectionView.reloadData()
             
         })
@@ -68,12 +69,17 @@ class GroupInfoViewController: JSQMessagesViewController {
                     let t = message[i]["content"].stringValue
                     let room = message[i]["room"].stringValue
                     let id = message[i]["created_by"].stringValue
+                    let myDate = message[i]["creation_time"].stringValue;
+
+                    let dateFormatter = DateFormatter();
+                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+                    let date = dateFormatter.date(from:myDate)!
+                    
                     if (room == self.group_path) {
-                        self.setName(content: t, room: room, id: id)
+                        self.setName(content: t, room: room, id: id, date: date)
                     }
                     i = i + 1
                 }
-                
                 
     
                 /*Alamofire.request("http://chatby.vohras.tk/api/users/").validate().responseJSON(completionHandler: { response in
@@ -112,6 +118,7 @@ class GroupInfoViewController: JSQMessagesViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad();
+        
         
         self.title = groupName;
         self.inputToolbar.contentView.leftBarButtonItem = nil;
@@ -154,9 +161,12 @@ class GroupInfoViewController: JSQMessagesViewController {
             }
             
         })
-
+        
+        self.messages = self.messages.sorted{$0.date < $1.date}
         drawUI();
-
+        
+        self.automaticallyScrollsToMostRecentMessage = true;
+        
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(GroupInfoViewController.DismissKeyboard));
         view.addGestureRecognizer(tap);
     }
@@ -377,6 +387,8 @@ class GroupInfoViewController: JSQMessagesViewController {
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
+        
+        print(messages[indexPath.item]);
         return messages[indexPath.item]
     }
     
@@ -389,12 +401,10 @@ class GroupInfoViewController: JSQMessagesViewController {
         let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell
         
         if message.senderId == senderId {
-            //cell.backgroundColor = UIColor(cgColor: UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0).cgColor);
             cell.avatarContainerView.isHidden = true;
             
         }
         if message.senderId != senderId {
-            //cell.backgroundColor = UIColor(cgColor: UIColor.lightGray.cgColor);
             cell.messageBubbleTopLabel.textInsets = UIEdgeInsetsMake(0.0, 50.0, 0.0, 0.0);
         }
         
@@ -406,7 +416,6 @@ class GroupInfoViewController: JSQMessagesViewController {
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAt indexPath: IndexPath!) {
         let message = messages[indexPath.row];
-        print("tapped", message.text);
     }
     
     override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
@@ -452,10 +461,6 @@ class GroupInfoViewController: JSQMessagesViewController {
         // BOI I TOOK A CAFFINE PILL DO SHIT HERE
         print("YOOOOO");
     }
-    
-    /*override func collectionView(_ collectionView: JSQMessagesCollectionView!, didDeleteMessageAt indexPath: IndexPath!) {
-        self.messages.remove(at: indexPath.row);
-    }*/
 
     override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
         return (action == #selector(favorite(_:)) || action == #selector(delete(_:)))
@@ -478,6 +483,13 @@ class GroupInfoViewController: JSQMessagesViewController {
             return true;
         }
         return super.canPerformAction(action, withSender: sender);
+    }
+    
+    func roomDeleteAlert(_ sender: Any?) {
+        let time: JSQMessagesTimestampFormatter;
+        
+        
+        //let alert = UIAlertController(title: "Conversation End Time", message: "Conversation will end at", , preferredStyle: .no)
     }
 }
 
