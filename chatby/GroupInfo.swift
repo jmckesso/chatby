@@ -261,10 +261,6 @@ class GroupInfo: JSQMessagesViewController {
         return cell
     }
     
-    override func collectionView(_ collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAt indexPath: IndexPath!) {
-        let message = messages[indexPath.row];
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
         return true;
     }
