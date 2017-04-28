@@ -22,6 +22,9 @@ class ManageGroupsInfoViewController: UIViewController, UITableViewDataSource, U
     override func viewDidLoad() {
         super.viewDidLoad();
         
+        self.extendedLayoutIncludesOpaqueBars = true;
+        self.edgesForExtendedLayout = .all;
+        
         Alamofire.request(group_path).validate().responseJSON(completionHandler: { response in
             
             switch response.result {
@@ -112,6 +115,7 @@ class ManageGroupsInfoViewController: UIViewController, UITableViewDataSource, U
     
     func makeTable() {
         table = UITableView(frame: self.view.bounds, style: UITableViewStyle.plain);
+        table.contentInset = UIEdgeInsetsMake(70.0, 0.0, 0.0, 0.0);
         table.dataSource = self;
         table.delegate = self;
         

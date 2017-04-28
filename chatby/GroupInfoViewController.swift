@@ -21,8 +21,6 @@ class GroupInfoViewController: JSQMessagesViewController {
     var confirmBtn:UIButton!;
     
     var messages = [JSQMessage]();
-    //let incoming = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImage(with: UIColor.blue);
-    //let outgoing = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with: UIColor.white);
 
     let auth_page = "http://chatby.vohras.tk/api/auth/";
     let message_list = "http://chatby.vohras.tk/api/messages/";
@@ -123,6 +121,18 @@ class GroupInfoViewController: JSQMessagesViewController {
 
         self.senderId = "temp"
         self.senderDisplayName = "temp"
+        
+        JSQMessagesCollectionViewCell.registerMenuAction(#selector(favorite(_:)));
+        JSQMessagesCollectionViewCell.registerMenuAction(#selector(delete(_:)));
+        
+        UIMenuController.shared.menuItems = [
+            UIMenuItem(title: "Favorite", action: #selector(favorite(_:))),
+            UIMenuItem(title: "Delete", action: #selector(delete(_:)))
+        ];
+        
+        UIMenuController.shared.arrowDirection = .down
+        UIMenuController.shared.setMenuVisible(true, animated: true);
+        UIMenuController.shared.setTargetRect(CGRect(x: 100, y: 80, width: 50, height: 50), in: self.view);
         
         let auth_string = "Token " + keychain.get("auth")!
         
@@ -249,6 +259,8 @@ class GroupInfoViewController: JSQMessagesViewController {
                                           target: self,
                                           action: #selector(toManageGroupInfo(_:)));
         self.navigationItem.rightBarButtonItem = settingsBtn;
+        
+        
         
         /*self.view.addSubview(confirmBtn);
         self.view.addSubview(label);*/
@@ -386,12 +398,19 @@ class GroupInfoViewController: JSQMessagesViewController {
             cell.messageBubbleTopLabel.textInsets = UIEdgeInsetsMake(0.0, 50.0, 0.0, 0.0);
         }
         
+        cell.textView.isSelectable = false;
+        
+        
         return cell
     }
     
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAt indexPath: IndexPath!) {
         let message = messages[indexPath.row];
-        
+        print("tapped", message.text);
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+        return true;
     }
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
@@ -424,6 +443,42 @@ class GroupInfoViewController: JSQMessagesViewController {
         finishSendingMessage()
     }
     
+    func favorite(_ sender: Any?) {
+        // JACOBBBBBBB
+        print("Fav :D");
+    }
+    
+    override func delete(_ sender: Any?) {
+        // BOI I TOOK A CAFFINE PILL DO SHIT HERE
+        print("YOOOOO");
+    }
+    
+    /*override func collectionView(_ collectionView: JSQMessagesCollectionView!, didDeleteMessageAt indexPath: IndexPath!) {
+        self.messages.remove(at: indexPath.row);
+    }*/
+
+    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+        return (action == #selector(favorite(_:)) || action == #selector(delete(_:)))
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+        if action == #selector(favorite(_:)) {
+            print("Damn. Fav.");
+        }
+        if action == #selector(delete(_:)) {
+            print("Cya. Delete.")
+        }
+    }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(favorite(_:)) {
+            return true;
+        }
+        if action == #selector(delete(_:)) {
+            return true;
+        }
+        return super.canPerformAction(action, withSender: sender);
+    }
 }
 
 
