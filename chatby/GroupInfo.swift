@@ -109,7 +109,7 @@ class GroupInfo: JSQMessagesViewController, MenuDismissControllerDelegate {
         
         self.automaticallyScrollsToMostRecentMessage = true;
         
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(GroupInfoViewController.DismissKeyboard));
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(GroupInfo.DismissKeyboard));
         view.addGestureRecognizer(tap);
         
     }
