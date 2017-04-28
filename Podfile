@@ -8,7 +8,6 @@ target 'chatby' do
   # Pods for chatby
   pod 'JSQMessagesViewController'
   pod "LBTAComponents"
-  pod 'DropDown'
 
   target 'chatbyTests' do
     inherit! :search_paths

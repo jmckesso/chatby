@@ -1,21 +1,18 @@
 PODS:
-  - DropDown (2)
   - JSQMessagesViewController (7.2.0):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
   - LBTAComponents (0.1.9)
 
 DEPENDENCIES:
-  - DropDown
   - JSQMessagesViewController
   - LBTAComponents
 
 SPEC CHECKSUMS:
-  DropDown: 744784d9c9aa505100e942c16acd05430cbb2f0a
   JSQMessagesViewController: 73cab48aa92fc2d512f3b6724f3425cc47a19eb5
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   LBTAComponents: 9a5d314080d1f80208062ccc81a2d25225c5f572
 
-PODFILE CHECKSUM: 917267a53e360a4613fdb68c04acb046a7b2fb7b
+PODFILE CHECKSUM: 37caa0c8239ea08592575ac1bc0a8b1912b4a73a
 
 COCOAPODS: 1.2.0
