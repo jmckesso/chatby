@@ -80,22 +80,22 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     var table = UITableView();
     var auth_token: JSON!
     
+    var curr_user = String()
+    var curr_group: JSON!
     
     var curr = ""
     //let refreshControl = UIRefreshControl();
     
     let group_url = "http://chatby.vohras.tk/api/rooms/"
+    let favorites_url = "http://chatby.vohras.tk/api/roomlikes/"
     
-    var data = [[Any]]();
-    
-    //var names = [String]();
-    //var urls = [String]();
-    //var member_counts = [Int]();
-    //var expire_dates = [String]();
-    
+    var data = [[Any]]()
+    var favs: JSON!
+        
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        getFavorites()
         loadData()
     }
     
@@ -131,6 +131,17 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
         locationManager?.requestAlwaysAuthorization()
         
         self.view.addSubview(collection_view)
+        
+        let auth_string = "Token " + keychain.get("auth")!
+        
+        let header = [
+            "Authorization" : auth_string
+        ]
+        
+        Alamofire.request("http://chatby.vohras.tk/api/users/current/", method: .get, headers: header).validate().responseJSON(completionHandler:  { response in
+            let user = JSON(response.result.value!)
+            self.curr_user = user["url"].stringValue
+        })
         
         super.viewDidLoad()
 
@@ -181,14 +192,37 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Cell", self.data[indexPath.row][0], "selected");
-        let infostory = UIStoryboard(name: "Login", bundle: nil);
-        let infocontr = infostory.instantiateViewController(withIdentifier: "GroupInfoMain") as! GroupInfoViewController;
-        let g_path = self.data[indexPath.row][1] as! String;
-        let g_name = self.data[indexPath.row][0] as! String;
-        infocontr.group_path = g_path;
-        infocontr.groupName = g_name;
         
-        self.navigationController?.pushViewController(infocontr, animated: true);
+        let info_vc = GroupInfo()
+        info_vc.group_name = self.data[indexPath.row][0] as! String
+        info_vc.curr_user = self.curr_user
+        info_vc.favorites = self.favs
+        info_vc.curr_group = self.data[indexPath.row][6] as! [String: Any]
+        let nav_contr = UINavigationController(rootViewController: info_vc)
+        nav_contr.modalTransitionStyle = .coverVertical
+        self.present(nav_contr, animated: true, completion: nil)
+        
+        //let infocontr = infostory.instantiateViewController(withIdentifier: "GroupInfoMain") as! GroupInfoViewController;
+        //let g_path = self.data[indexPath.row][1] as! String;
+        //let g_name = self.data[indexPath.row][0] as! String;
+        //infocontr.group_path = g_path;
+        //infocontr.groupName = g_name;
+        
+        //self.navigationController?.pushViewController(infocontr, animated: true);
+    }
+    
+    func getFavorites() {
+        Alamofire.request(favorites_url).validate().responseJSON(completionHandler: { response in
+            switch response.result {
+            case .success:
+                //print("got favorites")
+                self.favs = JSON(response.result.value!)
+                //print(self.favs)
+            case .failure:
+                //print("failed to get favorites")
+                break
+            }
+        })
     }
     
     func loadData() {
@@ -217,8 +251,10 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
                 entry.append(group_location)
                 
                 let group_radius = subJson["radius"].doubleValue
-                
                 entry.append(group_radius)
+                
+                let group_json = subJson.dictionaryObject
+                entry.append(group_json!)
                 
                 var contains = false
                 

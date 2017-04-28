@@ -46,14 +46,14 @@ class NearbyHeader: UICollectionReusableView, UIPickerViewDataSource, UIPickerVi
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
     func edit_views() {
         let sort_picker = UIPickerView()
         sort_picker.delegate = self
         sort_picker.dataSource = self
         sort_picker.backgroundColor = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.0)
         sort_picker.reloadAllComponents()
-        
-        sort_picker.showsSelectionIndicator = false
         
         confirm_sort.addTarget(self, action: #selector(NearbyHeader.sortInfo), for: .touchUpInside)
         
