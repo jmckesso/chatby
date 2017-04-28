@@ -118,11 +118,13 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
     
     func presentSignup(_ sender: UIButton) {
-        let loginStory = UIStoryboard(name: "Login", bundle: nil);
-        let loginContr = loginStory.instantiateViewController(withIdentifier: "SignupMain");
-        let style: UIModalTransitionStyle = UIModalTransitionStyle.coverVertical;
-        loginContr.modalTransitionStyle = style;
-        self.present(loginContr, animated: true, completion: nil);
+        //let loginStory = UIStoryboard(name: "Login", bundle: nil);
+        //let loginContr = loginStory.instantiateViewController(withIdentifier: "SignupMain");
+        //let style: UIModalTransitionStyle = UIModalTransitionStyle.coverVertical;
+        //loginContr.modalTransitionStyle = style;
+        let sign_up = SignupViewController()
+        sign_up.modalTransitionStyle = UIModalTransitionStyle.coverVertical
+        self.present(sign_up, animated: true, completion: nil);
     }
 
     // UI shit goes here

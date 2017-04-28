@@ -23,6 +23,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad();
+        
+        self.view.backgroundColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0)
 
         drawFields();
 
@@ -86,8 +88,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                 //self.present(alert_controller, animated: true, completion: nil)
             }
             
-            let response_data = JSON(response.result.value!);
-            print(response_data)
+            //let response_data = JSON(response.result.value!);
+            //print(response_data)
             
             
         })
