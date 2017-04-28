@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import KeychainSwift
+import CoreLocation
 
 class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
 
@@ -19,7 +20,10 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
     var data_favorited = [[Any]]()
     var data_joined = [[Any]]()
     
+    var favorites: JSON!
+    
     let group_url = "http://chatby.vohras.tk/api/rooms/"
+    let favorites_url = "http://chatby.vohras.tk/api/roomlikes/"
     
     var curr_user = String()
         
@@ -55,6 +59,8 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
             self.curr_user = user["url"].stringValue
         })
         
+        getFavorites()
+        
         Alamofire.request(group_url).validate().responseJSON(completionHandler: { response in
             let groups = JSON(response.result.value!)
             for (_,subJson):(String, JSON) in groups {
@@ -72,12 +78,35 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
                 entry.append(expire)
                 entry.append(member_c)
                 
+                //let group_lat = subJson["latitude"].doubleValue
+                //let group_long = subJson["longitude"].doubleValue
+                
+                //let group_location = CLLocation(latitude: group_lat, longitude: group_long)
+                //let distance = group_location.distance(from: self.current_location!) / 1000
+                
+                //entry.append(group_location)
+                
+                //let group_radius = subJson["radius"].doubleValue
+                //entry.append(group_radius)
+                
+                let group_json = subJson.dictionaryObject
+                entry.append(group_json!)
+                
                 if created_by == self.curr_user {
                     self.data_created.append(entry)
                 }
                 
                 if (member_list?.contains(self.curr_user))! {
                     self.data_joined.append(entry)
+                }
+                
+                for (_, fav):(String, JSON) in self.favorites {
+                    let room_fav = fav["room"].stringValue
+                    let user_fav = fav["user"].stringValue
+                    if room_fav == path && user_fav == self.curr_user {
+                        self.data_favorited.append(entry)
+                        break
+                    }
                 }
                 
             }
@@ -90,6 +119,17 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
         super.viewDidLoad()
     }
 
+    func getFavorites() {
+        Alamofire.request(favorites_url).validate().responseJSON(completionHandler: { response in
+            switch response.result {
+            case .success:
+                self.favorites = JSON(response.result.value!)
+            case .failure:
+                break
+            }
+        })
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 50)
     }
@@ -113,36 +153,57 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell:GroupCell2 = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath as IndexPath) as! GroupCell2
-        //cell.backgroundColor = UIColor.red
-        if indexPath.section == 0 {
-            cell.group_name.text = (data_created[indexPath.row][0] as! String)
-            cell.member_count.text = String(data_created[indexPath.row][3] as! Int) + " members"
+
+        cell.group_name.text = (data_created[indexPath.row][0] as! String)
+        cell.member_count.text = String(data_created[indexPath.row][3] as! Int) + " members"
             
-            let myDate = data_created[indexPath.row][2] as! String
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-            let date = dateFormatter.date(from:myDate)!
-            dateFormatter.dateFormat = "MMM dd 'at' h:mm"
-            let dateString = dateFormatter.string(from:date)
+        let myDate = data_created[indexPath.row][2] as! String
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        let date = dateFormatter.date(from:myDate)!
+        dateFormatter.dateFormat = "MMM dd 'at' h:mm"
+        let dateString = dateFormatter.string(from:date)
             
-            cell.expire_time.text = dateString
-        }
-        
-        if indexPath.section == 2 {
-            cell.group_name.text = (data_joined[indexPath.row][0] as! String)
-            cell.member_count.text = String(data_joined[indexPath.row][3] as! Int) + " members"
-            
-            let myDate = data_joined[indexPath.row][2] as! String
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-            let date = dateFormatter.date(from:myDate)!
-            dateFormatter.dateFormat = "MMM dd 'at' h:mm"
-            let dateString = dateFormatter.string(from:date)
-            
-            cell.expire_time.text = dateString
-        }
-        
+        cell.expire_time.text = dateString
+
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.row)
+        
+        let info_vc = GroupInfo()
+        
+        if indexPath.section == 0 {
+            info_vc.group_name = self.data_created[indexPath.row][0] as! String
+            info_vc.curr_user = self.curr_user
+            info_vc.favorites = self.favorites
+            info_vc.group_page = self.data_created[indexPath.row][1] as! String
+            info_vc.curr_group = self.data_created[indexPath.row][4] as! [String: Any]
+            let nav_contr = UINavigationController(rootViewController: info_vc)
+            nav_contr.modalTransitionStyle = .coverVertical
+            self.present(nav_contr, animated: true, completion: nil)
+        }
+        if indexPath.section == 1 {
+            info_vc.group_name = self.data_favorited[indexPath.row][0] as! String
+            info_vc.curr_user = self.curr_user
+            info_vc.favorites = self.favorites
+            info_vc.group_page = self.data_favorited[indexPath.row][1] as! String
+            info_vc.curr_group = self.data_favorited[indexPath.row][4] as! [String: Any]
+            let nav_contr = UINavigationController(rootViewController: info_vc)
+            nav_contr.modalTransitionStyle = .coverVertical
+            self.present(nav_contr, animated: true, completion: nil)
+        }
+        if indexPath.section == 2 {
+            info_vc.group_name = self.data_joined[indexPath.row][0] as! String
+            info_vc.curr_user = self.curr_user
+            info_vc.favorites = self.favorites
+            info_vc.group_page = self.data_joined[indexPath.row][1] as! String
+            info_vc.curr_group = self.data_joined[indexPath.row][4] as! [String: Any]
+            let nav_contr = UINavigationController(rootViewController: info_vc)
+            nav_contr.modalTransitionStyle = .coverVertical
+            self.present(nav_contr, animated: true, completion: nil)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

@@ -266,7 +266,6 @@ class MenuLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectionVi
         ]
         
         Alamofire.request(favorites_url, method: .post, parameters: room_parameters, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: { response in
-            
             switch response.result {
             case .success:
                 self.updateFavorites()

@@ -201,7 +201,6 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
         let nav_contr = UINavigationController(rootViewController: info_vc)
         nav_contr.modalTransitionStyle = .coverVertical
         self.present(nav_contr, animated: true, completion: nil)
-        
     }
     
     func getFavorites() {
