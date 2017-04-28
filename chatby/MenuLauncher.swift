@@ -210,7 +210,6 @@ class MenuLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectionVi
     }
     
     func deleteGroup() {
-        print("delete group")
         
         let auth_string = "Token " + keychain.get("auth")!
         
@@ -223,11 +222,9 @@ class MenuLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectionVi
         Alamofire.request(group_path, method: .delete, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: { response in
             switch response.result {
             case .success:
-                print("deleted")
                 self.dismissMore()
              self.delegate?.groupDeleted()
             case .failure:
-                print("failed")
                 break
             }
         })
@@ -235,7 +232,6 @@ class MenuLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollectionVi
     }
     
     func manageUsers() {
-        print("manage users")
         handleMore()
     }
     

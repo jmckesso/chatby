@@ -152,7 +152,6 @@ class ManageLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollection
         Alamofire.request(url, method: .delete, parameters: delete_params,  encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: { response in
             switch response.result {
             case .success:
-                print("success")
                 self.populateMenu()
             case .failure:
                 break
@@ -162,11 +161,9 @@ class ManageLauncher: NSObject, UICollectionViewDelegateFlowLayout, UICollection
     
  
     func removeFunc(user: String) {
-        print(user)
         Alamofire.request("http://chatby.vohras.tk/api/memberships/", method: .get, encoding: JSONEncoding.default).validate().responseJSON(completionHandler: { response in
             switch response.result {
             case .success:
-                print("success")
                 let stuff = JSON(response.result.value!)
                 for (_,s):(String, JSON) in stuff {
                     let membership_group = s["room"].stringValue

@@ -12,7 +12,7 @@ import CoreLocation
 import Alamofire
 import SwiftyJSON
 
-class CreateGroup: UIViewController, CLLocationManagerDelegate {
+class CreateGroup: UIViewController, CLLocationManagerDelegate, UITextFieldDelegate {
 
     var locationManager: CLLocationManager?
     var current_location: CLLocation?
@@ -76,6 +76,13 @@ class CreateGroup: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CreateGroup.dismissKeyboard))
+        
+        //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+        //tap.cancelsTouchesInView = false
+        
+        view.addGestureRecognizer(tap)
+        
         self.title = "Create New Group"
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -92,6 +99,9 @@ class CreateGroup: UIViewController, CLLocationManagerDelegate {
         
         self.view.backgroundColor = UIColor(red:0.00, green:0.74, blue:0.83, alpha:1.0)
 
+        self.group_name.delegate = self
+        self.group_radius.delegate = self
+        
         locationManager = CLLocationManager()
         locationManager?.delegate = self
         locationManager?.startUpdatingLocation()
@@ -142,7 +152,6 @@ class CreateGroup: UIViewController, CLLocationManagerDelegate {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.ssssssZ"
         
         selectedDate = dateFormatter.string(from: sent)
-        print(selectedDate)
         request_format = selectedDate
     }
     
@@ -151,8 +160,17 @@ class CreateGroup: UIViewController, CLLocationManagerDelegate {
         locationManager?.stopUpdatingLocation()
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     func dismissView(sender: UIBarButtonItem) {
@@ -160,8 +178,6 @@ class CreateGroup: UIViewController, CLLocationManagerDelegate {
     }
     
     func confirmGroup(sender: UIBarButtonItem) {
-        print("sending request")
-        
         let header = [
             "Authorization": "Token " + keychain.get("auth")!
         ]
@@ -181,7 +197,7 @@ class CreateGroup: UIViewController, CLLocationManagerDelegate {
             case .success:
                     self.dismiss(animated: true, completion: nil);
             case .failure:
-                print("failed to make group")
+                break
             }
         })
         

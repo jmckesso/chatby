@@ -127,30 +127,23 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 3 {
-            print("chaning password")
             changePass()
             
         }
         else if indexPath.row == 4 {
-            print("logging out")
             logout()
         }
         else if indexPath.row == 5 {
-            print("deleting account")
             deleteAccount()
-            
-            
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func editButton(type:String) {
         if type == "email" {
-            print("changing email")
             changeEmail()
         }
         else if type == "username" {
-            print("changing username")
             changeUsername()
         }
         else if type == "fullname" {
@@ -168,15 +161,10 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
                                           style: .default,
                                           handler: {(action:UIAlertAction) in
                                             //Code to save password here
-                                            let oldPass = alert.textFields?[0].text;
                                             let newPass = alert.textFields?[1].text;
                                             let confirmNewPass = alert.textFields?[2].text;
                                             
                                             if ( newPass == confirmNewPass ) {
-                                                if ( newPass == oldPass ) {
-                                                    print("passwords must be different")
-                                                }
-                                                else {
                                                     let auth_string = "Token " + keychain.get("auth")!
                                                     
                                                     let header = [
@@ -189,12 +177,7 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
                                                     
                                                     Alamofire.request("http://chatby.vohras.tk/api/users/current/", method: .patch, parameters: pass_parameters, encoding: JSONEncoding.default, headers: header).validate().responseJSON(completionHandler: {
                                                         response in
-                                                        print(response.request!)  // original URL request
-                                                        print(response.response!) // HTTP URL response
-                                                        print(response.data!)     // server data
-                                                        print(response.result)
                                                     })
-                                                }
                                             }
                                             
                                             
@@ -250,7 +233,6 @@ class UserSettingsViewController: UIViewController, UITableViewDataSource, UITab
         let alert = UIAlertController(title: "Are you sure you want to logout?", message: nil, preferredStyle: .alert);
         let confirmAct = UIAlertAction(title: "Yes", style: .destructive, handler: {(alert:UIAlertAction) in
             keychain.delete("auth");
-            print("keychain should be deleted");
             let logboard = UIStoryboard(name: "Login", bundle: nil);
             let logcontr = logboard.instantiateViewController(withIdentifier: "LoginMain");
             let style = UIModalTransitionStyle.coverVertical;

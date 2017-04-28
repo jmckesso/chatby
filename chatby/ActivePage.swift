@@ -148,7 +148,6 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
     }
     
     func refreshStream() {
-        print("refresh")
         self.collection_view?.reloadData()
         
         refreshControl?.endRefreshing()
@@ -232,7 +231,6 @@ class ActivePage: UIViewController, UICollectionViewDataSource, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row)
         
         let info_vc = GroupInfo()
 

@@ -170,7 +170,6 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
  
     func refreshStream() {
-        print("refresh")
         self.collection_view?.reloadData()
             
         refreshControl?.endRefreshing()
@@ -216,7 +215,6 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Cell", self.data[indexPath.row][0], "selected");
 
         let info_vc = GroupInfo()
         info_vc.group_name = self.data[indexPath.row][0] as! String
@@ -335,35 +333,28 @@ class GroupPage: UIViewController, UICollectionViewDataSource, UICollectionViewD
     
     func sortButton(type:String) {
         if type == "default" {
-            print("sorting default")
         }
         else if type == "close" {
-            print("sorting closest")
             self.data = self.data.sorted{ ($0[4] as? CLLocation)!.distance(from: self.current_location!) < ($1[4] as? CLLocation)!.distance(from: self.current_location!) }
             self.collection_view.reloadData()
         }
         else if type == "far" {
-            print("sorting far")
             self.data = self.data.sorted{ ($0[4] as? CLLocation)!.distance(from: self.current_location!) > ($1[4] as? CLLocation)!.distance(from: self.current_location!) }
             self.collection_view.reloadData()
         }
         else if type == "trm" {
-            print("sorting time remaining most")
             self.data = self.data.sorted{ ($0[2] as? String)! > ($1[2] as? String)! }
             self.collection_view.reloadData()
         }
         else if type == "trl" {
-            print("sorting time remaining least")
             self.data = self.data.sorted{ ($0[2] as? String)! < ($1[2] as? String)! }
             self.collection_view.reloadData()
         }
         else if type == "mcm" {
-            print("sorting member count least")
             self.data = self.data.sorted{ ($0[3] as? Int)! > ($1[3] as? Int)! }
             self.collection_view.reloadData()
         }
         else if type == "mcl" {
-            print("sorting member count most")
             self.data = self.data.sorted{ ($0[3] as? Int)! < ($1[3] as? Int)! }
             self.collection_view.reloadData()
         }

@@ -90,6 +90,8 @@ class GroupCell2: UICollectionViewCell {
         addSubview(clock_pic)
         addSubview(divider_line)
         
+        
+        
         group_pic.anchor(self.topAnchor, left: self.leftAnchor, bottom: nil, right: nil, topConstant: 12, leftConstant: 12, bottomConstant: 0, rightConstant: 0, widthConstant: 25, heightConstant: 25)
         
         group_name.anchor(self.topAnchor, left: group_pic.rightAnchor, bottom: nil, right: clock_pic.leftAnchor, topConstant: 10, leftConstant: 8, bottomConstant: 0, rightConstant: 4, widthConstant: 250, heightConstant: 13)

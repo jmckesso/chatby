@@ -15,9 +15,7 @@ class CustomTabBarController: UITabBarController {
         super.viewDidAppear(animated)
         self.navigationController?.navigationBar.tintColor = UIColor.white;
 
-        
         if (keychain.get("auth") == "" || keychain.get("auth") == nil) {
-            print("going to login")
             let login_vc = LogInViewController()
             self.present(login_vc, animated: true, completion: nil)
         }
@@ -28,7 +26,6 @@ class CustomTabBarController: UITabBarController {
         super.viewDidLoad()
         
         if (keychain.getBool("auth") == false) {
-            print("Sup nerd");
             let login_vc = LogInViewController();
             self.present(login_vc, animated: true, completion: nil);
         }
